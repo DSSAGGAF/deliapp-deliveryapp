@@ -8,8 +8,10 @@ import 'package:login_minimalist/widget/TEST/MotionTabController.dart';
 import 'package:login_minimalist/widget/TEST/motiontabbar.dart';
 import 'package:login_minimalist/pages/home.page.driver.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-
-
+import 'package:login_minimalist/widget/map.dart';
+import 'package:location/location.dart';
+import 'package:login_minimalist/widget/textLogin.dart';
+import 'package:login_minimalist/widget/textNew.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -18,11 +20,35 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   MotionTabController _tabController;
+  Location location = new Location();
+  bool _serviceEnabled;
+  PermissionStatus _permissionGranted;
+  LocationData _locationData;
 
   @override
   void initState() {
     super.initState();
+    _checkLocationPermission();
     _tabController = MotionTabController(initialIndex: 1, vsync: this);
+  }
+
+  // Check Location Permissions, and get my location
+  void _checkLocationPermission() async {
+    _serviceEnabled = await location.serviceEnabled();
+    if (!_serviceEnabled) {
+      _serviceEnabled = await location.requestService();
+      if (!_serviceEnabled) {
+        return;
+      }
+    }
+    _permissionGranted = await location.hasPermission();
+    if (_permissionGranted == PermissionStatus.denied) {
+      _permissionGranted = await location.requestPermission();
+      if (_permissionGranted != PermissionStatus.granted) {
+        return;
+      }
+    }
+    _locationData = await location.getLocation();
   }
 
   @override
@@ -30,13 +56,15 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     super.dispose();
     _tabController.dispose();
   }
- GoogleMapController mapController;
+
+  GoogleMapController mapController;
 
   final LatLng _center = const LatLng(45.521563, -122.677433);
 
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,10 +91,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               icon: Icon(Icons.directions_car),
               onPressed: () {
                 var baseDialog = BaseAlertDialog(
-                    title: "Do you want to sewitch to a driver?",
+                    title: "Do you want to switch to a driver?",
                     content: "",
                     yesOnPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => DriverHomePage()),);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => DriverHomePage()),
+                      );
                     },
                     noOnPressed: () {
                       Navigator.pop(context);
@@ -103,9 +135,34 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               ),
             ),
             Container(
-              
-              child: Center(
-                  
+              child: ListView(
+                children: <Widget>[
+                  Container(
+                    child: Center(
+                      child: FlatButton(
+                        color: Colors.blue,
+                        textColor: Colors.white,
+                        disabledColor: Colors.grey,
+                        disabledTextColor: Colors.black,
+                        padding: EdgeInsets.all(9.0),
+                        splashColor: Colors.blueAccent,
+                        onPressed: () => _locationData != null
+                            ? Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => GooMap(
+                                          location: _locationData,
+                                        )))
+                            : null,
+                        child: Text(
+                          "map",
+                          style: TextStyle(fontSize: 20.0),
+                        ),
+                      ),
+                    ),
+                  ),
+                  TextNew(),
+                ],
               ),
             ),
             Container(
