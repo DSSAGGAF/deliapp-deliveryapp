@@ -1,4 +1,0 @@
-#Fri Nov 20 22:40:43 SGT 2020
-base.0=C\:\\Users\\nama_\\Desktop\\AD\\Deli App\\deliapp-deliveryapp\\Frontend\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes.dex
-path.0=classes.dex
-renamed.0=classes.dex
