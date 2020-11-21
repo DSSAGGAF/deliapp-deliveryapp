@@ -23,6 +23,7 @@ dependencies:
   cached_network_image: ^2.0.0-rc
   google_maps_flutter: ^0.5.30
   google_map_location_picker: ^3.3.4
+  geocoder: ^0.2.1
   flutter_localizations:
     sdk: flutter  
   location: ^3.0.0

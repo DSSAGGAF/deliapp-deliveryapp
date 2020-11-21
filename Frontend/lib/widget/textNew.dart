@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:login_minimalist/widget/map.dart';
+
 
 class TextNew extends StatefulWidget {
   @override
@@ -21,9 +23,9 @@ class _TextNewState extends State<TextNew> {
             ),
             Center(
               child: Text(
-                'We can start something new',
+                addressData.addressLine,
                 style: TextStyle(
-                  fontSize: 24,
+                  fontSize: 20,
                   color: Colors.red,
                 ),
               ),

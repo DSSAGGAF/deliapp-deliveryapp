@@ -1,8 +1,12 @@
 import 'dart:collection';
 import 'package:flutter/cupertino.dart';
 import 'package:location/location.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:geocoder/geocoder.dart';
+
+Address addressData;
 
 class GooMap extends StatefulWidget {
   //GooMap({Key key}) : super(key: key);
@@ -79,13 +83,15 @@ class _GooMapState extends State<GooMap> {
   }
 
   // Set Markers to the map
-  void _setMarkers(LatLng point) {
+  LatLng _setMarkers(LatLng point) {
     final String markerIdVal = 'marker_id_$_markerIdCounter';
     _markerIdCounter++;
-      
+
     setState(() {
       print(
           'Marker | Latitude: ${point.latitude}  Longitude: ${point.longitude}');
+      convert(point).then((value) => addressData=value);
+      print(addressData.addressLine);
       _markers.add(
         Marker(
           markerId: MarkerId(markerIdVal),
@@ -93,6 +99,7 @@ class _GooMapState extends State<GooMap> {
         ),
       );
     });
+    return point;
   }
 
   // Start the map with this marker setted up
@@ -255,3 +262,23 @@ class _GooMapState extends State<GooMap> {
         ));
   }
 }
+
+convert(LatLng _point) async {
+  final coordinates = new Coordinates(_point.latitude, _point.longitude);
+  var address = await Geocoder.local.findAddressesFromCoordinates(coordinates);
+  return address.first;
+}
+
+// _getAddressFromLatLng() async {
+//   try {
+//     List<Placemark> p = await geolocator.placemarkFromCoordinates(
+//         _currentPosition.latitude, _currentPosition.longitude);
+//     Placemark place = p[0];
+//     setState(() {
+//       _currentAddress =
+//           "${place.locality}, ${place.postalCode}, ${place.country}";
+//     });
+//   } catch (e) {
+//     print(e);
+//   }
+// }
