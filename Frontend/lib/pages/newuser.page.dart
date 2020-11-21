@@ -34,7 +34,6 @@ class _NewUserState extends State<NewUser> {
                 Row(
                   children: <Widget>[
                     SingUp(),
-                    TextNew(),
                   ],
                 ),
                 Padding(
