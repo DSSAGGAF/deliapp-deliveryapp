@@ -155,7 +155,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                         )))
                             : null,
                         child: Text(
-                          "map",
+                          "From",
                           style: TextStyle(fontSize: 20.0),
                         ),
                       ),
