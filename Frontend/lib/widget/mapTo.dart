@@ -6,20 +6,19 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geocoder/geocoder.dart';
 
-Address addressData;
+Address addressData2;
 
-
-class GooMap extends StatefulWidget {
-  //GooMap({Key key}) : super(key: key);
+class GooMapTo extends StatefulWidget {
+  //GooMapTo({Key key}) : super(key: key);
 
   final LocationData location;
-  GooMap({this.location});
+  GooMapTo({this.location});
 
   @override
-  _GooMapState createState() => _GooMapState();
+  _GooMapToState createState() => _GooMapToState();
 }
 
-class _GooMapState extends State<GooMap> {
+class _GooMapToState extends State<GooMapTo> {
   // Location
   LocationData _locationData;
 
@@ -91,8 +90,8 @@ class _GooMapState extends State<GooMap> {
     setState(() {
       print(
           'Marker | Latitude: ${point.latitude}  Longitude: ${point.longitude}');
-      convert(point).then((value) => addressData=value);
-      print(addressData.addressLine);
+      convert(point).then((value) => addressData2=value);
+      print(addressData2.addressLine);
       _markers.add(
         Marker(
           markerId: MarkerId(markerIdVal),

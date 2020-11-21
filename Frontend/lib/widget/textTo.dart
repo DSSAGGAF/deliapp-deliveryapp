@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:geocoder/geocoder.dart';
 import 'package:login_minimalist/widget/map.dart';
+import 'package:login_minimalist/widget/mapTo.dart';
 
-class TextNew extends StatefulWidget {
+class TextTo extends StatefulWidget {
   @override
-  _TextNewState createState() => _TextNewState();
+  _TextToState createState() => _TextToState();
 }
 
-class _TextNewState extends State<TextNew> {
+class _TextToState extends State<TextTo> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -21,10 +22,9 @@ class _TextNewState extends State<TextNew> {
             Container(
               height: 60,
             ),
-            
             Center(
               child: Text(
-                addressData.addressLine,
+                addressData2.addressLine,
                 style: TextStyle(
                   fontSize: 20,
                   color: Colors.red,
@@ -37,3 +37,5 @@ class _TextNewState extends State<TextNew> {
     );
   }
 }
+
+
