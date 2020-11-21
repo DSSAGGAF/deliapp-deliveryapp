@@ -43,3 +43,4 @@ Backend/.vscode
 Backend/migrations
 Backend/__pycache__
 
+Frontend/android/app/src/main/AndroidManifest.xml
