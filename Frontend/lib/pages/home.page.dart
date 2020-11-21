@@ -16,6 +16,7 @@ import 'package:login_minimalist/widget/textLogin.dart';
 import 'package:login_minimalist/widget/textNew.dart';
 import 'package:login_minimalist/widget/textTo.dart';
 import 'package:login_minimalist/widget/titleDesc.dart';
+import 'package:login_minimalist/widget/postButton.dart';
 
 
 
@@ -195,6 +196,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   ),
                   TextTo(),
                   TitleDesc(),
+                  PostButton(),
                 ],
               ),
             ),

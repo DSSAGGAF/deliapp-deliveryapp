@@ -11,7 +11,7 @@ class _TitleDescState extends State<TitleDesc> {
     return Padding(
           padding: const EdgeInsets.only(left: 40.0, right: 40.0),
           child: Container(
-            height: 500,
+            height: 300,
             width: 100,
             child: Column(
               children: <Widget>[
