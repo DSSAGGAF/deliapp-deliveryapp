@@ -92,15 +92,15 @@ class Accepted_Order(db.Model):
     driver_id = db.Column(db.Integer(), db.ForeignKey('user.user_id'))
     complete = db.Column(db.Boolean, default=True)
 
-    def __init__(self, user_id, request_title, request_desc, request_from, request_to, price,driver_id):
+    def __init__(self, user_id, driver_id, order_id, request_title, request_desc, request_from, request_to, price):
         self.user_id = user_id
+        self.driver_id = driver_id
+        self.order_id = order_id
         self.request_title = request_title
         self.request_desc = request_desc
         self.request_from = request_from
         self.request_to = request_to
         self.price = price
-        self.driver_id=driver_id
-
 
     def __repr__(self):
         return '<order_id {}>'.format(self.order_id)
@@ -117,4 +117,3 @@ class Accepted_Order(db.Model):
             'driver_id': self.driver_id,
             'complete': self.complete,
         }
-
