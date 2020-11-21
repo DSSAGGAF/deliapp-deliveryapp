@@ -48,7 +48,7 @@ class User(db.Model):
 class Requset_Order(db.Model):
     __tablename__ = 'requset_order'
 
-    request_id = db.Column(db.Integer(), primary_key=True)
+    order_id = db.Column(db.Integer(), primary_key=True)
     user_id = db.Column(db.Integer(), db.ForeignKey('user.user_id'))
     request_title = db.Column(db.String())
     request_desc = db.Column(db.String())
@@ -65,50 +65,56 @@ class Requset_Order(db.Model):
         self.price = price
 
     def __repr__(self):
-        return '<request_id {}>'.format(self.request_id)
+        return '<order_id {}>'.format(self.order_id)
 
     def serialize(self):
         return {
-            'request_id': self.request_id,
+            'order_id': self.order_id,
             'user_id': self.user_id,
             'request_title': self.request_title,
             'request_desc': self.request_desc,
             'request_from': self.request_from,
             'request_to': self.request_to,
             'price': self.price,
-
         }
 
-class Requset_Order(db.Model):
-    __tablename__ = 'requset_order'
 
-    request_id = db.Column(db.Integer(), primary_key=True)
+class Accepted_Order(db.Model):
+    __tablename__ = 'accepted_order'
+
+    order_id = db.Column(db.Integer(), primary_key=True)
     user_id = db.Column(db.Integer(), db.ForeignKey('user.user_id'))
     request_title = db.Column(db.String())
     request_desc = db.Column(db.String())
     request_from = db.Column(db.String())
     request_to = db.Column(db.String())
     price = db.Column(db.Integer())
+    driver_id = db.Column(db.Integer(), db.ForeignKey('user.user_id'))
+    complete = db.Column(db.Boolean, default=True)
 
-    def __init__(self, user_id, request_title, request_desc, request_from, request_to, price):
+    def __init__(self, user_id, request_title, request_desc, request_from, request_to, price,driver_id):
         self.user_id = user_id
         self.request_title = request_title
         self.request_desc = request_desc
         self.request_from = request_from
         self.request_to = request_to
         self.price = price
+        self.driver_id=driver_id
+
 
     def __repr__(self):
-        return '<request_id {}>'.format(self.request_id)
+        return '<order_id {}>'.format(self.order_id)
 
     def serialize(self):
         return {
-            'request_id': self.request_id,
+            'order_id': self.order_id,
             'user_id': self.user_id,
             'request_title': self.request_title,
             'request_desc': self.request_desc,
             'request_from': self.request_from,
             'request_to': self.request_to,
             'price': self.price,
-
+            'driver_id': self.driver_id,
+            'complete': self.complete,
         }
+
