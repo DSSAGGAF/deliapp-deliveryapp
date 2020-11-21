@@ -29,6 +29,7 @@ Frontend/.packages
 Frontend/.pub-cache
 Frontend/.pub
 Frontend/build
+Frontend/.vscode
 
 # Web related
 Frontend/lib/generated_plugin_registrant.dart
