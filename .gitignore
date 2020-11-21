@@ -30,6 +30,7 @@ Frontend/.pub-cache
 Frontend/.pub
 Frontend/build
 Frontend/.vscode
+Frontend/android/app/src/main/AndroidManifest.xml
 
 # Web related
 Frontend/lib/generated_plugin_registrant.dart
@@ -43,4 +44,4 @@ Backend/.vscode
 Backend/migrations
 Backend/__pycache__
 
-Frontend/android/app/src/main/AndroidManifest.xml
+
