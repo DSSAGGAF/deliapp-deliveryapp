@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import "package:login_minimalist/network/api.dart";
+import "package:Deli_App/network/api.dart";
 
 class NewNome extends StatefulWidget {
   @override

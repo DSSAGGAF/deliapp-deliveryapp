@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geocoder/geocoder.dart';
-import 'package:login_minimalist/widget/map.dart';
-import 'package:login_minimalist/widget/mapTo.dart';
+import 'package:Deli_App/widget/map.dart';
+import 'package:Deli_App/widget/mapTo.dart';
 
 class TextTo extends StatefulWidget {
   @override

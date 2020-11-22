@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:login_minimalist/pages/home.page.dart';
+import 'package:Deli_App/pages/home.page.dart';
 
 class ButtonLogin extends StatefulWidget {
   @override

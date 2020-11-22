@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:geocoder/geocoder.dart';
-import 'package:login_minimalist/pages/login.page.dart';
-import 'package:login_minimalist/widget/constants.dart';
-import 'package:login_minimalist/pages/profile.page.dart';
-import 'package:login_minimalist/widget/tabBar.dart';
-import 'package:login_minimalist/widget/TEST/MotionTabBarView.dart';
-import 'package:login_minimalist/widget/TEST/MotionTabController.dart';
-import 'package:login_minimalist/widget/TEST/motiontabbar.dart';
-import 'package:login_minimalist/pages/home.page.driver.dart';
+import 'package:Deli_App/pages/login.page.dart';
+import 'package:Deli_App/widget/constants.dart';
+import 'package:Deli_App/pages/profile.page.dart';
+import 'package:Deli_App/widget/tabBar.dart';
+import 'package:Deli_App/widget/TEST/MotionTabBarView.dart';
+import 'package:Deli_App/widget/TEST/MotionTabController.dart';
+import 'package:Deli_App/widget/TEST/motiontabbar.dart';
+import 'package:Deli_App/pages/home.page.driver.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:login_minimalist/widget/map.dart';
-import 'package:login_minimalist/widget/mapTo.dart';
+import 'package:Deli_App/widget/map.dart';
+import 'package:Deli_App/widget/mapTo.dart';
 import 'package:location/location.dart';
-import 'package:login_minimalist/widget/textLogin.dart';
-import 'package:login_minimalist/widget/textNew.dart';
-import 'package:login_minimalist/widget/textTo.dart';
-import 'package:login_minimalist/widget/titleDesc.dart';
-import 'package:login_minimalist/widget/postButton.dart';
+import 'package:Deli_App/widget/textLogin.dart';
+import 'package:Deli_App/widget/textNew.dart';
+import 'package:Deli_App/widget/textTo.dart';
+import 'package:Deli_App/widget/titleDesc.dart';
+import 'package:Deli_App/widget/postButton.dart';
 
 
 

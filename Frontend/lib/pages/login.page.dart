@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:login_minimalist/widget/button.dart';
-import 'package:login_minimalist/widget/first.dart';
-//import 'package:login_minimalist/widget/forgot.dart';
-import 'package:login_minimalist/widget/inputEmail.dart';
-import 'package:login_minimalist/widget/password.dart';
-import 'package:login_minimalist/widget/textLogin.dart';
-import 'package:login_minimalist/widget/verticalText.dart';
+import 'package:Deli_App/widget/button.dart';
+import 'package:Deli_App/widget/first.dart';
+//import 'package:Deli_App/widget/forgot.dart';
+import 'package:Deli_App/widget/inputEmail.dart';
+import 'package:Deli_App/widget/password.dart';
+import 'package:Deli_App/widget/textLogin.dart';
+import 'package:Deli_App/widget/verticalText.dart';
 
 class LoginPage extends StatefulWidget {
   @override

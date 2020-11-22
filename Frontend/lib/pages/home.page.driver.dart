@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:login_minimalist/pages/login.page.dart';
-import 'package:login_minimalist/widget/constants.dart';
-import 'package:login_minimalist/pages/profile.page.dart';
-import 'package:login_minimalist/pages/home.page.dart';
-import 'package:login_minimalist/widget/tabBar.dart';
-import 'package:login_minimalist/widget/TEST/MotionTabBarView.dart';
-import 'package:login_minimalist/widget/TEST/MotionTabController.dart';
-import 'package:login_minimalist/widget/TEST/motiontabbar.dart';
+import 'package:Deli_App/pages/login.page.dart';
+import 'package:Deli_App/widget/constants.dart';
+import 'package:Deli_App/pages/profile.page.dart';
+import 'package:Deli_App/pages/home.page.dart';
+import 'package:Deli_App/widget/tabBar.dart';
+import 'package:Deli_App/widget/TEST/MotionTabBarView.dart';
+import 'package:Deli_App/widget/TEST/MotionTabController.dart';
+import 'package:Deli_App/widget/TEST/motiontabbar.dart';
 
 
 class DriverHomePage extends StatefulWidget {

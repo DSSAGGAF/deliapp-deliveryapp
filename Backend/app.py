@@ -5,6 +5,8 @@ from resources.Register import Register
 from resources.Login import Login
 from resources.Requseted_Order import Requseted_Order
 from resources.Completed_Order import Completed_Order
+from resources.changeMode import ChqngeMode
+
 # from resources.UserProfile import UserProfile
 
 
@@ -23,6 +25,8 @@ api.add_resource(Login, '/login')
 api.add_resource(Requseted_Order, '/requset_order')
 
 api.add_resource(Completed_Order, '/completed_order')
+
+api.add_resource(ChqngeMode, '/changeMode')
 
 # api.add_resource(UserProfile, '/userProfile')
 

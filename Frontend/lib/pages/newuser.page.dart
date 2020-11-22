@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:login_minimalist/widget/buttonNewUser.dart';
-import "package:login_minimalist/network/api.dart";
-import 'package:login_minimalist/widget/singup.dart';
-import 'package:login_minimalist/widget/textNew.dart';
-import 'package:login_minimalist/widget/userOld.dart';
+import 'package:Deli_App/widget/buttonNewUser.dart';
+import "package:Deli_App/network/api.dart";
+import 'package:Deli_App/widget/singup.dart';
+import 'package:Deli_App/widget/textNew.dart';
+import 'package:Deli_App/widget/userOld.dart';
 
 class NewUser extends StatefulWidget {
   @override

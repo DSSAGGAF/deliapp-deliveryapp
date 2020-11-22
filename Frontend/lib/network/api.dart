@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart';
-import "package:login_minimalist/model/addUser.dart";
+import "package:Deli_App/model/addUser.dart";
 
 class API {
   static Future<User> createUser(String name, String pass, String email,

@@ -1,5 +1,6 @@
 from flask_restful import Resource
 from flask import request
+from sqlalchemy import engine
 from model import db, Accepted_Order, User, Requset_Order
 import random
 import string
@@ -34,6 +35,8 @@ class Completed_Order(Resource):
             price=requset_order.price,
         )
         db.session.add(accepted_order)
+        requset_order = Requset_Order.query.filter_by(order_id=json_data['order_id']).delete()
+        
         db.session.commit()
 
         result = Accepted_Order.serialize(accepted_order)
