@@ -16,7 +16,7 @@ class API {
           "password": pass,
           "gender": gender,
           "firstname": fname,
-          "lastname": lname
+          "lastname": lname,
         }));
     if (response.statusCode == 201) {
       //print(response.body);
@@ -29,5 +29,23 @@ class API {
 
   String uname(String name) {
     return name;
+  }
+
+  static Future<User> changemode(bool driverMode, int userID) async {
+    final Response response = await post('http://10.0.2.2:5000/api/changeMode',
+        headers: <String, String>{
+          'Content-Type': 'application/json;charset=UTF-8'
+        },
+        body: jsonEncode(<String, dynamic>{
+          "user_id": userID,
+          "driver_mode": driverMode,
+        }));
+    if (response.statusCode == 201) {
+      //print(response.body);
+      return User.fromJson(json.decode(response.body));
+    } else {
+      ///print('Error');
+      throw Exception("Can't load author");
+    }
   }
 }

@@ -6,6 +6,7 @@ class User {
   String pass;
   String email;
   String gender;
+  bool driverMode;
   User(
       {this.id,
       this.name,
@@ -13,7 +14,9 @@ class User {
       this.pass,
       this.gender,
       this.fname,
-      this.lname});
+      this.lname,
+      this.driverMode
+      });
   factory User.fromJson(Map<String, dynamic> user) => User(
       //id: user['id'],
       name: user['username'],
@@ -21,5 +24,6 @@ class User {
       lname: user['lastname'],
       pass: user['password'],
       email: user['emailadress'],
-      gender: user['gender']);
+      gender: user['gender'],
+      driverMode: user['driver_mode']);
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:Deli_App/widget/buttonNewUser.dart';
+// import 'package:Deli_App/widget/buttonNewUser.dart';
 import "package:Deli_App/network/api.dart";
 import 'package:Deli_App/widget/singup.dart';
-import 'package:Deli_App/widget/textNew.dart';
+// import 'package:Deli_App/widget/textNew.dart';
 import 'package:Deli_App/widget/userOld.dart';
 
 class NewUser extends StatefulWidget {
@@ -194,8 +194,8 @@ class _NewUserState extends State<NewUser> {
                         Navigator.pop(context);
                         API.createUser(
                             nameController.text,
-                            nEmail.text,
                             nPassword.text,
+                            nEmail.text,
                             fnameController.text,
                             lnameController.text,
                             dropdownValue);
