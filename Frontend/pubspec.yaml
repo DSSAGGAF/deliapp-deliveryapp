@@ -27,6 +27,8 @@ dependencies:
   flutter_localizations:
     sdk: flutter  
   location: ^3.0.0
+  shared_preferences: ^0.5.3+4
+
 
     
 

@@ -19,6 +19,8 @@ import 'package:Deli_App/widget/titleDesc.dart';
 import 'package:Deli_App/widget/postButton.dart';
 import "package:Deli_App/network/api.dart";
 // import 'package:Deli_App/network/api.dart';
+import "package:Deli_App/network/repository.dart";
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -31,6 +33,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   bool _serviceEnabled;
   PermissionStatus _permissionGranted;
   LocationData _locationData;
+  String userID="";
+  Repository _repository = Repository();
+
+
+  Future getUserID() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return await prefs.getString("user_id");
+  }
 
   @override
   void initState() {
@@ -74,6 +84,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+
     var newAdd;
     return Scaffold(
         appBar: AppBar(
@@ -102,7 +113,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     title: "Do you want to switch to a driver?",
                     content: "",
                     yesOnPressed: () {
-                      // API.changemode(true, 1);
+                      // userID = await getUserID();
+                      print(userID);
+                      _repository.changemode(true);
                       Navigator.push(
                         context,
                         MaterialPageRoute(
