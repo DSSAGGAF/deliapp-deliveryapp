@@ -7,6 +7,8 @@ import 'package:Deli_App/widget/tabBar.dart';
 import 'package:Deli_App/widget/TEST/MotionTabBarView.dart';
 import 'package:Deli_App/widget/TEST/MotionTabController.dart';
 import 'package:Deli_App/widget/TEST/motiontabbar.dart';
+import "package:Deli_App/network/repository.dart";
+
 
 
 class DriverHomePage extends StatefulWidget {
@@ -17,6 +19,7 @@ class DriverHomePage extends StatefulWidget {
 class _DriverHomePageState extends State<DriverHomePage>
     with TickerProviderStateMixin {
   MotionTabController _tabController;
+  Repository _repository = Repository();
 
   @override
   void initState() {
@@ -59,6 +62,7 @@ class _DriverHomePageState extends State<DriverHomePage>
                     title: "Do you want to sewitch to a regluer user?",
                     content: "",
                     yesOnPressed: () {
+                       _repository.changemode(false);
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => HomePage()),

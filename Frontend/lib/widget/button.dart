@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:Deli_App/pages/home.page.dart';
+import "package:Deli_App/network/api.dart";
+import "package:Deli_App/network/repository.dart";
 
 class ButtonLogin extends StatefulWidget {
   @override
@@ -7,6 +9,7 @@ class ButtonLogin extends StatefulWidget {
 }
 
 class _ButtonLoginState extends State<ButtonLogin> {
+  Repository _repository = Repository();
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -32,9 +35,10 @@ class _ButtonLoginState extends State<ButtonLogin> {
         ),
         child: FlatButton(
           onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => HomePage()));
-              },
+            _repository.signinUser("abddewdewewererwweuda", "12345");
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => HomePage()));
+          },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
