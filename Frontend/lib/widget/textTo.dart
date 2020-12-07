@@ -24,7 +24,7 @@ class _TextToState extends State<TextTo> {
             ),
             Center(
               child: Text(
-                'addressData2.addressLine',
+                addressData2.addressLine,
                 style: TextStyle(
                   fontSize: 20,
                   color: Colors.red,

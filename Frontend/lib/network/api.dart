@@ -48,4 +48,20 @@ class API {
       throw Exception("Can't load author");
     }
   }
+
+  static Future<User> postRequest(int reqPrice, String reqTitle, String reqDesc,
+      String reqFrom, String reqTo) async {
+    final Response response = await post('http://10.0.2.2:5000/api/postRequest',
+        headers: <String, String>{
+          'Content-Type': 'application/json;charset=UTF-8'
+        },
+        body: jsonEncode(<String, dynamic>{}));
+    if (response.statusCode == 201) {
+      //print(response.body);
+      return User.fromJson(json.decode(response.body));
+    } else {
+      ///print('Error');
+      throw Exception("Can't load author");
+    }
+  }
 }

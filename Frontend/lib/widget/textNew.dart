@@ -24,7 +24,7 @@ class _TextNewState extends State<TextNew> {
             
             Center(
               child: Text(
-                'addressData.addressLine',
+                addressData.addressLine,
                 style: TextStyle(
                   fontSize: 20,
                   color: Colors.red,
