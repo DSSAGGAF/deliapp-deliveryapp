@@ -1,3 +1,4 @@
+import 'package:Deli_App/widget/orderList.dart';
 import 'package:flutter/material.dart';
 import 'package:Deli_App/pages/login.page.dart';
 import 'package:Deli_App/widget/constants.dart';
@@ -62,7 +63,7 @@ class _DriverHomePageState extends State<DriverHomePage>
                     title: "Do you want to sewitch to a regluer user?",
                     content: "",
                     yesOnPressed: () {
-                       _repository.changemode(false);
+                      //  _repository.changemode(false);
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => HomePage()),
@@ -103,9 +104,7 @@ class _DriverHomePageState extends State<DriverHomePage>
               ),
             ),
             Container(
-              child: Center(
-                child: Text("Live Feed"),
-              ),
+              child: Column(children: <Widget>[new OrderList()],)
             ),
             Container(
               child: Center(

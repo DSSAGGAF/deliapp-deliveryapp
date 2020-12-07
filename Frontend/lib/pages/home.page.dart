@@ -114,8 +114,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     content: "",
                     yesOnPressed: () {
                       // userID = await getUserID();
-                      print(userID);
-                      _repository.changemode(true);
+                      // _repository.changemode(true);
                       Navigator.push(
                         context,
                         MaterialPageRoute(

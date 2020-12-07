@@ -1,6 +1,6 @@
 from flask_restful import Resource
 from flask import request
-from model import  db, Requset_Order,User
+from model import db, Requset_Order, User
 import random
 import string
 
@@ -11,7 +11,7 @@ class Requseted_Order(Resource):
 
         if not json_data:
             return {'message': 'No input data provided'}, 400
-           
+
         user = User.query.filter_by(user_id=json_data['user_id']).first()
         if not user:
             return {'message': 'User ID not available'}, 400
@@ -30,3 +30,11 @@ class Requseted_Order(Resource):
         result = Requset_Order.serialize(requset_order)
 
         return {"status": 'success', 'data': result}, 201
+
+    def get(self):
+        orders = Requset_Order.query.all()
+        order_list = []
+        for i in range(0, len(orders)):
+            order_list.append(orders[i].serialize())
+            
+        return {"len": len(orders),'data':order_list}, 201

@@ -14,8 +14,8 @@ class Repository {
   Future changemode(bool username ) 
     => apiProvider.changemode(username);
   
-  // Future getUserTasks(String apiKey) 
-  //   => apiProvider.getUserTasks(apiKey);
+  Future getRequstedOrder()
+    => apiProvider.getRequstedOrder();
 
   // Future<Null> addUserTask(String apiKey, String taskName, String deadline) async {
   //   apiProvider.addUserTask(apiKey, taskName, deadline);
