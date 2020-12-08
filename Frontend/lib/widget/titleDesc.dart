@@ -21,7 +21,8 @@ double _coordinateDistance() {
           c(toLatLng.latitude * p) *
           (1 - c((toLatLng.longitude - fromLatLng.longitude) * p)) /
           2;
-  return (12742 * asin(sqrt(a))) * 2.5;
+  // return (12742 * asin(sqrt(a))) * 2.5;
+  return 5;
 }
 
 @override
