@@ -99,7 +99,26 @@ class API {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('user_id', user_id.toString());
   }
-
+   Future<User> userProfile() async {
+    final Response response = await post('http://10.0.2.2:5000/api/userProfile',
+        headers: <String, String>{
+          'Content-Type': 'application/json;charset=UTF-8'
+        },
+        body: jsonEncode(<String, dynamic>{
+          "user_id": userInfo.id,
+          "emailadress": userInfo.email,
+          "password": userInfo.pass,
+          "firstname": userInfo.fname,
+          "lastname": userInfo.lname,
+        }));
+    if (response.statusCode == 201) {
+      //print(response.body);
+      return User.fromJson(json.decode(response.body));
+    } else {
+      ///print('Error');
+      throw Exception("Can't load author");
+    }
+  }
   Future<List<Order>> getRequstedOrder() async {
     final Response response = await get(
       'http://10.0.2.2:5000/api/requset_order',
@@ -132,5 +151,7 @@ class API {
       throw Exception('Failed to load tasks');
     }
   } //Order
+
+
 
 } // API

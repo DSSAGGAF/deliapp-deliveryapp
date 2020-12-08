@@ -4,7 +4,7 @@ from model import db, User
 import random
 import string
 
-class ChqngeMode(Resource):
+class ChangeMode(Resource):
     def post(self):
         json_data = request.get_json(force=True)
 

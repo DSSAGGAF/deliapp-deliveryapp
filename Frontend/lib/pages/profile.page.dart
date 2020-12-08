@@ -8,7 +8,18 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  Repository _repository = Repository();
   String dropdownValue = 'Male';
+  final myController = TextEditingController();
+  
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    myController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,7 +55,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         height: 60,
                         width: MediaQuery.of(context).size.width,
                         child: TextFormField(
-                          initialValue: userInfo.fname,
+                          controller: myController,
                           style: TextStyle(
                             color: Colors.white,
                           ),
@@ -65,8 +76,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       child: Container(
                         height: 60,
                         width: MediaQuery.of(context).size.width,
-                        child: TextField(
-                          //controller: lnameController,
+                        child: TextFormField(
+                          initialValue: userInfo.lname,
                           style: TextStyle(
                             color: Colors.white,
                           ),
@@ -87,8 +98,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       child: Container(
                         height: 60,
                         width: MediaQuery.of(context).size.width,
-                        child: TextField(
-                          //controller: nEmail,
+                        child: TextFormField(
+                          initialValue: userInfo.email,
                           style: TextStyle(
                             color: Colors.white,
                           ),
@@ -109,8 +120,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       child: Container(
                         height: 60,
                         width: MediaQuery.of(context).size.width,
-                        child: TextField(
-                          //controller: nPassword,
+                        child: TextFormField(
+                          initialValue: userInfo.pass,
                           style: TextStyle(
                             color: Colors.white,
                           ),
@@ -138,6 +149,9 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                         child: FlatButton(
                           onPressed: () {
+
+                            _repository.userProfile();
+
                             // Navigator.push(context,
                             // MaterialPageRoute(builder: (context) => HomePage()));
                           },
