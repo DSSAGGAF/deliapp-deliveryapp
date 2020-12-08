@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:Deli_App/network/api.dart';
+import "package:Deli_App/network/repository.dart";
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -22,7 +24,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 radius: 60.0,
               ),
               Text(
-                'UserName',
+                userInfo.name,
                 style: TextStyle(fontSize: 32.0),
               ),
               Text(
@@ -41,8 +43,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       child: Container(
                         height: 60,
                         width: MediaQuery.of(context).size.width,
-                        child: TextField(
-                          //controller: fnameController,
+                        child: TextFormField(
+                          initialValue: userInfo.fname,
                           style: TextStyle(
                             color: Colors.white,
                           ),

@@ -21,7 +21,7 @@ class Login(Resource):
             return {'message': 'Password incorrect'}, 400
 
         # return User.serialize(user)
-        result = user.user_id        
+        result = User.serialize(user);      
         return {"status": 'success', 'data': result}, 201
 
     # def username_and_password_signin(self, json_data):

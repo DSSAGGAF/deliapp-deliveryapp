@@ -6,7 +6,7 @@ import "package:Deli_App/model/addUser.dart";
 import "package:Deli_App/model/orders.dart";
 import 'package:shared_preferences/shared_preferences.dart';
 
-int user_id;
+User userInfo;
 
 class API {
   Client client = Client();
@@ -43,7 +43,7 @@ class API {
           'Content-Type': 'application/json;charset=UTF-8'
         },
         body: jsonEncode(<String, dynamic>{
-          "user_id": user_id,
+          "user_id": userInfo.id,
           "driver_mode": driverMode,
         }));
     if (response.statusCode == 201) {
@@ -57,13 +57,12 @@ class API {
 
   static Future<User> postRequest(int reqPrice, String reqTitle, String reqDesc,
       String reqFrom, String reqTo) async {
-    final Response response = await post('http://10.0.2.2:5000/api/requset_order',
+    final Response response = await post(
+        'http://10.0.2.2:5000/api/requset_order',
         headers: <String, String>{
           'Content-Type': 'application/json;charset=UTF-8'
         },
-        body: jsonEncode(<String, dynamic>{
-
-        }));
+        body: jsonEncode(<String, dynamic>{}));
     if (response.statusCode == 201) {
       //print(response.body);
       return User.fromJson(json.decode(response.body));
@@ -72,6 +71,7 @@ class API {
       throw Exception("Can't load author");
     }
   }
+
   Future<User> loginUser(String username, String password) async {
     final Response response = await post("http://10.0.2.2:5000/api/login",
         headers: <String, String>{
@@ -86,9 +86,9 @@ class API {
       // If the call to the server was successful, parse the JSON
       // return User.fromJson(json.decode(response.body));
       // await saveUserID(result["data"]["user_id"]);.
-      user_id = result["data"];
       // saveUserID(user_id);
-
+      Map json_;
+      userInfo = User.fromJson(result["data"]);
     } else {
       // If that call was not successful, throw an error.
       throw Exception('Failed to load post');
@@ -134,4 +134,3 @@ class API {
   } //Order
 
 } // API
-
