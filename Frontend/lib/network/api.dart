@@ -55,14 +55,15 @@ class API {
     }
   }
 
-<<<<<<< HEAD
   static Future<User> postRequest(int reqPrice, String reqTitle, String reqDesc,
       String reqFrom, String reqTo) async {
-    final Response response = await post('http://10.0.2.2:5000/api/postRequest',
+    final Response response = await post('http://10.0.2.2:5000/api/requset_order',
         headers: <String, String>{
           'Content-Type': 'application/json;charset=UTF-8'
         },
-        body: jsonEncode(<String, dynamic>{}));
+        body: jsonEncode(<String, dynamic>{
+
+        }));
     if (response.statusCode == 201) {
       //print(response.body);
       return User.fromJson(json.decode(response.body));
@@ -71,7 +72,6 @@ class API {
       throw Exception("Can't load author");
     }
   }
-=======
   Future<User> loginUser(String username, String password) async {
     final Response response = await post("http://10.0.2.2:5000/api/login",
         headers: <String, String>{
@@ -100,7 +100,6 @@ class API {
     await prefs.setString('user_id', user_id.toString());
   }
 
-<<<<<<< HEAD
   Future<List<Order>> getRequstedOrder() async {
     final Response response = await get(
       'http://10.0.2.2:5000/api/requset_order',
@@ -135,7 +134,4 @@ class API {
   } //Order
 
 } // API
-=======
->>>>>>> eee57e8ecb0db60c22208070f418a84422fe2631
-}
->>>>>>> c545b90320d1fbf7bb2b193d09028227242e4114
+

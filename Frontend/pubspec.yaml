@@ -27,12 +27,11 @@ dependencies:
   flutter_localizations:
     sdk: flutter  
   location: ^3.0.0
-<<<<<<< HEAD
+
   intl: ">=0.14.0"
-=======
+
   shared_preferences: ^0.5.3+4
 
->>>>>>> eee57e8ecb0db60c22208070f418a84422fe2631
 
     
 
