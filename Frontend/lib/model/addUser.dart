@@ -18,7 +18,7 @@ class User {
       this.driverMode
       });
   factory User.fromJson(Map<String, dynamic> user) => User(
-      //id: user['id'],
+      id: user['user_id'],
       name: user['username'],
       fname: user['firstname'],
       lname: user['lastname'],

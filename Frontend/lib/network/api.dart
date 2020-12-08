@@ -55,14 +55,21 @@ class API {
     }
   }
 
-  static Future<User> postRequest(int reqPrice, String reqTitle, String reqDesc,
+  Future<User> postRequest(int reqPrice, String reqTitle, String reqDesc,
       String reqFrom, String reqTo) async {
     final Response response = await post(
         'http://10.0.2.2:5000/api/requset_order',
         headers: <String, String>{
           'Content-Type': 'application/json;charset=UTF-8'
         },
-        body: jsonEncode(<String, dynamic>{}));
+        body: jsonEncode(<String, dynamic>{
+          "user_id": userInfo.id,
+          "request_title": reqTitle,
+          "request_desc": reqDesc,
+          "request_from": reqFrom,
+          "request_to": reqTo,
+          "price": reqPrice,
+        }));
     if (response.statusCode == 201) {
       //print(response.body);
       return User.fromJson(json.decode(response.body));
@@ -89,6 +96,13 @@ class API {
       // saveUserID(user_id);
       Map json_;
       userInfo = User.fromJson(result["data"]);
+      print(userInfo.id);
+      print(userInfo.fname);
+      print(userInfo.lname);
+      print(userInfo.email);
+      print(userInfo.pass);
+      print(userInfo.driverMode);
+      print("userInfo.id");
     } else {
       // If that call was not successful, throw an error.
       throw Exception('Failed to load post');
