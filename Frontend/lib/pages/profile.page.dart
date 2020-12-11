@@ -55,7 +55,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         height: 60,
                         width: MediaQuery.of(context).size.width,
                         child: TextFormField(
-                          controller: myController,
+                          // controller: myController,
+                          initialValue: userInfo.fname,
                           style: TextStyle(
                             color: Colors.white,
                           ),
