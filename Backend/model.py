@@ -90,7 +90,7 @@ class Accepted_Order(db.Model):
     request_to = db.Column(db.String())
     price = db.Column(db.Integer())
     driver_id = db.Column(db.Integer(), db.ForeignKey('user.user_id'))
-    complete = db.Column(db.Boolean, default=True)
+    complete = db.Column(db.Boolean, default=False)
 
     def __init__(self, user_id, driver_id, order_id, request_title, request_desc, request_from, request_to, price):
         self.user_id = user_id

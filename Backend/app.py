@@ -7,6 +7,7 @@ from resources.Requseted_Order import Requseted_Order
 from resources.Completed_Order import Completed_Order
 from resources.changeMode import ChangeMode
 from resources.UserProfile import UserProfile
+from resources.OtherUserName import OtherUserName
 
 # from resources.UserProfile import UserProfile
 
@@ -30,5 +31,7 @@ api.add_resource(Completed_Order, '/completed_order')
 api.add_resource(ChangeMode, '/changeMode')
 
 api.add_resource(UserProfile, '/userProfile')
+
+api.add_resource(OtherUserName, '/OtherUserName')
 
 

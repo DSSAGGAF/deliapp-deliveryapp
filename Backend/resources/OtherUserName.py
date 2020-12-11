@@ -4,7 +4,7 @@ from model import  db,User
 import random
 import string
 
-class UserProfile(Resource):
+class OtherUserName(Resource):
     def post(self):
         json_data = request.get_json(force=True)
 
@@ -14,13 +14,9 @@ class UserProfile(Resource):
         user = User.query.filter_by(user_id=json_data['user_id']).first()
         if not user:
             return {'message': 'User ID not available'}, 400
-        user.firstname = json_data["firstname"]
-        user.lastname = json_data["lastname"]
-        user.password = json_data["password"]
-        user.emailadress = json_data["emailadress"]
-        db.session.commit()
-        result = User.serialize(user)
 
-        return {"status": 'success', 'data': result}, 201
+
+
+        return {"status": 'success', 'data': user.username}, 201
         
         

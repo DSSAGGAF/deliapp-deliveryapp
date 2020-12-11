@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:html';
 
 import 'package:http/http.dart' show Client;
 import 'package:http/http.dart';
@@ -96,12 +97,12 @@ class API {
       // saveUserID(user_id);
       Map json_;
       userInfo = User.fromJson(result["data"]);
-      print(userInfo.id);
-      print(userInfo.fname);
-      print(userInfo.lname);
-      print(userInfo.email);
-      print(userInfo.pass);
-      print(userInfo.driverMode);
+      // print(userInfo.id);
+      // print(userInfo.fname);
+      // print(userInfo.lname);
+      // print(userInfo.email);
+      // print(userInfo.pass);
+      // print(userInfo.driverMode);
       print("userInfo.id");
     } else {
       // If that call was not successful, throw an error.
@@ -109,11 +110,11 @@ class API {
     }
   }
 
-  saveUserID(int user_id) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('user_id', user_id.toString());
-  }
-   Future<User> userProfile() async {
+  // saveUserID(int user_id) async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   await prefs.setString('user_id', user_id.toString());
+  // }
+  Future<User> userProfile() async {
     final Response response = await post('http://10.0.2.2:5000/api/userProfile',
         headers: <String, String>{
           'Content-Type': 'application/json;charset=UTF-8'
@@ -133,6 +134,47 @@ class API {
       throw Exception("Can't load author");
     }
   }
+
+  Future<User> postAccpted(int userID, int orderID) async {
+    final Response response = await post(
+        'http://10.0.2.2:5000/api/completed_order',
+        headers: <String, String>{
+          'Content-Type': 'application/json;charset=UTF-8'
+        },
+        body: jsonEncode(<String, dynamic>{
+          "user_id": userID,
+          "driver_id": userInfo.id,
+          "order_id": orderID,
+        }));
+    if (response.statusCode == 201) {
+      //print(response.body);
+      return User.fromJson(json.decode(response.body));
+    } else {
+      ///print('Error');
+      throw Exception("Can't load author");
+    }
+  }
+
+  Future<String> getOtherUserName(int userID) async {
+    final Response response = await post(
+        'http://10.0.2.2:5000/api/completed_order',
+        headers: <String, String>{
+          'Content-Type': 'application/json;charset=UTF-8'
+        },
+        body: jsonEncode(<String, dynamic>{
+          "user_id": userID,
+        }));
+    if (response.statusCode == 201) {
+      final Map result = json.decode(response.body);
+      User user;
+      user.name = result["data"];
+      return user.name;
+    } else {
+      // If that call was not successful, throw an error.
+      throw Exception('Failed to load tasks');
+    }
+  } //getOtherUserName
+
   Future<List<Order>> getRequstedOrder() async {
     final Response response = await get(
       'http://10.0.2.2:5000/api/requset_order',
@@ -165,7 +207,5 @@ class API {
       throw Exception('Failed to load tasks');
     }
   } //Order
-
-
 
 } // API
