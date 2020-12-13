@@ -3,14 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:geocoder/geocoder.dart';
 import 'package:geocoder/services/base.dart';
+import "package:Deli_App/network/repository.dart";
+
+String coor;
+Repository _repository = Repository();
 
 convert(String query) async {
   // final query = "1600 Amphiteatre Parkway, Mountain View";
   var addresses = await Geocoder.local.findAddressesFromQuery(query);
   var first = addresses.first;
-  String coor = first.coordinates.toString();
-  print(coor.replaceAll(new RegExp(r'\d+.\d+,\d+.\d+'),''));
-  print(coor);
+  coor = first.coordinates.toString();
+  coor = coor.substring(1, coor.length - 1);
 }
 
 class Constants {
@@ -21,6 +24,7 @@ class Constants {
 
 class CustomDialogBox extends StatefulWidget {
   final String title, descriptions, text, price, orderFrom, orderTo;
+  final int orderID;
   // final Image img;
 
   const CustomDialogBox(
@@ -30,6 +34,7 @@ class CustomDialogBox extends StatefulWidget {
       this.text,
       this.orderFrom,
       this.orderTo,
+      this.orderID,
       this.price})
       : super(key: key);
 
@@ -93,10 +98,12 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
                   textAlign: TextAlign.left,
                 ),
                 onTap: () async {
-                  if (await canLaunch("https://www.google.com/maps/place/" +
-                      convert(widget.orderFrom))) {
-                    await launch("https://www.google.com/maps/place/" +
-                        convert(widget.orderFrom));
+                  //convert(widget.orderFrom);
+
+                  convert(widget.orderFrom);
+                  if (await canLaunch(
+                      "https://www.google.com/maps/place/" + coor)) {
+                    await launch("https://www.google.com/maps/place/" + coor);
                   }
                 },
               ),
@@ -120,6 +127,7 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
                 alignment: Alignment.bottomRight,
                 child: FlatButton(
                     onPressed: () {
+                      _repository.postAccpted(widget.orderID);
                       Navigator.of(context).pop();
                     },
                     child: Text(

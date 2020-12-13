@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:html';
 
 import 'package:http/http.dart' show Client;
 import 'package:http/http.dart';
@@ -103,7 +102,6 @@ class API {
       // print(userInfo.email);
       // print(userInfo.pass);
       // print(userInfo.driverMode);
-      print("userInfo.id");
     } else {
       // If that call was not successful, throw an error.
       throw Exception('Failed to load post');
@@ -135,14 +133,13 @@ class API {
     }
   }
 
-  Future<User> postAccpted(int userID, int orderID) async {
+  Future<User> postAccpted(int orderID) async {
     final Response response = await post(
         'http://10.0.2.2:5000/api/completed_order',
         headers: <String, String>{
           'Content-Type': 'application/json;charset=UTF-8'
         },
         body: jsonEncode(<String, dynamic>{
-          "user_id": userID,
           "driver_id": userInfo.id,
           "order_id": orderID,
         }));
@@ -155,25 +152,26 @@ class API {
     }
   }
 
-  Future<String> getOtherUserName(int userID) async {
-    final Response response = await post(
-        'http://10.0.2.2:5000/api/completed_order',
-        headers: <String, String>{
-          'Content-Type': 'application/json;charset=UTF-8'
-        },
-        body: jsonEncode(<String, dynamic>{
-          "user_id": userID,
-        }));
-    if (response.statusCode == 201) {
-      final Map result = json.decode(response.body);
-      User user;
-      user.name = result["data"];
-      return user.name;
-    } else {
-      // If that call was not successful, throw an error.
-      throw Exception('Failed to load tasks');
-    }
-  } //getOtherUserName
+  // Future<String> getOtherUserName(int orderID) async {
+  //   final Response response = await post(
+  //       'http://10.0.2.2:5000/api/OtherUserName',
+  //       headers: <String, String>{
+  //         'Content-Type': 'application/json;charset=UTF-8'
+  //       },
+  //       body: jsonEncode(<String, dynamic>{
+  //         "order_id": orderID,
+  //       }));
+  //   if (response.statusCode == 201) {
+  //     final Map result = json.decode(response.body);
+  //     User user;
+  //     user.name = result["data"];
+  //     print(user.name);
+  //     return user.name;
+  //   } else {
+  //     // If that call was not successful, throw an error.
+  //     throw Exception('Failed to load tasks');
+  //   }
+  // } //getOtherUserName
 
   Future<List<Order>> getRequstedOrder() async {
     final Response response = await get(

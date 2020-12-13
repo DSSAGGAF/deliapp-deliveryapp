@@ -7,9 +7,10 @@ class Order {
   String requsetFrom;
   String requsetTo;
   int price;
+  String userName;
 
   Order(this.orderId, this.userId, this.requsetTitle, this.requsetDesc,
-      this.requsetFrom, this.requsetTo, this.price);
+      this.requsetFrom, this.requsetTo, this.price, this.userName);
 
   factory Order.fromJson(Map<String, dynamic> parsedJson) {
     return Order(
@@ -20,8 +21,7 @@ class Order {
       parsedJson['request_from'],
       parsedJson['request_to'],
       parsedJson['price'],
+      parsedJson['username'],
     );
   }
-  
 }
-

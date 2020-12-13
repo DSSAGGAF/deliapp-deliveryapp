@@ -13,9 +13,6 @@ class Completed_Order(Resource):
         if not json_data:
             return {'message': 'No input data provided'}, 400
 
-        user = User.query.filter_by(user_id=json_data['user_id']).first()
-        if not user:
-            return {'message': 'User ID not available'}, 400
 
         user = User.query.filter_by(user_id=json_data['driver_id']).first()
         if not user:
@@ -25,7 +22,7 @@ class Completed_Order(Resource):
             return {'message': 'order ID not available'}, 400
                 
         accepted_order = Accepted_Order(
-            user_id=json_data['user_id'],
+            user_id=requset_order.user_id,
             driver_id=json_data['driver_id'],
             order_id=json_data['order_id'],
             request_title=requset_order.request_title,

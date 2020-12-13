@@ -43,6 +43,10 @@ class User(db.Model):
             'gender': self.gender,
             'driver_mode': self.driver_mode,
         }
+    def userName(self):
+        return{
+            'username':self.username
+        }
 
 
 class Requset_Order(db.Model):
@@ -77,6 +81,17 @@ class Requset_Order(db.Model):
             'request_to': self.request_to,
             'price': self.price,
         }
+    def serialize2(self,userName):
+        return {
+            'order_id': self.order_id,
+            'user_id': self.user_id,
+            'request_title': self.request_title,
+            'request_desc': self.request_desc,
+            'request_from': self.request_from,
+            'request_to': self.request_to,
+            'price': self.price,
+            'username': userName,
+        }        
 
 
 class Accepted_Order(db.Model):

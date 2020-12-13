@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:Deli_App/model/orders.dart';
 import 'package:Deli_App/widget/dialog.dart';
+import "package:Deli_App/network/repository.dart";
+
 
 class OrderCard extends StatelessWidget {
   dynamic orderCard;
   final Order order;
   OrderCard(this.order);
+  Repository _repository = Repository();
+  
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +33,7 @@ class OrderCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             new Text(
-              "user name",
+              order.userName,
               style: TextStyle(
                   color: Colors.white,
                   fontFamily: 'Poppins',
@@ -78,6 +82,8 @@ class OrderCard extends StatelessWidget {
                   orderTo: "To - " + order.requsetTo,
                   price: "Price - " + order.price.toString() + "RM",
                   text: "Accept",
+                  orderID: order.orderId,                  
+                  
                 );
               });
         },

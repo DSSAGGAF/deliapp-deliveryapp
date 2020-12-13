@@ -19,6 +19,11 @@ class Repository {
       String reqFrom, String reqTo) => apiProvider.postRequest(reqPrice, reqTitle, reqDesc,
      reqFrom, reqTo);
 
+  Future postAccpted(int orderID) => apiProvider.postAccpted(orderID);
+  
+  // Future getOtherUserName(int orderID) => apiProvider.getOtherUserName(orderID);
+
+
   // Future getRequstedOrder()
   //   => apiProvider.getRequstedOrder();
 

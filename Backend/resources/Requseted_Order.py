@@ -35,6 +35,7 @@ class Requseted_Order(Resource):
         orders = Requset_Order.query.all()
         order_list = []
         for i in range(0, len(orders)):
-            order_list.append(orders[i].serialize())
-            
-        return {"len": len(orders),'data':order_list}, 201
+            user = User.query.filter_by(user_id = orders[i].user_id)
+            order_list.append(orders[i].serialize2(user[0].username))
+
+        return {'data':order_list}, 201

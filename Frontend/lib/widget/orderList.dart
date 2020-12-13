@@ -14,9 +14,6 @@ class OrderList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _updateOrders();
-    print(orders.length);
-    print("orders");
-
     return new Flexible(
       child: new Container(
         child: new ListView.builder(
