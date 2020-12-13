@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:Deli_App/network/api.dart';
 import "package:Deli_App/network/repository.dart";
 
+String fname;
+
 class ProfilePage extends StatefulWidget {
   @override
   _ProfilePageState createState() => _ProfilePageState();
@@ -11,7 +13,6 @@ class _ProfilePageState extends State<ProfilePage> {
   Repository _repository = Repository();
   String dropdownValue = 'Male';
   final myController = TextEditingController();
-  
 
   @override
   void dispose() {
@@ -56,7 +57,11 @@ class _ProfilePageState extends State<ProfilePage> {
                         width: MediaQuery.of(context).size.width,
                         child: TextFormField(
                           // controller: myController,
+
                           initialValue: userInfo.fname,
+                          onChanged: (value) {
+                            userInfo.fname = value;
+                          },
                           style: TextStyle(
                             color: Colors.white,
                           ),
@@ -79,6 +84,9 @@ class _ProfilePageState extends State<ProfilePage> {
                         width: MediaQuery.of(context).size.width,
                         child: TextFormField(
                           initialValue: userInfo.lname,
+                          onChanged: (value) {
+                            userInfo.lname = value;
+                          },
                           style: TextStyle(
                             color: Colors.white,
                           ),
@@ -101,6 +109,9 @@ class _ProfilePageState extends State<ProfilePage> {
                         width: MediaQuery.of(context).size.width,
                         child: TextFormField(
                           initialValue: userInfo.email,
+                          onChanged: (value) {
+                            userInfo.email = value;
+                          },
                           style: TextStyle(
                             color: Colors.white,
                           ),
@@ -123,10 +134,12 @@ class _ProfilePageState extends State<ProfilePage> {
                         width: MediaQuery.of(context).size.width,
                         child: TextFormField(
                           initialValue: userInfo.pass,
+                          onChanged: (value) {
+                            userInfo.pass = value;
+                          },
                           style: TextStyle(
                             color: Colors.white,
                           ),
-                          obscureText: true,
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             labelText: 'Password',
@@ -150,7 +163,6 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                         child: FlatButton(
                           onPressed: () {
-
                             _repository.userProfile();
 
                             // Navigator.push(context,
