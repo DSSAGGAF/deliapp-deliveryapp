@@ -132,3 +132,16 @@ class Accepted_Order(db.Model):
             'driver_id': self.driver_id,
             'complete': self.complete,
         }
+
+    def serialize2(self,userName):
+        return {
+            'order_id': self.order_id,
+            'user_id': self.user_id,
+            'request_title': self.request_title,
+            'request_desc': self.request_desc,
+            'request_from': self.request_from,
+            'request_to': self.request_to,
+            'price': self.price,
+            'username': userName,
+
+        }
