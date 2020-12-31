@@ -9,6 +9,7 @@ from resources.changeMode import ChangeMode
 from resources.UserProfile import UserProfile
 from resources.OtherUserName import OtherUserName
 from resources.MyOrderUser import MyOrderUser
+from resources.MyOrderDriver import MyOrderDriver
 
 # from resources.UserProfile import UserProfile
 
@@ -36,5 +37,7 @@ api.add_resource(UserProfile, '/userProfile')
 api.add_resource(OtherUserName, '/OtherUserName')
 
 api.add_resource(MyOrderUser, '/MyOrderUser')
+
+api.add_resource(MyOrderDriver, '/MyOrderDriver')
 
 
