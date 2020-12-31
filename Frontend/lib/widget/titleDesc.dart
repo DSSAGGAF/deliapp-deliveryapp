@@ -13,15 +13,15 @@ final myController = TextEditingController();
 // }
 
 double _coordinateDistance() {
-  var p = 0.017453292519943295;
-  var c = cos;
-  var a = 0.5 -
-      c((toLatLng.latitude - fromLatLng.latitude) * p) / 2 +
-      c(fromLatLng.latitude * p) *
-          c(toLatLng.latitude * p) *
-          (1 - c((toLatLng.longitude - fromLatLng.longitude) * p)) /
-          2;
-  // return (12742 * asin(sqrt(a))) * 2.5;
+  // var p = 0.017453292519943295;
+  // var c = cos;
+  // var a = 0.5 -
+  //     c((toLatLng.latitude - fromLatLng.latitude) * p) / 2 +
+  //     c(fromLatLng.latitude * p) *
+  //         c(toLatLng.latitude * p) *
+  //         (1 - c((toLatLng.longitude - fromLatLng.longitude) * p)) /
+  //         2;
+  // // return (12742 * asin(sqrt(a))) * 2.5;
   return 5;
 }
 

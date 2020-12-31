@@ -1,4 +1,6 @@
 import 'package:Deli_App/widget/orderList.dart';
+import 'package:Deli_App/widget/orderListAccepted.dart';
+import 'package:Deli_App/widget/orderListAcceptedDriver.dart';
 import 'package:flutter/material.dart';
 import 'package:Deli_App/pages/login.page.dart';
 import 'package:Deli_App/widget/constants.dart';
@@ -107,10 +109,8 @@ class _DriverHomePageState extends State<DriverHomePage>
               child: Column(children: <Widget>[new OrderList()],)
             ),
             Container(
-              child: Center(
-                child: Text("My Order"),
+              child: Column(children: <Widget>[new OrderListAcceptedDriver()],)
               ),
-            ),
           ],
         )
         //body:

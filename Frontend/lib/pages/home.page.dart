@@ -22,6 +22,7 @@ import 'package:Deli_App/widget/postButton.dart';
 // import 'package:Deli_App/network/api.dart';
 import "package:Deli_App/network/repository.dart";
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:Deli_App/widget/orderListAccepted.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -215,10 +216,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               ),
             ),
             Container(
-              child: Center(
-                child: Text("My Order"),
+              child: Column(children: <Widget>[new OrderListAccepted()],)
               ),
-            ),
           ],
         )
         //body:

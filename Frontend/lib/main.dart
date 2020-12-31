@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
          FocusScope.of(context).requestFocus(new FocusNode());
       },
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Home',
         theme: ThemeData(
           primarySwatch: Colors.blue,

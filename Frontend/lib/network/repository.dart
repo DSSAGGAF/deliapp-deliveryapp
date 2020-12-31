@@ -15,22 +15,24 @@ class Repository {
 
   Future getRequstedOrder() => apiProvider.getRequstedOrder();
 
+  Future getAcceptedOrder() => apiProvider.getAcceptedOrder();
+  
+  Future getAcceptedOrderDriver() => apiProvider.getAcceptedOrderDriver();
+
   Future postRequest(int reqPrice, String reqTitle, String reqDesc,
-      String reqFrom, String reqTo) => apiProvider.postRequest(reqPrice, reqTitle, reqDesc,
-     reqFrom, reqTo);
+          String reqFrom, String reqTo) =>
+      apiProvider.postRequest(reqPrice, reqTitle, reqDesc, reqFrom, reqTo);
 
   Future postAccpted(int orderID) => apiProvider.postAccpted(orderID);
-  
-  // Future getOtherUserName(int orderID) => apiProvider.getOtherUserName(orderID);
 
+  // Future getOtherUserName(int orderID) => apiProvider.getOtherUserName(orderID);
 
   // Future getRequstedOrder()
   //   => apiProvider.getRequstedOrder();
 
   // Future<Null> addUserTask(String apiKey, String taskName, String deadline) async {
   //   apiProvider.addUserTask(apiKey, taskName, deadline);
-  Future userProfile()
-    => apiProvider.userProfile();  
+  Future userProfile() => apiProvider.userProfile();
   // }
 
 }

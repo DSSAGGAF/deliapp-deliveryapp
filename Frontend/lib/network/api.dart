@@ -190,20 +190,64 @@ class API {
           print(Exception);
         }
       }
-      // for (Order order in orders) {
-      //   print(order.orderId);
-      //   print(order.userId);
-      //   print(order.requsetTitle);
-      //   print(order.requsetDesc);
-      //   print(order.requsetFrom);
-      //   print(order.requsetTo);
-      //   print(order.price);
-      // }
       return orders;
     } else {
       // If that call was not successful, throw an error.
       throw Exception('Failed to load tasks');
     }
   } //Order
+
+
+  Future<List<Order>> getAcceptedOrder() async {
+    final Response response = await post(
+      'http://10.0.2.2:5000/api/MyOrderUser',
+      headers: <String, String>{
+          'Content-Type': 'application/json;charset=UTF-8'
+        },
+        body: jsonEncode(<String, dynamic>{
+          "user_id": userInfo.id,
+        }));
+    final Map result = json.decode(response.body);
+    if (response.statusCode == 201) {
+      List<Order> orders = [];
+      for (Map json_ in result["data"]) {
+        try {
+          orders.add(Order.fromJson(json_));
+        } catch (Exception) {
+          print(Exception);
+        }
+      }
+      return orders;
+    } else {
+      // If that call was not successful, throw an error.
+      throw Exception('Failed to load tasks');
+    }
+  } //getAcceptedOrder  
+
+    Future<List<Order>> getAcceptedOrderDriver() async {
+    final Response response = await post(
+      'http://10.0.2.2:5000/api/MyOrderDriver',
+      headers: <String, String>{
+          'Content-Type': 'application/json;charset=UTF-8'
+        },
+        body: jsonEncode(<String, dynamic>{
+          "user_id": userInfo.id,
+        }));
+    final Map result = json.decode(response.body);
+    if (response.statusCode == 201) {
+      List<Order> orders = [];
+      for (Map json_ in result["data"]) {
+        try {
+          orders.add(Order.fromJson(json_));
+        } catch (Exception) {
+          print(Exception);
+        }
+      }
+      return orders;
+    } else {
+      // If that call was not successful, throw an error.
+      throw Exception('Failed to load tasks');
+    }
+  } //getAcceptedOrder  
 
 } // API
