@@ -145,3 +145,32 @@ class Accepted_Order(db.Model):
             'username': userName,
 
         }
+
+
+class Notification(db.Model):
+    __tablename__ = 'notification'
+
+    notification_id = db.Column(db.Integer(), primary_key=True)
+    user_id = db.Column(db.Integer(), db.ForeignKey('user.user_id'))
+    order_id = db.Column(db.Integer(), db.ForeignKey('accepted_order.order_id'))
+    notification_content = db.Column(db.String())
+    status = db.Column(db.Boolean, default=False)
+
+
+
+    def __init__(self, user_id, order_id, notification_content):
+        self.user_id = user_id
+        self.order_id = order_id
+        self.notification_content = notification_content
+
+    def __repr__(self):
+        return '<notification_id {}>'.format(self.notification_id), '<status {}>'.format(self.status)
+
+    def serialize(self):
+        return {
+            'notification_id': self.notification_id,
+            'user_id': self.user_id,
+            'order_id': self.order_id,
+            'notification_content': self.notification_content,
+            'status': self.status,
+        }
