@@ -155,13 +155,15 @@ class Notification(db.Model):
     order_id = db.Column(db.Integer(), db.ForeignKey('accepted_order.order_id'))
     notification_content = db.Column(db.String())
     status = db.Column(db.Boolean, default=False)
+    driver_mode = db.Column(db.Boolean)
 
 
 
-    def __init__(self, user_id, order_id, notification_content):
+    def __init__(self, user_id, order_id, notification_content,driver_mode):
         self.user_id = user_id
         self.order_id = order_id
         self.notification_content = notification_content
+        self.driver_mode= driver_mode
 
     def __repr__(self):
         return '<notification_id {}>'.format(self.notification_id), '<status {}>'.format(self.status)
@@ -173,4 +175,5 @@ class Notification(db.Model):
             'order_id': self.order_id,
             'notification_content': self.notification_content,
             'status': self.status,
+            'driver_mode': self.driver_mode,
         }

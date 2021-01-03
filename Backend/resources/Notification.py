@@ -26,6 +26,7 @@ class NotificationAPI(Resource):
             user_id=json_data['user_id'],
             order_id=json_data['order_id'],
             notification_content=json_data['notification_content'],
+            driver_mode = user.driver_mode
         )
         db.session.add(notification)
         db.session.commit()
