@@ -23,6 +23,7 @@ import 'package:Deli_App/widget/postButton.dart';
 import "package:Deli_App/network/repository.dart";
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:Deli_App/widget/orderListAccepted.dart';
+import 'package:Deli_App/model/notification.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -35,9 +36,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   bool _serviceEnabled;
   PermissionStatus _permissionGranted;
   LocationData _locationData;
-  String userID="";
+  String userID = "";
   Repository _repository = Repository();
-
+  var notifications = <Notification1>[];
+  Future<Null> _updateNotification() async {
+    notifications = await _repository.getNotification();
+  }
 
   Future getUserID() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -86,8 +90,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-
     var newAdd;
+    _updateNotification();
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -116,7 +120,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     content: "",
                     yesOnPressed: () {
                       // userID = await getUserID();
-                      // _repository.changemode(true);
+                      _repository.changemode(true);
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -125,6 +129,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     },
                     noOnPressed: () {
                       Navigator.pop(context);
+                      _repository.getNotification();
                     },
                     yes: "Yes",
                     no: "No!");
@@ -153,9 +158,43 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           controller: _tabController,
           children: <Widget>[
             Container(
-              child: Center(
-                child: Text("Notification"),
-              ),
+              child: ListView.separated(
+                  itemBuilder: (context, i) {
+                    final notification = notifications[i];
+                    return ListTile(
+                      onTap: () async {
+                        _repository
+                            .changeStatus(notifications[i].notificationId);
+                        notifications[i].status = true;
+                        // await notificationRepo.update(notification);
+
+                        // if (notification.type ==
+                        //     NotificationType.UserNotification) {
+                        //   Navigator.of(context).push(
+                        //       MaterialPageRoute(builder: (_) => OrdersPage()));
+                        // } else {
+                        //   Navigator.of(context).push(MaterialPageRoute(
+                        //       builder: (_) => PartnerOrdersPage()));
+                        // }
+                      },
+                      leading: Icon(Icons.notifications),
+                      title: Text(
+                        notifications[i].notificationContent,
+                        style: TextStyle(
+                            color: notifications[i].status == false
+                                ? Colors.black
+                                : Colors.grey),
+                      ),
+                      // subtitle: Text("ff"),
+                    );
+                    // Align(
+                    //           alignment: Alignment.centerRight,
+                    //           child: Text(
+                    //               "${Constants.dateformat1.format(notification.timeStamp)}",
+                    //               style: TextStyle(fontSize: 10))),
+                  },
+                  separatorBuilder: (c, i) => Divider(),
+                  itemCount: notifications.length),
             ),
             Container(
               child: ListView(
@@ -216,8 +255,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               ),
             ),
             Container(
-              child: Column(children: <Widget>[new OrderListAccepted()],)
-              ),
+                child: Column(
+              children: <Widget>[new OrderListAccepted()],
+            )),
           ],
         )
         //body:

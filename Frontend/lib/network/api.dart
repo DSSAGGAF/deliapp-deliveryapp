@@ -4,6 +4,7 @@ import 'package:http/http.dart' show Client;
 import 'package:http/http.dart';
 import "package:Deli_App/model/addUser.dart";
 import "package:Deli_App/model/orders.dart";
+import "package:Deli_App/model/notification.dart";
 import 'package:shared_preferences/shared_preferences.dart';
 
 User userInfo;
@@ -26,7 +27,7 @@ class API {
         }));
     if (response.statusCode == 201) {
       //print(response.body);
-      return User.fromJson(json.decode(response.body));
+      // return User.fromJson(json.decode(response.body));
     } else {
       ///print('Error');
       throw Exception("Can't load author");
@@ -48,7 +49,7 @@ class API {
         }));
     if (response.statusCode == 201) {
       //print(response.body);
-      return User.fromJson(json.decode(response.body));
+      // return User.fromJson(json.decode(response.body));
     } else {
       ///print('Error');
       throw Exception("Can't load author");
@@ -72,7 +73,7 @@ class API {
         }));
     if (response.statusCode == 201) {
       //print(response.body);
-      return User.fromJson(json.decode(response.body));
+      // return User.fromJson(json.decode(response.body));
     } else {
       ///print('Error');
       throw Exception("Can't load author");
@@ -126,7 +127,7 @@ class API {
         }));
     if (response.statusCode == 201) {
       //print(response.body);
-      return User.fromJson(json.decode(response.body));
+      // return User.fromJson(json.decode(response.body));
     } else {
       ///print('Error');
       throw Exception("Can't load author");
@@ -145,7 +146,7 @@ class API {
         }));
     if (response.statusCode == 201) {
       //print(response.body);
-      return User.fromJson(json.decode(response.body));
+      // return User.fromJson(json.decode(response.body));
     } else {
       ///print('Error');
       throw Exception("Can't load author");
@@ -197,11 +198,9 @@ class API {
     }
   } //Order
 
-
   Future<List<Order>> getAcceptedOrder() async {
-    final Response response = await post(
-      'http://10.0.2.2:5000/api/MyOrderUser',
-      headers: <String, String>{
+    final Response response = await post('http://10.0.2.2:5000/api/MyOrderUser',
+        headers: <String, String>{
           'Content-Type': 'application/json;charset=UTF-8'
         },
         body: jsonEncode(<String, dynamic>{
@@ -222,12 +221,12 @@ class API {
       // If that call was not successful, throw an error.
       throw Exception('Failed to load tasks');
     }
-  } //getAcceptedOrder  
+  } //getAcceptedOrder
 
-    Future<List<Order>> getAcceptedOrderDriver() async {
+  Future<List<Order>> getAcceptedOrderDriver() async {
     final Response response = await post(
-      'http://10.0.2.2:5000/api/MyOrderDriver',
-      headers: <String, String>{
+        'http://10.0.2.2:5000/api/MyOrderDriver',
+        headers: <String, String>{
           'Content-Type': 'application/json;charset=UTF-8'
         },
         body: jsonEncode(<String, dynamic>{
@@ -248,6 +247,69 @@ class API {
       // If that call was not successful, throw an error.
       throw Exception('Failed to load tasks');
     }
-  } //getAcceptedOrder  
+  } //getAcceptedOrder
+
+  Future<Notification1> postNotification(
+      int userID, int orderID, String notificationContent) async {
+    final Response response = await post(
+        'http://10.0.2.2:5000/api/notification',
+        headers: <String, String>{
+          'Content-Type': 'application/json;charset=UTF-8'
+        },
+        body: jsonEncode(<String, dynamic>{
+          "user_id": userID,
+          "order_id": orderID,
+          "notification_content": notificationContent,
+        }));
+    if (response.statusCode == 201) {
+      // print(response.body);
+      // return Notification.fromJson(result["data"]);
+    } else {
+      ///print('Error');
+      throw Exception("Can't load author");
+    }
+  } //postNotification
+
+  Future<List<Notification1>> getNotification() async {
+    final Response response = await get(
+      'http://10.0.2.2:5000/api/notification?user_id=${userInfo.id}',
+      headers: <String, String>{
+        'Content-Type': 'application/json;charset=UTF-8'
+      },
+    );
+    final Map result = json.decode(response.body);
+    if (response.statusCode == 201) {
+      List<Notification1> notification = [];
+      for (Map json_ in result["data"]) {
+        try {
+          notification.add(Notification1.fromJson(json_));
+        } catch (Exception) {
+          print(Exception);
+        }
+      }
+      print(notification[1].notificationId);
+      return notification;
+    } else {
+      // If that call was not successful, throw an error.
+      throw Exception('Failed to load tasks');
+    }
+  } //getNotification()
+
+    Future<Notification1> changeStatus(int notiID) async {
+    final Response response = await post('http://10.0.2.2:5000/api/NotificationSeen',
+        headers: <String, String>{
+          'Content-Type': 'application/json;charset=UTF-8'
+        },
+        body: jsonEncode(<String, dynamic>{
+          "notification_id": notiID,
+        }));
+    if (response.statusCode == 201) {
+      //print(response.body);
+      // return User.fromJson(json.decode(response.body));
+    } else {
+      ///print('Error');
+      throw Exception("Can't load author");
+    }
+  }
 
 } // API

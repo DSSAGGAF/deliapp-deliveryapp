@@ -12,6 +12,8 @@ class Repository {
       apiProvider.loginUser(username, password);
 
   Future changemode(bool username) => apiProvider.changemode(username);
+  
+  Future changeStatus(int notiID) => apiProvider.changeStatus(notiID);
 
   Future getRequstedOrder() => apiProvider.getRequstedOrder();
 
@@ -24,6 +26,8 @@ class Repository {
       apiProvider.postRequest(reqPrice, reqTitle, reqDesc, reqFrom, reqTo);
 
   Future postAccpted(int orderID) => apiProvider.postAccpted(orderID);
+  
+  Future postNotification(int userID, int orderID, String notificationContent) => apiProvider.postNotification(userID, orderID, notificationContent);
 
   // Future getOtherUserName(int orderID) => apiProvider.getOtherUserName(orderID);
 
@@ -33,6 +37,9 @@ class Repository {
   // Future<Null> addUserTask(String apiKey, String taskName, String deadline) async {
   //   apiProvider.addUserTask(apiKey, taskName, deadline);
   Future userProfile() => apiProvider.userProfile();
+  
+  
+  Future getNotification() => apiProvider.getNotification();
   // }
 
 }

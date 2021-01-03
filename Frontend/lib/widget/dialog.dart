@@ -4,6 +4,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:geocoder/geocoder.dart';
 import 'package:geocoder/services/base.dart';
 import "package:Deli_App/network/repository.dart";
+import "package:Deli_App/network/api.dart";
 
 String coor;
 Repository _repository = Repository();
@@ -24,7 +25,7 @@ class Constants {
 
 class CustomDialogBox extends StatefulWidget {
   final String title, descriptions, text, price, orderFrom, orderTo;
-  final int orderID;
+  final int orderID, userID;
   // final Image img;
 
   const CustomDialogBox(
@@ -35,6 +36,7 @@ class CustomDialogBox extends StatefulWidget {
       this.orderFrom,
       this.orderTo,
       this.orderID,
+      this.userID,
       this.price})
       : super(key: key);
 
@@ -128,6 +130,17 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
                 child: FlatButton(
                     onPressed: () {
                       _repository.postAccpted(widget.orderID);
+                      _repository.postNotification(
+                          userInfo.id,
+                          widget.orderID,
+                          "You have accepted order number " +
+                              widget.orderID.toString());
+                      _repository.postNotification(
+                          widget.userID,
+                          widget.orderID,
+                          "Your order number " +
+                              widget.orderID.toString() +
+                              "have been accepted");
                       Navigator.of(context).pop();
                     },
                     child: Text(
