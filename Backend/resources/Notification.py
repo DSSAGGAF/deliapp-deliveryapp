@@ -34,3 +34,19 @@ class NotificationAPI(Resource):
         result = Notification.serialize(notification)
 
         return {"status": 'success', 'data': result}, 201
+
+    def get(self):
+        argus = request.args
+        if not argus:
+            return {'message': 'No input data provided'}, 400
+        user =  User.query.filter_by(user_id=argus['user_id']).first()
+        if not user:
+            return {'message': 'Username does not exist'}, 400   
+
+        notification = Notification.query.filter_by(user_id=argus['user_id'],driver_mode = user.driver_mode).all()
+        notification_list = []
+        for i in range(0, len(notification)):
+            notification_list.append(notification[i].serialize())
+
+        return {'data':notification_list}, 201
+        
