@@ -11,6 +11,7 @@ from resources.OtherUserName import OtherUserName
 from resources.MyOrderUser import MyOrderUser
 from resources.MyOrderDriver import MyOrderDriver
 from resources.Notification import NotificationAPI
+from resources.NotificationSeen import NotificationSeen
 
 # from resources.UserProfile import UserProfile
 
@@ -42,5 +43,7 @@ api.add_resource(MyOrderUser, '/myOrderUser')
 api.add_resource(MyOrderDriver, '/myOrderDriver')
 
 api.add_resource(NotificationAPI, '/notification')
+
+api.add_resource(NotificationSeen, '/NotificationSeen')
 
 
