@@ -139,7 +139,7 @@ class _GooMapState extends State<GooMap> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Studying Maps - Zeh'),
+          title: Text('From'),
           centerTitle: true,
           backgroundColor: Colors.grey[900],
         ),

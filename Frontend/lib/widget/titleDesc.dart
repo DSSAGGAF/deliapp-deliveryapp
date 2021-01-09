@@ -7,7 +7,6 @@ import 'package:intl/intl.dart';
 
 var f = new NumberFormat("###");
 String textHolder = '0 RM';
-final myController = TextEditingController();
 // setState() {
 //   textHolder = _coordinateDistance().toString() + " RM";
 // }
@@ -25,14 +24,6 @@ double _coordinateDistance() {
   return 5;
 }
 
-@override
-void dispose() {
-  // Clean up the controller when the widget is removed from the
-  // widget tree.
-  myController.dispose();
-  // super.dispose();
-}
-
 class TitleDesc extends StatefulWidget {
   @override
   _TitleDescState createState() => _TitleDescState();
@@ -43,13 +34,17 @@ class AlwaysDisabledFocusNode extends FocusNode {
   bool get hasFocus => false;
 }
 
+final titleController = TextEditingController();
+final descriptionController = TextEditingController();
+final priceController = TextEditingController();
+
 class _TitleDescState extends State<TitleDesc> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 40.0, right: 40.0),
+      padding: const EdgeInsets.only(),
       child: Container(
-        height: 500,
+        height: 300,
         width: 100,
         child: Column(
           children: <Widget>[
@@ -57,31 +52,48 @@ class _TitleDescState extends State<TitleDesc> {
               height: 10,
             ),
             Center(
-              child: Text(
-                'Title',
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.black,
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: TextFormField(
+                  controller: titleController,
+                  decoration: new InputDecoration(
+                    icon: new Icon(Icons.title),
+                    labelText: 'Add title',
+                    enabledBorder: const OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                      borderSide: const BorderSide(
+                        color: Colors.grey,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      borderSide: BorderSide(color: Colors.blue),
+                    ),
+                  ),
                 ),
               ),
-            ),
-            TextField(
-              keyboardType: TextInputType.multiline,
-              maxLines: 1,
             ),
             Center(
-              child: Text(
-                'Description',
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.black,
-                  height: 2,
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: TextFormField(
+                  controller: descriptionController,
+                  decoration: new InputDecoration(
+                    icon: new Icon(Icons.description),
+                    labelText: 'Add Description',
+                    enabledBorder: const OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                      borderSide: const BorderSide(
+                        color: Colors.grey,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      borderSide: BorderSide(color: Colors.blue),
+                    ),
+                  ),
                 ),
               ),
-            ),
-            TextField(
-              keyboardType: TextInputType.multiline,
-              maxLines: 3,
             ),
             Center(
               child: Text(
@@ -93,13 +105,18 @@ class _TitleDescState extends State<TitleDesc> {
                 ),
               ),
             ),
-            TextFormField(
-              enableInteractiveSelection: false, // will disable paste operation
-              focusNode: new AlwaysDisabledFocusNode(),
-              textAlignVertical: TextAlignVertical.center,
-              keyboardType: TextInputType.multiline,
-              initialValue: f.format(_coordinateDistance()).toString() + ' RM',
-              maxLines: 1,
+            Padding(
+              padding: const EdgeInsets.only(left: 40.0, right: 40.0),
+              child: TextFormField(
+                enableInteractiveSelection:
+                    false, // will disable paste operation
+                focusNode: new AlwaysDisabledFocusNode(),
+                textAlignVertical: TextAlignVertical.center,
+                keyboardType: TextInputType.multiline,
+                initialValue:
+                    f.format(_coordinateDistance()).toString() + ' RM',
+                maxLines: 1,
+              ),
             ),
           ],
         ),
@@ -107,3 +124,5 @@ class _TitleDescState extends State<TitleDesc> {
     );
   }
 }
+
+double priceText = _coordinateDistance();

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import "package:Deli_App/network/repository.dart";
+import 'package:Deli_App/widget/titleDesc.dart';
+import 'package:Deli_App/widget/map.dart';
+import 'package:Deli_App/widget/mapTo.dart';
 
 class PostButton extends StatefulWidget {
   @override
@@ -17,7 +20,7 @@ class _PostButtonState extends State<PostButton> {
         child: RaisedButton(
           onPressed: () {
             _repository.postRequest(
-                5, "reqTitle", "reqDesc", "reqFrom", "reqTo");
+                priceText.round(), titleController.text, descriptionController.text, addressData.addressLine, addressData2.addressLine);
           },
           child: const Text('Post', style: TextStyle(fontSize: 20)),
           color: Colors.blue,
