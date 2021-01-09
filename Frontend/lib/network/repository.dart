@@ -1,12 +1,11 @@
 import 'dart:async';
 import 'api.dart';
-import 'package:Deli_App/model/adduser.dart';
 
 class Repository {
   final apiProvider = API();
 
-  // Future<User> registerUser(String username, String firstname, String lastname, String password, String email)
-  //   => apiProvider.registerUser(username, firstname, lastname, password, email);
+  Future createUser(String username, String firstname, String lastname, String password, String email, String gender)
+    => apiProvider.createUser(username, firstname, lastname, password, email,gender);
 
   Future signinUser(String username, String password) =>
       apiProvider.loginUser(username, password);

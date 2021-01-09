@@ -39,16 +39,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   String userID = "";
   Repository _repository = Repository();
   var notifications = <Notification1>[];
-  Future<Null> _updateNotification() async {
-    notifications = await _repository.getNotification();
-  }
 
-  Future getUserID() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return await prefs.getString("user_id");
-  }
 
-  @override
+
   void initState() {
     super.initState();
     _checkLocationPermission();
@@ -90,8 +83,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    var newAdd;
-    _updateNotification();
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -155,10 +146,16 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           textStyle: TextStyle(color: Colors.red),
         ),
         body: MotionTabBarView(
+          
           controller: _tabController,
           children: <Widget>[
             Container(
+              child: ListView(
+                children: <Widget>[
+                  Container(
+                    
               child: ListView.separated(
+
                   itemBuilder: (context, i) {
                     final notification = notifications[i];
                     return ListTile(
@@ -195,6 +192,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   },
                   separatorBuilder: (c, i) => Divider(),
                   itemCount: notifications.length),
+                
+                
+                )
+                ]
+                ),
             ),
             Container(
               child: ListView(

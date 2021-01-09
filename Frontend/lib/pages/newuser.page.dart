@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-// import 'package:Deli_App/widget/buttonNewUser.dart';
-import "package:Deli_App/network/api.dart";
 import 'package:Deli_App/widget/singup.dart';
-// import 'package:Deli_App/widget/textNew.dart';
 import 'package:Deli_App/widget/userOld.dart';
+import "package:Deli_App/network/repository.dart";
 
 class NewUser extends StatefulWidget {
   @override
@@ -11,6 +9,7 @@ class NewUser extends StatefulWidget {
 }
 
 class _NewUserState extends State<NewUser> {
+  Repository _repository = Repository();
   String dropdownValue = 'Male';
   final nameController = TextEditingController();
   final fnameController = TextEditingController();
@@ -192,13 +191,20 @@ class _NewUserState extends State<NewUser> {
                     child: FlatButton(
                       onPressed: () {
                         Navigator.pop(context);
-                        API.createUser(
+                        _repository.createUser(
                             nameController.text,
-                            nPassword.text,
-                            nEmail.text,
                             fnameController.text,
                             lnameController.text,
+                            nPassword.text,
+                            nEmail.text,
                             dropdownValue);
+                        //   API.createUser(
+                        //       nameController.text,
+                        //       nPassword.text,
+                        //       nEmail.text,
+                        //       fnameController.text,
+                        //       lnameController.text,
+                        //       dropdownValue);
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,

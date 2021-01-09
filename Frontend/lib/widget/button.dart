@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:Deli_App/pages/home.page.dart';
 import "package:Deli_App/network/repository.dart";
+import "package:Deli_App/widget/inputEmail.dart";
+import "package:Deli_App/widget/password.dart";
 
 class ButtonLogin extends StatefulWidget {
   @override
@@ -35,7 +37,8 @@ class _ButtonLoginState extends State<ButtonLogin> {
         ),
         child: FlatButton(
           onPressed: () {
-            _repository.signinUser("uuu", "aaa");
+            _repository.signinUser("AbuDa7m", "123");
+            // _repository.signinUser(usernameText.text, passwordText.text);
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => HomePage()));
           },

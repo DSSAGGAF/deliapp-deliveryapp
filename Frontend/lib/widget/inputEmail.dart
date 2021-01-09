@@ -4,6 +4,7 @@ class InputEmail extends StatefulWidget {
   @override
   _InputEmailState createState() => _InputEmailState();
 }
+TextEditingController usernameText = new TextEditingController();
 
 class _InputEmailState extends State<InputEmail> {
   @override
@@ -14,6 +15,7 @@ class _InputEmailState extends State<InputEmail> {
         height: 60,
         width: MediaQuery.of(context).size.width,
         child: TextField(
+          controller:usernameText,
           style: TextStyle(
             color: Colors.white,
           ),

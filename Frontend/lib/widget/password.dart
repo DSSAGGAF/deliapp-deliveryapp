@@ -4,6 +4,7 @@ class PasswordInput extends StatefulWidget {
   @override
   _PasswordInputState createState() => _PasswordInputState();
 }
+TextEditingController passwordText = new TextEditingController();
 
 class _PasswordInputState extends State<PasswordInput> {
   @override
@@ -14,6 +15,7 @@ class _PasswordInputState extends State<PasswordInput> {
         height: 60,
         width: MediaQuery.of(context).size.width,
         child: TextField(
+          controller:passwordText,
           style: TextStyle(
             color: Colors.white,
           ),

@@ -13,6 +13,7 @@ class Login(Resource):
         if not json_data:
             return {'message': 'No input data provided'}, 400
 
+        
         user = User.query.filter_by(username=json_data['username']).first()
         if not user:
             return {'message': 'Username does not exist'}, 400
@@ -24,15 +25,3 @@ class Login(Resource):
         result = User.serialize(user);      
         return {"status": 'success', 'data': result}, 201
 
-    # def username_and_password_signin(self, json_data):
-    #     if not json_data:
-    #         return {'message': 'No input data provided'}, 400
-
-    #     user = User.query.filter_by(username=json_data['username']).first()
-    #     if not user:
-    #         return {'message': 'Username does not exist'}, 400
-
-    #     if user.password != json_data['password']:
-    #         return {'message': 'Password incorrect'}, 400
-
-    #     return User.serialize(user)
