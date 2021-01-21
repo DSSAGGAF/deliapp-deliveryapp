@@ -11,17 +11,33 @@ class OrderListAccepted extends StatelessWidget {
     orders = await _repository.getAcceptedOrder();
   }
 
+  Stream<int> imgStream = (() async* {
+    await Future<void>.delayed(Duration(seconds: 1));
+    yield 1;
+    await Future<void>.delayed(Duration(seconds: 1));
+  })();
+
   @override
   Widget build(BuildContext context) {
-    _updateOrders();
-    return new Flexible(
-      child: new Container(
-        child: new ListView.builder(
-          itemExtent: 160.0,
-          itemCount: orders.length,
-          itemBuilder: (_, index) => OrderCard(orders[index]),
-        ),
-      ),
-    );
+    StreamBuilder<int> builder = new StreamBuilder(
+        stream: imgStream,
+        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+          if (!snapshot.hasData) {
+            return new Text("data");
+          }
+
+          if (snapshot.connectionState == ConnectionState.done) {
+            _updateOrders();
+            return new Flexible(
+              child: new Container(
+                child: new ListView.builder(
+                  itemExtent: 160.0,
+                  itemCount: orders.length,
+                  itemBuilder: (_, index) => OrderCard(orders[index]),
+                ),
+              ),
+            );
+          }
+        });
   }
 }

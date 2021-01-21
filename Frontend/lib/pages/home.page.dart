@@ -13,8 +13,8 @@ import 'package:Deli_App/widget/map.dart';
 import 'package:Deli_App/widget/mapTo.dart';
 import 'package:location/location.dart';
 // import 'package:Deli_App/widget/textLogin.dart';
-import 'package:Deli_App/widget/textNew.dart';
-import 'package:Deli_App/widget/textTo.dart';
+// import 'package:Deli_App/widget/textNew.dart';
+// import 'package:Deli_App/widget/textTo.dart';
 import 'package:Deli_App/widget/titleDesc.dart';
 import 'package:Deli_App/widget/postButton.dart';
 // import 'package:Deli_App/widget/orderPrice.dart';
@@ -23,6 +23,7 @@ import 'package:Deli_App/widget/postButton.dart';
 import "package:Deli_App/network/repository.dart";
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:Deli_App/widget/orderListAccepted.dart';
+import 'package:Deli_App/widget/notificationList.dart';
 import 'package:Deli_App/model/notification.dart';
 
 class HomePage extends StatefulWidget {
@@ -39,9 +40,16 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   String userID = "";
   Repository _repository = Repository();
   var notifications = <Notification1>[];
+  // Future<Null> _updateNotification() async {
+  //   notifications = await _repository.getNotification();
+  // }
 
+  Future getUserID() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return await prefs.getString("user_id");
+  }
 
-
+  @override
   void initState() {
     super.initState();
     _checkLocationPermission();
@@ -83,6 +91,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    var newAdd;
+    // _updateNotification();
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -146,71 +156,19 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           textStyle: TextStyle(color: Colors.red),
         ),
         body: MotionTabBarView(
-          
           controller: _tabController,
           children: <Widget>[
             Container(
-              child: ListView(
-                children: <Widget>[
-                  Container(
-                    
-              child: ListView.separated(
-
-                  itemBuilder: (context, i) {
-                    final notification = notifications[i];
-                    return ListTile(
-                      onTap: () async {
-                        _repository
-                            .changeStatus(notifications[i].notificationId);
-                        notifications[i].status = true;
-                        // await notificationRepo.update(notification);
-
-                        // if (notification.type ==
-                        //     NotificationType.UserNotification) {
-                        //   Navigator.of(context).push(
-                        //       MaterialPageRoute(builder: (_) => OrdersPage()));
-                        // } else {
-                        //   Navigator.of(context).push(MaterialPageRoute(
-                        //       builder: (_) => PartnerOrdersPage()));
-                        // }
-                      },
-                      leading: Icon(Icons.notifications),
-                      title: Text(
-                        notifications[i].notificationContent,
-                        style: TextStyle(
-                            color: notifications[i].status == false
-                                ? Colors.black
-                                : Colors.grey),
-                      ),
-                      // subtitle: Text("ff"),
-                    );
-                    // Align(
-                    //           alignment: Alignment.centerRight,
-                    //           child: Text(
-                    //               "${Constants.dateformat1.format(notification.timeStamp)}",
-                    //               style: TextStyle(fontSize: 10))),
-                  },
-                  separatorBuilder: (c, i) => Divider(),
-                  itemCount: notifications.length),
-                
-                
-                )
-                ]
-                ),
+              child: NotificationList(),
             ),
             Container(
               child: ListView(
                 children: <Widget>[
                   Container(
-                    child: Center(
-                      child: FlatButton(
-                        color: Colors.blue,
-                        textColor: Colors.white,
-                        disabledColor: Colors.grey,
-                        disabledTextColor: Colors.black,
-                        padding: EdgeInsets.all(9.0),
-                        splashColor: Colors.blueAccent,
-                        onPressed: () => _locationData != null
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: TextFormField(
+                        onTap: () => _locationData != null
                             ? Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -218,39 +176,70 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                           location: _locationData,
                                         )))
                             : null,
-                        child: Text(
-                          "From",
-                          style: TextStyle(fontSize: 20.0),
+                        showCursor: true,
+                        readOnly: true,
+                        focusNode: FocusNode(),
+                        enableInteractiveSelection: false,
+                        decoration: new InputDecoration(
+                          icon: new Icon(Icons.location_searching),
+                          labelText: addressData == null
+                              ? 'Click to add a start location'
+                              : addressData.addressLine.toString(),
+                          enabledBorder: const OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(20.0)),
+                            borderSide: const BorderSide(
+                              color: Colors.grey,
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0)),
+                            borderSide: BorderSide(color: Colors.blue),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                  TextNew(),
                   Container(
                     child: Center(
-                      child: FlatButton(
-                        color: Colors.blue,
-                        textColor: Colors.white,
-                        disabledColor: Colors.grey,
-                        disabledTextColor: Colors.black,
-                        padding: EdgeInsets.all(9.0),
-                        splashColor: Colors.blueAccent,
-                        onPressed: () => _locationData != null
-                            ? Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => GooMapTo(
-                                          location: _locationData,
-                                        )))
-                            : null,
-                        child: Text(
-                          "To",
-                          style: TextStyle(fontSize: 20.0),
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: TextFormField(
+                          onTap: () => _locationData != null
+                              ? Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => GooMapTo(
+                                            location: _locationData,
+                                          )))
+                              : null,
+                          showCursor: true,
+                          readOnly: true,
+                          focusNode: FocusNode(),
+                          enableInteractiveSelection: false,
+                          decoration: new InputDecoration(
+                            icon: new Icon(Icons.add_location),
+                            labelText: addressData2 == null
+                                ? 'Click to add a destination'
+                                : addressData2.addressLine.toString(),
+                            enabledBorder: const OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20.0)),
+                              borderSide: const BorderSide(
+                                color: Colors.grey,
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10.0)),
+                              borderSide: BorderSide(color: Colors.blue),
+                            ),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                  TextTo(),
                   TitleDesc(),
                   PostButton(),
                 ],
