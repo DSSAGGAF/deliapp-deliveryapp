@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:Deli_App/model/orders.dart';
+import 'package:Deli_App/pages/driverAcceptedOrder.dart';
 import 'package:Deli_App/widget/dialog.dart';
 import "package:Deli_App/network/repository.dart";
-
 
 class OrderCard extends StatelessWidget {
   dynamic orderCard;
   final Order order;
   OrderCard(this.order);
   Repository _repository = Repository();
-  
 
   @override
   Widget build(BuildContext context) {
@@ -51,23 +50,22 @@ class OrderCard extends StatelessWidget {
             SizedBox(
               height: 12,
             ),
-            new FittedBox(child: Text(
-                order.requsetTitle +
-                    " - " +
-                    order.price.toString() +
-                    "RM",
+            new FittedBox(
+              child: Text(
+                order.requsetTitle + " - " + order.price.toString() + "RM",
                 style: TextStyle(
                     decoration: TextDecoration.none,
                     color: Colors.white,
                     fontFamily: 'Poppins',
                     // fontWeight: FontWeight.w600,
-                    fontSize: 25.0),),),
+                    fontSize: 25.0),
+              ),
+            ),
           ],
         ),
       ),
     );
     return new Container(
- 
       // height: 120.0,
       margin: const EdgeInsets.only(top: 18),
       child: new FlatButton(
@@ -82,10 +80,17 @@ class OrderCard extends StatelessWidget {
                   orderTo: "To - " + order.requsetTo,
                   price: "Price - " + order.price.toString() + "RM",
                   text: "Accept",
-                  orderID: order.orderId,                  
+                  orderID: order.orderId,
                   userID: order.userId,
                 );
               });
+          // acceptedName = order.requsetTitle;
+          // acceptedDescription = order.requsetDesc;
+          // acceptedFrom = order.requsetFrom;
+          // acceptedTo = order.requsetTo;
+          // acceptedPrice = order.price.toString() + "RM";
+          // Navigator.push(context,
+          //     MaterialPageRoute(builder: (context) => DriverAcceptedOrder()));
         },
         child: new Stack(
           children: <Widget>[

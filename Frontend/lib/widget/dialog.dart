@@ -1,4 +1,5 @@
 import 'package:Deli_App/widget/orderList.dart';
+import 'package:Deli_App/pages/DriverAcceptedOrder.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:geocoder/geocoder.dart';
@@ -127,7 +128,7 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
               ),
               Align(
                 alignment: Alignment.bottomRight,
-                child: FlatButton(
+                child: TextButton(
                     onPressed: () {
                       _repository.postAccpted(widget.orderID);
                       _repository.postNotification(
@@ -141,7 +142,15 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
                           "Your order number " +
                               widget.orderID.toString() +
                               "have been accepted");
-                      Navigator.of(context).pop();
+                      acceptedName = widget.title;
+                      acceptedDescription = widget.descriptions;
+                      acceptedFrom = widget.orderFrom;
+                      acceptedTo = widget.orderTo;
+                      acceptedPrice = widget.price;
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => DriverAcceptedOrder()));
                     },
                     child: Text(
                       widget.text,
@@ -157,11 +166,6 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
           child: CircleAvatar(
             backgroundColor: Colors.transparent,
             radius: Constants.avatarRadius,
-            // child: ClipRRect(
-            //   // borderRadius:
-            //   //     BorderRadius.all(Radius.circular(Constants.avatarRadius)),
-            //   // child: Image.asset("assets/model.jpeg")
-            // ),
           ),
         ),
       ],
