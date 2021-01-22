@@ -25,6 +25,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:Deli_App/widget/orderListAccepted.dart';
 import 'package:Deli_App/widget/notificationList.dart';
 import 'package:Deli_App/model/notification.dart';
+import 'package:Deli_App/network/api.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -39,10 +40,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   LocationData _locationData;
   String userID = "";
   Repository _repository = Repository();
-  var notifications = <Notification1>[];
-  // Future<Null> _updateNotification() async {
-  //   notifications = await _repository.getNotification();
-  // }
 
   Future getUserID() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();

@@ -15,7 +15,7 @@ class MyOrderUser(Resource):
             return {'message': 'User ID not available'}, 400
 
 
-        orders = Accepted_Order.query.filter_by(user_id=json_data['user_id'] , complete=True ).all()
+        orders = Accepted_Order.query.filter_by(user_id=json_data['user_id'] ).all()
         order_list = []
 
         for i in range(0, len(orders)):

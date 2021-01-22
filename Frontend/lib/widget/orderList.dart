@@ -12,6 +12,7 @@ StreamController<List<Order>> contraller = StreamController();
 class OrderList extends StatelessWidget {
   Repository _repository = Repository();
   Future<Null> _updateOrders() async {
+    
     orders = await _repository.getRequstedOrder();
   }
 
@@ -66,15 +67,5 @@ class OrderList extends StatelessWidget {
 
       // access the data in our Stream here
     );
-    // _updateOrders();
-    // return new Flexible(
-    //   child: new Container(
-    //     child: new ListView.builder(
-    //       itemExtent: 160.0,
-    //       itemCount: orders.length,
-    //       itemBuilder: (_, index) => OrderCard(orders[index]),
-    //     ),
-    //   ),
-    // );
   }
 }

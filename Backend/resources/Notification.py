@@ -46,7 +46,7 @@ class NotificationAPI(Resource):
         notification = Notification.query.filter_by(user_id=argus['user_id'],driver_mode = user.driver_mode).all()
         notification_list = []
         for i in range(0, len(notification)):
-            notification_list.append(notification[i].serialize())
+            notification_list.append(notification[len(notification)-i-1].serialize())
 
         return {'data':notification_list}, 201
         

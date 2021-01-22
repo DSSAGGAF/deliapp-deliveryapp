@@ -143,6 +143,7 @@ class Accepted_Order(db.Model):
             'request_to': self.request_to,
             'price': self.price,
             'username': userName,
+            'complete': self.complete,
 
         }
 

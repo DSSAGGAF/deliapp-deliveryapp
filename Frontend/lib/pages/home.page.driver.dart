@@ -13,6 +13,9 @@ import 'package:Deli_App/widget/TEST/MotionTabController.dart';
 import 'package:Deli_App/widget/TEST/motiontabbar.dart';
 import "package:Deli_App/network/repository.dart";
 import 'package:Deli_App/model/notification.dart';
+import 'package:Deli_App/network/api.dart';
+import 'package:Deli_App/widget/notificationList.dart';
+
 
 class DriverHomePage extends StatefulWidget {
   @override
@@ -24,15 +27,7 @@ class _DriverHomePageState extends State<DriverHomePage>
   MotionTabController _tabController;
   Repository _repository = Repository();
   var notifications = <Notification1>[];
-  Future<Null> _updateNotification() async {
-    notifications = await _repository.getNotification();
-  }
-
-  void _onRefresh() async {
-    // monitor network fetch
-    await Future.delayed(Duration(milliseconds: 1000));
-    // if failed,use refreshFailed()
-  }
+ 
 
   @override
   void initState() {
@@ -48,7 +43,6 @@ class _DriverHomePageState extends State<DriverHomePage>
 
   @override
   Widget build(BuildContext context) {
-    _updateNotification();
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -116,53 +110,20 @@ class _DriverHomePageState extends State<DriverHomePage>
           controller: _tabController,
           children: <Widget>[
             Container(
-              child: Center(
-                child: ListView.separated(
-                    itemBuilder: (context, i) {
-                      final notification = notifications[i];
-                      return ListTile(
-                        onTap: () async {
-                          // notification.status = NotificationStatus.Seen;
-                          // await notificationRepo.update(notification);
-
-                          // if (notification.type ==
-                          //     NotificationType.UserNotification) {
-                          //   Navigator.of(context).push(
-                          //       MaterialPageRoute(builder: (_) => OrdersPage()));
-                          // } else {
-                          //   Navigator.of(context).push(MaterialPageRoute(
-                          //       builder: (_) => PartnerOrdersPage()));
-                          // }
-                        },
-                        leading: Icon(Icons.notifications),
-                        title: Text(
-                          notifications[i].notificationContent,
-                          style: TextStyle(
-                              color: 1 == 2 ? Colors.black : Colors.grey),
-                        ),
-                        // subtitle: Text("ff"),
-                      );
-                      // Align(
-                      //           alignment: Alignment.centerRight,
-                      //           child: Text(
-                      //               "${Constants.dateformat1.format(notification.timeStamp)}",
-                      //               style: TextStyle(fontSize: 10))),
-                    },
-                    separatorBuilder: (c, i) => Divider(),
-                    itemCount: notifications.length),
-              ),
+              child: NotificationList(),
             ),
             GestureDetector(
-                onTap: () => setState(() {
-                      OrderList().getOrders();
-                    }),
-                child:OrderList().build(context),
-
-                ),
-            Container(
-                child: Column(
-              children: <Widget>[new OrderListAcceptedDriver()],
-            )),
+              onTap: () => setState(() {
+                OrderList().getOrders();
+              }),
+              child: OrderList().build(context),
+            ),
+            GestureDetector(
+              onTap: () => setState(() {
+                OrderListAcceptedDriver().getOrders();
+              }),
+              child: OrderListAcceptedDriver().build(context),
+            ),
           ],
         )
         //body:

@@ -2,42 +2,68 @@ import 'package:flutter/material.dart';
 import 'package:Deli_App/model/orders.dart';
 import 'package:Deli_App/widget/orderCard.dart';
 import "package:Deli_App/network/repository.dart";
+import 'package:rxdart/rxdart.dart';
+import 'package:Deli_App/network/api.dart';
+
+
 
 var orders = <Order>[];
 
 class OrderListAccepted extends StatelessWidget {
   Repository _repository = Repository();
   Future<Null> _updateOrders() async {
-    orders = await _repository.getAcceptedOrder();
+    if (userInfo !=null) {
+      orders = await _repository.getAcceptedOrder();
+    }
+    
   }
 
-  Stream<int> imgStream = (() async* {
-    await Future<void>.delayed(Duration(seconds: 1));
-    yield 1;
-    await Future<void>.delayed(Duration(seconds: 1));
-  })();
-
-  @override
+   final _orderSubject = BehaviorSubject<List<Order>>();
+  OrderListAccepted() {
+    _updateOrders().then((_) {
+      _orderSubject.add(orders);
+    });
+  }
+  Stream<List<Order>> getOrders() async* {
+    await _updateOrders().then((_) {
+      _orderSubject.add(orders);
+    });
+  }
+Widget _buildReorderableListSimple(
+      BuildContext context, List<Order> orderList) {
+    return new Flexible(
+      child: new Container(
+        child: new ListView.builder(
+          itemExtent: 160.0,
+          itemCount: orderList.length,
+          itemBuilder: (_, index) => OrderCard(orderList[index]),
+        ),
+      ),
+    );
+  }
+   @override
   Widget build(BuildContext context) {
-    StreamBuilder<int> builder = new StreamBuilder(
-        stream: imgStream,
-        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-          if (!snapshot.hasData) {
-            return new Text("data");
-          }
+    //getOrders();
+    return StreamBuilder<List<Order>>(
+      // Wrap our widget with a StreamBuilder
 
-          if (snapshot.connectionState == ConnectionState.done) {
-            _updateOrders();
-            return new Flexible(
-              child: new Container(
-                child: new ListView.builder(
-                  itemExtent: 160.0,
-                  itemCount: orders.length,
-                  itemBuilder: (_, index) => OrderCard(orders[index]),
-                ),
-              ),
-            );
+      stream: _orderSubject, // pass our Stream getter here
+      initialData: [], // provide an initial data
+      builder: (context, snapshot) {
+        if (snapshot.hasData && snapshot != null) {
+          if (snapshot.data.length > 0) {
+            return _buildReorderableListSimple(context, snapshot.data);
+          } else if (snapshot.data.length == 0) {
+            return Center(child: Text('No Data'));
           }
-        });
+        } else if (snapshot.hasError) {
+          return Container();
+        }
+
+        return CircularProgressIndicator();
+      },
+
+      // access the data in our Stream here
+    );
   }
 }

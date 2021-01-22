@@ -3,35 +3,41 @@ import 'package:Deli_App/model/orders.dart';
 import 'package:Deli_App/widget/orderCard.dart';
 import "package:Deli_App/network/repository.dart";
 import 'package:Deli_App/model/notification.dart';
+import 'package:rxdart/rxdart.dart';
+import 'package:Deli_App/network/api.dart';
+
+
 
 var notifications = <Notification1>[];
 
 class NotificationList extends StatelessWidget {
   Repository _repository = Repository();
   Future<Null> _updateNotification() async {
-    notifications = await _repository.getNotification();
+    if (userInfo != null) {
+      notifications = await _repository.getNotification();
+    }
   }
-
+  
+final _notificationSubject = BehaviorSubject<List<Notification1>>();
+  NotificationList() {
+    _updateNotification().then((_) {
+      _notificationSubject.add(notifications);
+    });
+  }
+  Stream<List<Order>> getOrders() async* {
+    await _updateNotification().then((_) {
+      _notificationSubject.add(notifications);
+    });
+  }
   @override
-  Widget build(BuildContext context) {
-    _updateNotification();
+  Widget _buildReorderableListSimple(BuildContext context) {
     return ListView.separated(
         itemBuilder: (context, i) {
           final notification = notifications[i];
           return ListTile(
             onTap: () async {
-              _repository.changeStatus(notifications[i].notificationId);
               notifications[i].status = true;
-              // await notificationRepo.update(notification);
-
-              // if (notification.type ==
-              //     NotificationType.UserNotification) {
-              //   Navigator.of(context).push(
-              //       MaterialPageRoute(builder: (_) => OrdersPage()));
-              // } else {
-              //   Navigator.of(context).push(MaterialPageRoute(
-              //       builder: (_) => PartnerOrdersPage()));
-              // }
+              _repository.changeStatus(notifications[i].notificationId);
             },
             leading: Icon(Icons.notifications),
             title: Text(
@@ -41,15 +47,34 @@ class NotificationList extends StatelessWidget {
                       ? Colors.black
                       : Colors.grey),
             ),
-            // subtitle: Text("ff"),
           );
-          // Align(
-          //           alignment: Alignment.centerRight,
-          //           child: Text(
-          //               "${Constants.dateformat1.format(notification.timeStamp)}",
-          //               style: TextStyle(fontSize: 10))),
         },
         separatorBuilder: (c, i) => Divider(),
         itemCount: notifications.length);
+  }
+
+  Widget build(BuildContext context) {
+    //getOrders();
+    return StreamBuilder<List<Notification1>>(
+      // Wrap our widget with a StreamBuilder
+
+      stream: _notificationSubject, // pass our Stream getter here
+      initialData: [], // provide an initial data
+      builder: (context, snapshot) {
+        if (snapshot.hasData && snapshot != null) {
+          if (snapshot.data.length > 0) {
+            return _buildReorderableListSimple(context);
+          } else if (snapshot.data.length == 0) {
+            return Center(child: Text('No Data'));
+          }
+        } else if (snapshot.hasError) {
+          return Container();
+        }
+
+        return CircularProgressIndicator();
+      },
+
+      // access the data in our Stream here
+    );
   }
 }
