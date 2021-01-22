@@ -1,3 +1,4 @@
+import 'package:Deli_App/model/orders.dart';
 import 'package:Deli_App/widget/orderList.dart';
 import 'package:Deli_App/widget/orderListAccepted.dart';
 import 'package:Deli_App/widget/orderListAcceptedDriver.dart';
@@ -13,8 +14,6 @@ import 'package:Deli_App/widget/TEST/motiontabbar.dart';
 import "package:Deli_App/network/repository.dart";
 import 'package:Deli_App/model/notification.dart';
 
-
-
 class DriverHomePage extends StatefulWidget {
   @override
   _DriverHomePageState createState() => _DriverHomePageState();
@@ -27,6 +26,12 @@ class _DriverHomePageState extends State<DriverHomePage>
   var notifications = <Notification1>[];
   Future<Null> _updateNotification() async {
     notifications = await _repository.getNotification();
+  }
+
+  void _onRefresh() async {
+    // monitor network fetch
+    await Future.delayed(Duration(milliseconds: 1000));
+    // if failed,use refreshFailed()
   }
 
   @override
@@ -71,7 +76,7 @@ class _DriverHomePageState extends State<DriverHomePage>
                     title: "Do you want to sewitch to a regluer user?",
                     content: "",
                     yesOnPressed: () {
-                       _repository.changemode(false);
+                      _repository.changemode(false);
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => HomePage()),
@@ -100,7 +105,11 @@ class _DriverHomePageState extends State<DriverHomePage>
               _tabController.index = value;
             });
           },
-          icons: [Icons.notifications, Icons.play_circle_filled, Icons.shopping_cart],
+          icons: [
+            Icons.notifications,
+            Icons.play_circle_filled,
+            Icons.shopping_cart
+          ],
           textStyle: TextStyle(color: Colors.red),
         ),
         body: MotionTabBarView(
@@ -109,46 +118,51 @@ class _DriverHomePageState extends State<DriverHomePage>
             Container(
               child: Center(
                 child: ListView.separated(
-                  itemBuilder: (context, i) {
-                    final notification = notifications[i];
-                    return ListTile(
-                      onTap: () async {
-                        // notification.status = NotificationStatus.Seen;
-                        // await notificationRepo.update(notification);
+                    itemBuilder: (context, i) {
+                      final notification = notifications[i];
+                      return ListTile(
+                        onTap: () async {
+                          // notification.status = NotificationStatus.Seen;
+                          // await notificationRepo.update(notification);
 
-                        // if (notification.type ==
-                        //     NotificationType.UserNotification) {
-                        //   Navigator.of(context).push(
-                        //       MaterialPageRoute(builder: (_) => OrdersPage()));
-                        // } else {
-                        //   Navigator.of(context).push(MaterialPageRoute(
-                        //       builder: (_) => PartnerOrdersPage()));
-                        // }
-                      },
-                      leading: Icon(Icons.notifications),
-                      title: Text(
-                        notifications[i].notificationContent,
-                        style: TextStyle(
-                            color: 1 == 2 ? Colors.black : Colors.grey),
-                      ),
-                      // subtitle: Text("ff"),
-                    );
-                    // Align(
-                    //           alignment: Alignment.centerRight,
-                    //           child: Text(
-                    //               "${Constants.dateformat1.format(notification.timeStamp)}",
-                    //               style: TextStyle(fontSize: 10))),
-                  },
-                  separatorBuilder: (c, i) => Divider(),
-                  itemCount: notifications.length),
-            ),
+                          // if (notification.type ==
+                          //     NotificationType.UserNotification) {
+                          //   Navigator.of(context).push(
+                          //       MaterialPageRoute(builder: (_) => OrdersPage()));
+                          // } else {
+                          //   Navigator.of(context).push(MaterialPageRoute(
+                          //       builder: (_) => PartnerOrdersPage()));
+                          // }
+                        },
+                        leading: Icon(Icons.notifications),
+                        title: Text(
+                          notifications[i].notificationContent,
+                          style: TextStyle(
+                              color: 1 == 2 ? Colors.black : Colors.grey),
+                        ),
+                        // subtitle: Text("ff"),
+                      );
+                      // Align(
+                      //           alignment: Alignment.centerRight,
+                      //           child: Text(
+                      //               "${Constants.dateformat1.format(notification.timeStamp)}",
+                      //               style: TextStyle(fontSize: 10))),
+                    },
+                    separatorBuilder: (c, i) => Divider(),
+                    itemCount: notifications.length),
               ),
-            Container(
-              child: Column(children: <Widget>[new OrderList()],)
             ),
+            GestureDetector(
+                onTap: () => setState(() {
+                      OrderList().getOrders();
+                    }),
+                child:OrderList().build(context),
+
+                ),
             Container(
-              child: Column(children: <Widget>[new OrderListAcceptedDriver()],)
-              ),
+                child: Column(
+              children: <Widget>[new OrderListAcceptedDriver()],
+            )),
           ],
         )
         //body:

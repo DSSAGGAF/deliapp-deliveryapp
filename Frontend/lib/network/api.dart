@@ -158,7 +158,7 @@ class API {
   } //Order
 
   Future<List<Order>> getAcceptedOrder() async {
-    final Response response = await post('http://10.0.2.2:5000/api/MyOrderUser',
+    final Response response = await post('http://10.0.2.2:5000/api/myOrderUser',
         headers: <String, String>{
           'Content-Type': 'application/json;charset=UTF-8'
         },
@@ -184,7 +184,7 @@ class API {
 
   Future<List<Order>> getAcceptedOrderDriver() async {
     final Response response = await post(
-        'http://10.0.2.2:5000/api/MyOrderDriver',
+        'http://10.0.2.2:5000/api/myOrderDriver',
         headers: <String, String>{
           'Content-Type': 'application/json;charset=UTF-8'
         },
