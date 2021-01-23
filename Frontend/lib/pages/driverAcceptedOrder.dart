@@ -2,20 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:Deli_App/model/orders.dart';
 import 'package:Deli_App/pages/home.page.driver.dart';
 import 'package:Deli_App/widget/orderList.dart';
+import "package:Deli_App/network/repository.dart";
+
 String acceptedName;
 String acceptedDescription;
 String acceptedFrom;
 String acceptedTo;
 String acceptedPrice;
+int acceptOrderId;
+int customerId;
 
 class DriverAcceptedOrder extends StatelessWidget {
+  Repository _repository = Repository();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Welcome to Flutter',
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Order Details'),
+          automaticallyImplyLeading: false,
+          centerTitle: true,
+          title: Text(" Order Details"),
+          backgroundColor: Colors.deepPurple,
         ),
         body: ListView(
           children: [
@@ -74,7 +82,8 @@ class DriverAcceptedOrder extends StatelessWidget {
               padding: const EdgeInsets.only(left: 40, top: 20, right: 40),
               child: OutlinedButton.icon(
                 onPressed: () {
-                  // Respond to button press
+                  _repository.postNotification(customerId, acceptOrderId,
+                      "Your driver Arrived please go recive ur order");
                 },
                 icon: Icon(Icons.notifications_active_outlined, size: 18),
                 label: Text("Notify Customer"),
@@ -85,9 +94,10 @@ class DriverAcceptedOrder extends StatelessWidget {
               child: OutlinedButton.icon(
                 onPressed: () {
                   Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => DriverHomePage()));
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => DriverHomePage()));
+                  _repository.completeOrder(acceptOrderId);
                 },
                 icon: Icon(Icons.beenhere_outlined, size: 18),
                 label: Text("Complete Order"),

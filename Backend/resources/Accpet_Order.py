@@ -6,7 +6,7 @@ import random
 import string
 
 
-class Completed_Order(Resource):
+class Accpet_Order(Resource):
     def post(self):
         json_data = request.get_json(force=True)
 

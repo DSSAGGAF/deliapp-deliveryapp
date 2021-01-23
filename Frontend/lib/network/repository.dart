@@ -25,6 +25,8 @@ class Repository {
       apiProvider.postRequest(reqPrice, reqTitle, reqDesc, reqFrom, reqTo);
 
   Future postAccpted(int orderID) => apiProvider.postAccpted(orderID);
+
+  Future completeOrder(int orderID) => apiProvider.completeOrder(orderID);
   
   Future postNotification(int userID, int orderID, String notificationContent) => apiProvider.postNotification(userID, orderID, notificationContent);
 

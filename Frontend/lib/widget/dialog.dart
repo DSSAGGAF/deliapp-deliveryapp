@@ -1,5 +1,5 @@
+import 'package:Deli_App/pages/driverAcceptedOrder.dart';
 import 'package:Deli_App/widget/orderList.dart';
-import 'package:Deli_App/pages/DriverAcceptedOrder.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:geocoder/geocoder.dart';
@@ -141,12 +141,15 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
                           widget.orderID,
                           "Your order number " +
                               widget.orderID.toString() +
-                              "have been accepted");
+                              " have been accepted ");
+                              
                       acceptedName = widget.title;
                       acceptedDescription = widget.descriptions;
                       acceptedFrom = widget.orderFrom;
                       acceptedTo = widget.orderTo;
                       acceptedPrice = widget.price;
+                      acceptOrderId = widget.orderID;
+                      customerId = widget.userID;
                       Navigator.push(
                           context,
                           MaterialPageRoute(

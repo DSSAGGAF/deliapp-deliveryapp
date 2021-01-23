@@ -115,13 +115,13 @@ class API {
 
   Future postAccpted(int orderID) async {
     final Response response = await post(
-        'http://10.0.2.2:5000/api/completed_order',
+        'http://10.0.2.2:5000/api/accpet_order',
         headers: <String, String>{
           'Content-Type': 'application/json;charset=UTF-8'
         },
         body: jsonEncode(<String, dynamic>{
           "driver_id": userInfo.id,
-          "order_id": orderID,
+          "order_id": orderID
         }));
     if (response.statusCode == 201) {
       // return User.fromJson(json.decode(response.body));
@@ -218,7 +218,7 @@ class API {
         body: jsonEncode(<String, dynamic>{
           "user_id": userID,
           "order_id": orderID,
-          "notification_content": notificationContent,
+          "notification_content": notificationContent
         }));
     if (response.statusCode == 201) {
       // return Notification.fromJson(result["data"]);
@@ -259,6 +259,21 @@ class API {
         },
         body: jsonEncode(<String, dynamic>{
           "notification_id": notiID,
+        }));
+    if (response.statusCode == 201) {
+      // return User.fromJson(json.decode(response.body));
+    } else {
+      ///print('Error');
+      throw Exception("Can't load author");
+    }
+  }
+    Future completeOrder(int orderId) async {
+    final Response response = await post('http://10.0.2.2:5000/api/Complete_Order',
+        headers: <String, String>{
+          'Content-Type': 'application/json;charset=UTF-8'
+        },
+        body: jsonEncode(<String, dynamic>{
+          "order_id": orderId,
         }));
     if (response.statusCode == 201) {
       // return User.fromJson(json.decode(response.body));
