@@ -1,34 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:Deli_App/model/orders.dart';
-import 'package:Deli_App/widget/orderCard.dart';
 import "package:Deli_App/network/repository.dart";
 import 'package:Deli_App/model/notification.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:Deli_App/network/api.dart';
 
-
-
 var notifications = <Notification1>[];
 
 class NotificationList extends StatelessWidget {
+    NotificationList createState() => NotificationList();
   Repository _repository = Repository();
   Future<Null> _updateNotification() async {
     if (userInfo != null) {
       notifications = await _repository.getNotification();
     }
   }
-  
-final _notificationSubject = BehaviorSubject<List<Notification1>>();
+
+  final _notificationSubject = BehaviorSubject<List<Notification1>>();
   NotificationList() {
     _updateNotification().then((_) {
       _notificationSubject.add(notifications);
     });
   }
-  Stream<List<Order>> getOrders() async* {
+  Stream<List<Order>> getNoti() async* {
     await _updateNotification().then((_) {
       _notificationSubject.add(notifications);
     });
   }
+
   @override
   Widget _buildReorderableListSimple(BuildContext context) {
     return ListView.separated(
@@ -36,6 +35,10 @@ final _notificationSubject = BehaviorSubject<List<Notification1>>();
           final notification = notifications[i];
           return ListTile(
             onTap: () async {
+              // setState(() {
+              //   getNoti();
+              // });
+
               notifications[i].status = true;
               _repository.changeStatus(notifications[i].notificationId);
             },
@@ -54,7 +57,6 @@ final _notificationSubject = BehaviorSubject<List<Notification1>>();
   }
 
   Widget build(BuildContext context) {
-    //getOrders();
     return StreamBuilder<List<Notification1>>(
       // Wrap our widget with a StreamBuilder
 

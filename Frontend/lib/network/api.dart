@@ -158,13 +158,11 @@ class API {
   } //Order
 
   Future<List<Order>> getAcceptedOrder() async {
-    final Response response = await post('http://10.0.2.2:5000/api/myOrderUser',
+    final Response response = await get('http://10.0.2.2:5000/api/myOrderUser?user_id=${userInfo.id}',
         headers: <String, String>{
           'Content-Type': 'application/json;charset=UTF-8'
         },
-        body: jsonEncode(<String, dynamic>{
-          "user_id": userInfo.id,
-        }));
+        );
     final Map result = json.decode(response.body);
     if (response.statusCode == 201) {
       List<Order> orders = [];
@@ -183,14 +181,12 @@ class API {
   } //getAcceptedOrder
 
   Future<List<Order>> getAcceptedOrderDriver() async {
-    final Response response = await post(
-        'http://10.0.2.2:5000/api/myOrderDriver',
+    final Response response = await get(
+        'http://10.0.2.2:5000/api/myOrderDriver?user_id=${userInfo.id}',
         headers: <String, String>{
           'Content-Type': 'application/json;charset=UTF-8'
-        },
-        body: jsonEncode(<String, dynamic>{
-          "user_id": userInfo.id,
-        }));
+        }
+        );
     final Map result = json.decode(response.body);
     if (response.statusCode == 201) {
       List<Order> orders = [];
@@ -223,7 +219,7 @@ class API {
     if (response.statusCode == 201) {
       // return Notification.fromJson(result["data"]);
     } else {
-      ///print('Error');
+      print(response);
       throw Exception("Can't load author");
     }
   } //postNotification

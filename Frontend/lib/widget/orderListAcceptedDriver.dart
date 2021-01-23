@@ -15,7 +15,7 @@ class OrderListAcceptedDriver extends StatelessWidget {
     }
   }
  final _orderSubject = BehaviorSubject<List<Order>>();
-  OrderListAccepted() {
+  OrderListAcceptedDriver() {
     _updateOrders().then((_) {
       _orderSubject.add(orders);
     });

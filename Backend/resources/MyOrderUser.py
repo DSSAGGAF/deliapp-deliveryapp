@@ -4,18 +4,19 @@ from model import db, Accepted_Order, User
 
 
 class MyOrderUser(Resource):
-    def post(self):
-        json_data = request.get_json(force=True)
+    def get(self):
+        
+        argus = request.args
 
-        if not json_data:
+        if not argus:
             return {'message': 'No input data provided'}, 400
 
-        user = User.query.filter_by(user_id=json_data['user_id']).first()
+        user = User.query.filter_by(user_id=argus['user_id']).first()
         if not user:
             return {'message': 'User ID not available'}, 400
 
 
-        orders = Accepted_Order.query.filter_by(user_id=json_data['user_id'] ).all()
+        orders = Accepted_Order.query.filter_by(user_id=argus['user_id'] ).all()
         order_list = []
 
         for i in range(0, len(orders)):

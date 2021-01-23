@@ -16,7 +16,6 @@ import 'package:Deli_App/model/notification.dart';
 import 'package:Deli_App/network/api.dart';
 import 'package:Deli_App/widget/notificationList.dart';
 
-
 class DriverHomePage extends StatefulWidget {
   @override
   _DriverHomePageState createState() => _DriverHomePageState();
@@ -27,7 +26,6 @@ class _DriverHomePageState extends State<DriverHomePage>
   MotionTabController _tabController;
   Repository _repository = Repository();
   var notifications = <Notification1>[];
- 
 
   @override
   void initState() {
@@ -113,9 +111,9 @@ class _DriverHomePageState extends State<DriverHomePage>
               child: NotificationList(),
             ),
             GestureDetector(
-              onTap: () => setState(() {
-                OrderList().getOrders();
-              }),
+              // onTap: () => setState(() {
+              //   OrderList().getOrders();
+              // }),
               child: OrderList().build(context),
             ),
             GestureDetector(
