@@ -1,34 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:Deli_App/model/orders.dart';
 import 'package:Deli_App/widget/orderCard.dart';
+import 'package:Deli_App/widget/OrderListAcceptedDriver.dart';
 import "package:Deli_App/network/repository.dart";
 import 'package:Deli_App/model/notification.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:Deli_App/network/api.dart';
 
-
-
 var notifications = <Notification1>[];
 
-class NotificationList extends StatelessWidget {
+class NotificationList extends StatefulWidget {
+
+  @override
+  _NotificationListState createState() => _NotificationListState();
+}
+
+class _NotificationListState extends State<NotificationList> {
   Repository _repository = Repository();
+  _NotificationListState() {
+    _updateNotification().then((_) {
+      _notificationSubject.add(notifications);
+    });
+  }
   Future<Null> _updateNotification() async {
     if (userInfo != null) {
       notifications = await _repository.getNotification();
     }
   }
-  
-final _notificationSubject = BehaviorSubject<List<Notification1>>();
-  NotificationList() {
-    _updateNotification().then((_) {
-      _notificationSubject.add(notifications);
-    });
-  }
+
+  final _notificationSubject = BehaviorSubject<List<Notification1>>();
+
   Stream<List<Order>> getOrders() async* {
     await _updateNotification().then((_) {
       _notificationSubject.add(notifications);
     });
   }
+
   @override
   Widget _buildReorderableListSimple(BuildContext context) {
     return ListView.separated(
@@ -36,6 +43,9 @@ final _notificationSubject = BehaviorSubject<List<Notification1>>();
           final notification = notifications[i];
           return ListTile(
             onTap: () async {
+              setState(() {
+                getOrders();
+              });
               notifications[i].status = true;
               _repository.changeStatus(notifications[i].notificationId);
             },
