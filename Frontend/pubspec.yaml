@@ -29,6 +29,8 @@ dependencies:
   flutter_localizations:
     sdk: flutter  
   location: ^3.0.0
+  http_client: ^1.4.2
+
 
   intl: ">=0.14.0"
 
