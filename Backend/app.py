@@ -13,6 +13,8 @@ from resources.MyOrderDriver import MyOrderDriver
 from resources.Notification import NotificationAPI
 from resources.NotificationSeen import NotificationSeen
 from resources.Complete_Order import Complete_Order
+from resources.balance import Balance
+from resources.payment import Payment
 
 # from resources.UserProfile import UserProfile
 
@@ -48,6 +50,10 @@ api.add_resource(NotificationAPI, '/notification')
 api.add_resource(NotificationSeen, '/NotificationSeen')
 
 api.add_resource(Complete_Order, '/Complete_Order')
+
+api.add_resource(Balance, '/Balance')
+
+api.add_resource(Payment, '/Payment')
 
 
 

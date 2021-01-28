@@ -41,6 +41,7 @@ class Repository {
   
   
   Future getNotification() => apiProvider.getNotification();
+  Future getBalance() => apiProvider.getBalance();
   // }
 
 }

@@ -37,7 +37,9 @@ class _ButtonLoginState extends State<ButtonLogin> {
         ),
         child: FlatButton(
           onPressed: () {
+            _repository.getBalance();
             _repository.signinUser("AbuDa7m", "123");
+            
             // _repository.signinUser(usernameText.text, passwordText.text);
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => HomePage()));

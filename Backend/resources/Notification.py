@@ -1,8 +1,9 @@
 from flask_restful import Resource
-from flask import request
+from flask import request,make_response
 from model import db, User, Accepted_Order, Notification
 import random
 import string
+import json
 
 
 class NotificationAPI(Resource):
@@ -48,5 +49,12 @@ class NotificationAPI(Resource):
         for i in range(0, len(notification)):
             notification_list.append(notification[len(notification)-i-1].serialize())
 
+        todo = {'data': notification_list}
+        r = make_response((json.dumps(todo),
+                       201,
+                       {'Content-Type': 'application/json',
+                        'Connection': 'keep-alive'}))
+                        
+        return r  
         return {'data':notification_list}, 201
         

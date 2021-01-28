@@ -20,6 +20,7 @@ class User(db.Model):
     emailadress = db.Column(db.String())
     gender = db.Column(db.String())
     driver_mode = db.Column(db.Boolean, default=False)
+    userBalance = db.Column(db.Float(), default=0.0)
 
     def __init__(self, firstname, lastname, emailadress, password, username, gender):
         self.firstname = firstname
