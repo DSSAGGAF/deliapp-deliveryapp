@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:Deli_App/network/api.dart';
 import "package:Deli_App/network/repository.dart";
+import 'package:Deli_App/pages/paymentPage.dart';
 
 String fname;
 
@@ -25,7 +26,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        padding: EdgeInsets.only(top: 100.0),
+        padding: EdgeInsets.only(top: 33.0),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -39,12 +40,12 @@ class _ProfilePageState extends State<ProfilePage> {
                 userInfo.name,
                 style: TextStyle(fontSize: 32.0),
               ),
-              Text(
-                'Driver',
-                style: TextStyle(fontSize: 16.0),
-              ),
+              // Text(
+              //   'Driver',
+              //   style: TextStyle(fontSize: 16.0),
+              // ),
               Container(
-                height: 500.0,
+                // height: 600.0,
                 width: double.infinity,
                 color: Colors.deepPurple[300],
                 child: Column(
@@ -152,9 +153,47 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     Padding(
                       padding:
-                          const EdgeInsets.only(top: 50, right: 50, left: 200),
+                          const EdgeInsets.only(top: 20, left: 50, right: 50),
                       child: Container(
                         alignment: Alignment.bottomRight,
+                        height: 50,
+                        width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: FlatButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => MySample()));
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Icon(
+                                Icons.payment,
+                                color: Colors.purple,
+                              ),
+                              Text(
+                                '\$\$\$\$',
+                                style: TextStyle(
+                                  color: Colors.purple,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(top: 50, right: 50, left: 200),
+                      child: Container(
+                        // alignment: Alignment.bottomLeft,
                         height: 50,
                         width: MediaQuery.of(context).size.width,
                         decoration: BoxDecoration(
@@ -180,13 +219,16 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ),
                               ),
                               Icon(
-                                Icons.arrow_forward,
+                                Icons.rotate_right_sharp,
                                 color: Colors.purple,
                               ),
                             ],
                           ),
                         ),
                       ),
+                    ),
+                    SizedBox(
+                      height: 20,
                     )
                   ],
                 ),

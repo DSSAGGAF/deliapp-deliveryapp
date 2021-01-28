@@ -10,13 +10,13 @@ import "package:Deli_App/network/api.dart";
 String coor;
 Repository _repository = Repository();
 
-convert(String query) async {
-  // final query = "1600 Amphiteatre Parkway, Mountain View";
-  var addresses = await Geocoder.local.findAddressesFromQuery(query);
-  var first = addresses.first;
-  coor = first.coordinates.toString();
-  coor = coor.substring(1, coor.length - 1);
-}
+// convert(String query) async {
+//   // final query = "1600 Amphiteatre Parkway, Mountain View";
+//   var addresses = await Geocoder.local.findAddressesFromQuery(query);
+//   var first = addresses.first;
+//   coor = first.coordinates.toString();
+//   coor = coor.substring(1, coor.length - 1);
+// }
 
 class Constants {
   Constants._();
@@ -101,7 +101,7 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
                   textAlign: TextAlign.left,
                 ),
                 onTap: () async {
-                  //convert(widget.orderFrom);
+                  convert(widget.orderFrom);
 
                   convert(widget.orderFrom);
                   if (await canLaunch(
@@ -113,10 +113,21 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
               SizedBox(
                 height: 12,
               ),
-              Text(
+              GestureDetector(
+              child: Text(
                 widget.orderTo,
                 style: TextStyle(fontSize: 14),
                 textAlign: TextAlign.left,
+              ),
+              onTap: () async {
+                  convert(widget.orderTo);
+
+                  convert(widget.orderTo);
+                  if (await canLaunch(
+                      "https://www.google.com/maps/place/" + coor)) {
+                    await launch("https://www.google.com/maps/place/" + coor);
+                  }
+                },
               ),
               SizedBox(
                 height: 12,

@@ -13,91 +13,99 @@ class OrderCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     orderCard = new Container(
-      margin: const EdgeInsets.only(left: 20.0, right: 20.0),
-      decoration: new BoxDecoration(
-        color: Colors.deepPurple,
-        shape: BoxShape.rectangle,
-        borderRadius: new BorderRadius.circular(8.0),
-        boxShadow: <BoxShadow>[
-          new BoxShadow(
-              color: Colors.black,
-              blurRadius: 10.0,
-              offset: new Offset(0.0, 10.0))
-        ],
-      ),
-      child: new Container(
-        margin: const EdgeInsets.only(top: 20.0, left: 20.0),
-        constraints: new BoxConstraints.expand(),
-        child: new Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            new Text(
-              order.userName,
-              style: TextStyle(
-                  color: Colors.white,
-                  fontFamily: 'Poppins',
-                  // fontWeight: FontWeight.w600,
-                  fontSize: 25.0),
-            ),
-            SizedBox(
-              height: 12,
-            ),
-            new Container(
-                color: const Color(0xFF00C6FF),
-                width: 250.0,
-                height: 1.0,
-                margin: const EdgeInsets.symmetric(vertical: 8.0)),
-            SizedBox(
-              height: 12,
-            ),
-            new FittedBox(
-              child: Text(
-                order.requsetTitle + " - " + order.price.toString() + "RM",
-                style: TextStyle(
-                    decoration: TextDecoration.none,
-                    color: Colors.white,
-                    fontFamily: 'Poppins',
-                    // fontWeight: FontWeight.w600,
-                    fontSize: 25.0),
+      // resizeToAvoidBottomPadding: false,
+      // children: <Widget>[
+      // decoration: BoxDecoration(
+      //   gradient: LinearGradient(
+      //       begin: Alignment.topRight,
+      //       end: Alignment.bottomLeft,
+      //       colors: [Colors.purple, Colors.deepPurple]),
+      // ),
+      child: Container(
+        child: Padding(
+          padding: const EdgeInsets.only(left: 13, right: 13),
+          child: Card(
+            child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+              ListTile(
+                leading: Icon(Icons.shopping_bag, color: Colors.deepPurple),
+                title: Text(order.requsetTitle),
+                subtitle: Text("By " + order.userName),
               ),
-            ),
-          ],
+              // Align(
+              //   alignment: Alignment.topLeft,
+              //   child: Padding(
+              //     padding: const EdgeInsets.only(top: 10, left: 10),
+              //     child: Text(
+              //       order.requsetFrom,
+              //     ),
+              //   ),
+              // ),
+              // Align(
+              //   alignment: Alignment.topLeft,
+              //   child: Padding(
+              //     padding: const EdgeInsets.only(top: 10, left: 10),
+              //     child: Text(
+              //       order.requsetTo,
+              //     ),
+              //   ),
+              // ),
+              Padding(
+                padding: const EdgeInsets.only(left: 10),
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    order.requsetDesc + " For " + order.price.toString() + "RM",
+                  ),
+                ),
+              ),
+              // Align(
+              //   alignment: Alignment.bottomLeft,
+              //   child: Text("data"),
+              // ),
+              ButtonBar(
+                alignment: MainAxisAlignment.start,
+                children: [
+                  Align(
+                      // alignment: Alignment.bottomRight,
+                      // child: order.orderStatus ? Text("Pinnding") : Text("Done"),
+                      child: order.orderStatus == true
+                          ? Text("Completed", style: TextStyle(color: Colors.green, fontWeight: FontWeight.w700))
+                          : Text("Pending", style: TextStyle(fontStyle: FontStyle.italic, color: Colors.grey, fontWeight: FontWeight.w700))),
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: FlatButton(
+                      child: const Text('See more', style: TextStyle(color: Colors.deepPurple)),
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return CustomDialogBox(
+                                title: "Title - " + order.requsetTitle,
+                                descriptions:
+                                    "Description - " + order.requsetDesc,
+                                orderFrom: "From - " + order.requsetFrom,
+                                orderTo: "To - " + order.requsetTo,
+                                price:
+                                    "Price - " + order.price.toString() + "RM",
+                                text: "Accept",
+                                orderID: order.orderId,
+                                userID: order.userId,
+                              );
+                            });
+                      },
+                    ),
+                  ),
+                ],
+              )
+            ]),
+          ),
         ),
       ),
     );
-    return new Container(
-      // height: 120.0,
-      margin: const EdgeInsets.only(top: 18),
-      child: new FlatButton(
-        onPressed: () {
-          showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return CustomDialogBox(
-                  title: "Title - " + order.requsetTitle,
-                  descriptions: "Description - " + order.requsetDesc,
-                  orderFrom: "From - " + order.requsetFrom,
-                  orderTo: "To - " + order.requsetTo,
-                  price: "Price - " + order.price.toString() + "RM",
-                  text: "Accept",
-                  orderID: order.orderId,
-                  userID: order.userId,
-                );
-              });
-          // acceptedName = order.requsetTitle;
-          // acceptedDescription = order.requsetDesc;
-          // acceptedFrom = order.requsetFrom;
-          // acceptedTo = order.requsetTo;
-          // acceptedPrice = order.price.toString() + "RM";
-          // Navigator.push(context,
-          //     MaterialPageRoute(builder: (context) => DriverAcceptedOrder()));
-        },
-        child: new Stack(
-          children: <Widget>[
-            orderCard,
-          ],
-        ),
-      ),
+    return new Stack(
+      children: <Widget>[
+        orderCard,
+      ],
     );
   }
 }
