@@ -1,10 +1,6 @@
-import 'dart:async';
 import 'dart:convert';
-// import 'dart:html';
 import 'package:http/http.dart' show Client;
 import 'package:http/http.dart';
-import 'package:http/http.dart' as http;
-
 import "package:Deli_App/model/addUser.dart";
 import "package:Deli_App/model/orders.dart";
 import "package:Deli_App/model/notification.dart";
@@ -14,9 +10,9 @@ User userInfo;
 class API {
   Client client = Client();
 
-  Future createUser(String name, String fname, String lname, String pass,
-      String email, String gender) async {
-    final Response response = await post('http://10.0.2.2:5000/api/register',
+  Future createUser(String name, String fname, String lname, String pass, String email,
+      String gender) async {
+    final Response response = await post('http://192.168.1.18:5000/api/register',
         headers: <String, String>{
           'Content-Type': 'application/json;charset=UTF-8'
         },
@@ -35,9 +31,9 @@ class API {
       throw Exception("Can't load author");
     }
   }
-
+ 
   Future loginUser(String username, String password) async {
-    final Response response = await post("http://10.0.2.2:5000/api/login",
+    final Response response = await post("http://192.168.1.18:5000/api/login",
         headers: <String, String>{
           'Content-Type': 'application/json;charset=UTF-8'
         },
@@ -47,7 +43,9 @@ class API {
         }));
     final Map result = json.decode(response.body);
     if (response.statusCode == 201) {
+
       userInfo = User.fromJson(result["data"]);
+
     } else {
       // If that call was not successful, throw an error.
       throw Exception('Failed to load post');
@@ -55,7 +53,7 @@ class API {
   }
 
   Future userProfile() async {
-    final Response response = await post('http://10.0.2.2:5000/api/userProfile',
+    final Response response = await post('http://192.168.1.18:5000/api/userProfile',
         headers: <String, String>{
           'Content-Type': 'application/json;charset=UTF-8'
         },
@@ -73,9 +71,8 @@ class API {
       throw Exception("Can't load author");
     }
   }
-
-  Future changemode(bool driverMode) async {
-    final Response response = await post('http://10.0.2.2:5000/api/changeMode',
+ Future changemode(bool driverMode) async {
+    final Response response = await post('http://192.168.1.18:5000/api/changeMode',
         headers: <String, String>{
           'Content-Type': 'application/json;charset=UTF-8'
         },
@@ -95,7 +92,7 @@ class API {
   Future postRequest(int reqPrice, String reqTitle, String reqDesc,
       String reqFrom, String reqTo) async {
     final Response response = await post(
-        'http://10.0.2.2:5000/api/requset_order',
+        'http://192.168.1.18:5000/api/requset_order',
         headers: <String, String>{
           'Content-Type': 'application/json;charset=UTF-8'
         },
@@ -117,12 +114,14 @@ class API {
 
   Future postAccpted(int orderID) async {
     final Response response = await post(
-        'http://10.0.2.2:5000/api/accpet_order',
+        'http://192.168.1.18:5000/api/accpet_order',
         headers: <String, String>{
           'Content-Type': 'application/json;charset=UTF-8'
         },
-        body: jsonEncode(
-            <String, dynamic>{"driver_id": userInfo.id, "order_id": orderID}));
+        body: jsonEncode(<String, dynamic>{
+          "driver_id": userInfo.id,
+          "order_id": orderID
+        }));
     if (response.statusCode == 201) {
       // return User.fromJson(json.decode(response.body));
     } else {
@@ -131,11 +130,14 @@ class API {
     }
   }
 
+
+
   Future<List<Order>> getRequstedOrder() async {
     final Response response = await get(
-      'http://10.0.2.2:5000/api/requset_order',
+      'http://192.168.1.18:5000/api/requset_order',
       headers: <String, String>{
-        'Content-Type': 'application/json;charset=UTF-8'
+        'Content-Type': 'application/json;charset=UTF-8',
+        "Connection": "kepp-alive"
       },
     );
     final Map result = json.decode(response.body);
@@ -155,27 +157,13 @@ class API {
     }
   } //Order
 
-// Future<List<Order>> getAcceptedOrder() async {
-//   final response =
-//       await http.get('https://jsonplaceholder.typicode.com/albums/1');
-
-//   if (response.statusCode == 200) {
-//     // If the server did return a 200 OK response,
-//     // then parse the JSON.
-//     return Album.fromJson(jsonDecode(response.body));
-//   } else {
-//     // If the server did not return a 200 OK response,
-//     // then throw an exception.
-//     throw Exception('Failed to load album');
-//   }
-// }
   Future<List<Order>> getAcceptedOrder() async {
-    final Response response = await http.get(
-      'http://10.0.2.2:5000/api/myOrderUser?user_id=${userInfo.id}',
-      headers: <String, String>{
-        'Content-Type': 'application/json;charset=UTF-8'
-      },
-    );
+    final Response response = await get('http://192.168.1.18:5000/api/myOrderUser?user_id=${userInfo.id}',
+        headers: <String, String>{
+          'Content-Type': 'application/json;charset=UTF-8',
+          "Connection": "kepp-alive"
+        },
+        );
     final Map result = json.decode(response.body);
     if (response.statusCode == 201) {
       List<Order> orders = [];
@@ -195,10 +183,12 @@ class API {
 
   Future<List<Order>> getAcceptedOrderDriver() async {
     final Response response = await get(
-        'http://10.0.2.2:5000/api/myOrderDriver?user_id=${userInfo.id}',
+        'http://192.168.1.18:5000/api/myOrderDriver?user_id=${userInfo.id}',
         headers: <String, String>{
-          'Content-Type': 'application/json;charset=UTF-8'
-        });
+          'Content-Type': 'application/json;charset=UTF-8',
+          "Connection": "kepp-alive"
+        }
+        );
     final Map result = json.decode(response.body);
     if (response.statusCode == 201) {
       List<Order> orders = [];
@@ -219,7 +209,7 @@ class API {
   Future postNotification(
       int userID, int orderID, String notificationContent) async {
     final Response response = await post(
-        'http://10.0.2.2:5000/api/notification',
+        'http://192.168.1.18:5000/api/notification',
         headers: <String, String>{
           'Content-Type': 'application/json;charset=UTF-8'
         },
@@ -238,9 +228,10 @@ class API {
 
   Future<List<Notification1>> getNotification() async {
     final Response response = await get(
-      'http://10.0.2.2:5000/api/notification?user_id=${userInfo.id}',
+      'http://192.168.1.18:5000/api/notification?user_id=${userInfo.id}',
       headers: <String, String>{
-        'Content-Type': 'application/json;charset=UTF-8'
+        'Content-Type': 'application/json;charset=UTF-8',
+        "Connection": "kepp-alive"
       },
     );
     final Map result = json.decode(response.body);
@@ -260,9 +251,8 @@ class API {
     }
   } //getNotification()
 
-  Future changeStatus(int notiID) async {
-    final Response response = await post(
-        'http://10.0.2.2:5000/api/NotificationSeen',
+    Future changeStatus(int notiID) async {
+    final Response response = await post('http://192.168.1.18:5000/api/NotificationSeen',
         headers: <String, String>{
           'Content-Type': 'application/json;charset=UTF-8'
         },
@@ -276,10 +266,8 @@ class API {
       throw Exception("Can't load author");
     }
   }
-
-  Future completeOrder(int orderId) async {
-    final Response response = await post(
-        'http://10.0.2.2:5000/api/Complete_Order',
+    Future completeOrder(int orderId) async {
+    final Response response = await post('http://192.168.1.18:5000/api/Complete_Order',
         headers: <String, String>{
           'Content-Type': 'application/json;charset=UTF-8'
         },
@@ -294,21 +282,4 @@ class API {
     }
   }
 
-  Future getBalance() async {
-    final Response response = await get(
-      'http://10.0.2.2:5000/api/Balance?user_id=${userInfo.id}',
-      headers: <String, String>{
-        'Content-Type': 'application/json;charset=UTF-8'
-      },
-    );
-    final Map result = json.decode(response.body);
-    if (response.statusCode == 201) {
-      // return User.fromJson(json.decode(response.body));
-      // print(result["balance"]);
-      userInfo.setBalnce(result["balance"]);
-    } else {
-      ///print('Error');
-      throw Exception("Can't load author");
-    }
-  }
 } // API

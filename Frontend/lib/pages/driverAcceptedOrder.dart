@@ -3,6 +3,12 @@ import 'package:Deli_App/model/orders.dart';
 import 'package:Deli_App/pages/home.page.driver.dart';
 import 'package:Deli_App/widget/orderList.dart';
 import "package:Deli_App/network/repository.dart";
+import 'package:Deli_App/widget/dialog.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:geocoder/geocoder.dart';
+
+
+
 
 String acceptedName;
 String acceptedDescription;
@@ -11,6 +17,14 @@ String acceptedTo;
 String acceptedPrice;
 int acceptOrderId;
 int customerId;
+
+convert(String query) async {
+  // final query = "1600 Amphiteatre Parkway, Mountain View";
+  var addresses = await Geocoder.local.findAddressesFromQuery(query);
+  var first = addresses.first;
+  coor = first.coordinates.toString();
+  coor = coor.substring(1, coor.length - 1);
+}
 
 class DriverAcceptedOrder extends StatelessWidget {
   Repository _repository = Repository();
@@ -58,16 +72,38 @@ class DriverAcceptedOrder extends StatelessWidget {
               padding: const EdgeInsets.only(left: 20, top: 20),
               child: Wrap(children: <Widget>[
                 Icon(Icons.my_location, size: 25, color: Colors.deepPurple),
-                // Text(" From")
-                Text(" " + acceptedFrom)
+                GestureDetector(
+                
+                child: Text(" " + acceptedFrom),
+                onTap: () async {
+                  convert(acceptedFrom);
+
+                  convert(acceptedFrom);
+                  if (await canLaunch(
+                      "https://www.google.com/maps/place/" + coor)) {
+                    await launch("https://www.google.com/maps/place/" + coor);
+                  }
+                },
+              ),
               ]),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 20, top: 20),
               child: Wrap(children: <Widget>[
                 Icon(Icons.location_on, size: 25, color: Colors.deepPurple),
-                // Text(" To")
-                Text(" " + acceptedTo)
+                GestureDetector(
+                
+                child: Text(" " + acceptedTo),
+                onTap: () async {
+                  convert(acceptedTo);
+
+                  convert(acceptedTo);
+                  if (await canLaunch(
+                      "https://www.google.com/maps/place/" + coor)) {
+                    await launch("https://www.google.com/maps/place/" + coor);
+                  }
+                },
+              ),
               ]),
             ),
             Padding(
