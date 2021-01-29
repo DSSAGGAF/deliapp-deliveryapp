@@ -10,9 +10,10 @@ User userInfo;
 class API {
   Client client = Client();
 
-  Future createUser(String name, String fname, String lname, String pass, String email,
-      String gender) async {
-    final Response response = await post('http://192.168.1.18:5000/api/register',
+  Future createUser(String name, String fname, String lname, String pass,
+      String email, String gender) async {
+    final Response response = await post(
+        'http://192.168.1.18:5000/api/register',
         headers: <String, String>{
           'Content-Type': 'application/json;charset=UTF-8'
         },
@@ -31,7 +32,7 @@ class API {
       throw Exception("Can't load author");
     }
   }
- 
+
   Future loginUser(String username, String password) async {
     final Response response = await post("http://192.168.1.18:5000/api/login",
         headers: <String, String>{
@@ -43,9 +44,7 @@ class API {
         }));
     final Map result = json.decode(response.body);
     if (response.statusCode == 201) {
-
       userInfo = User.fromJson(result["data"]);
-
     } else {
       // If that call was not successful, throw an error.
       throw Exception('Failed to load post');
@@ -53,7 +52,8 @@ class API {
   }
 
   Future userProfile() async {
-    final Response response = await post('http://192.168.1.18:5000/api/userProfile',
+    final Response response = await post(
+        'http://192.168.1.18:5000/api/userProfile',
         headers: <String, String>{
           'Content-Type': 'application/json;charset=UTF-8'
         },
@@ -71,8 +71,10 @@ class API {
       throw Exception("Can't load author");
     }
   }
- Future changemode(bool driverMode) async {
-    final Response response = await post('http://192.168.1.18:5000/api/changeMode',
+
+  Future changemode(bool driverMode) async {
+    final Response response = await post(
+        'http://192.168.1.18:5000/api/changeMode',
         headers: <String, String>{
           'Content-Type': 'application/json;charset=UTF-8'
         },
@@ -118,10 +120,8 @@ class API {
         headers: <String, String>{
           'Content-Type': 'application/json;charset=UTF-8'
         },
-        body: jsonEncode(<String, dynamic>{
-          "driver_id": userInfo.id,
-          "order_id": orderID
-        }));
+        body: jsonEncode(
+            <String, dynamic>{"driver_id": userInfo.id, "order_id": orderID}));
     if (response.statusCode == 201) {
       // return User.fromJson(json.decode(response.body));
     } else {
@@ -129,8 +129,6 @@ class API {
       throw Exception("Can't load author");
     }
   }
-
-
 
   Future<List<Order>> getRequstedOrder() async {
     final Response response = await get(
@@ -158,12 +156,13 @@ class API {
   } //Order
 
   Future<List<Order>> getAcceptedOrder() async {
-    final Response response = await get('http://192.168.1.18:5000/api/myOrderUser?user_id=${userInfo.id}',
-        headers: <String, String>{
-          'Content-Type': 'application/json;charset=UTF-8',
-          "Connection": "kepp-alive"
-        },
-        );
+    final Response response = await get(
+      'http://192.168.1.18:5000/api/myOrderUser?user_id=${userInfo.id}',
+      headers: <String, String>{
+        'Content-Type': 'application/json;charset=UTF-8',
+        "Connection": "kepp-alive"
+      },
+    );
     final Map result = json.decode(response.body);
     if (response.statusCode == 201) {
       List<Order> orders = [];
@@ -187,8 +186,7 @@ class API {
         headers: <String, String>{
           'Content-Type': 'application/json;charset=UTF-8',
           "Connection": "kepp-alive"
-        }
-        );
+        });
     final Map result = json.decode(response.body);
     if (response.statusCode == 201) {
       List<Order> orders = [];
@@ -251,8 +249,9 @@ class API {
     }
   } //getNotification()
 
-    Future changeStatus(int notiID) async {
-    final Response response = await post('http://192.168.1.18:5000/api/NotificationSeen',
+  Future changeStatus(int notiID) async {
+    final Response response = await post(
+        'http://192.168.1.18:5000/api/NotificationSeen',
         headers: <String, String>{
           'Content-Type': 'application/json;charset=UTF-8'
         },
@@ -266,8 +265,10 @@ class API {
       throw Exception("Can't load author");
     }
   }
-    Future completeOrder(int orderId) async {
-    final Response response = await post('http://192.168.1.18:5000/api/Complete_Order',
+
+  Future completeOrder(int orderId) async {
+    final Response response = await post(
+        'http://192.168.1.18:5000/api/Complete_Order',
         headers: <String, String>{
           'Content-Type': 'application/json;charset=UTF-8'
         },
@@ -282,4 +283,37 @@ class API {
     }
   }
 
+  Future getBalance() async {
+    final Response response = await get(
+      'http://192.168.1.18:5000/api/Balance?user_id=${userInfo.id}',
+      headers: <String, String>{
+        'Content-Type': 'application/json;charset=UTF-8'
+      },
+    );
+    final Map result = json.decode(response.body);
+    if (response.statusCode == 201) {
+      userInfo.setBalnce(result["balance"]);
+    } else {
+      ///print('Error');
+      throw Exception("Can't load author");
+    }
+  }
+
+  Future postPayment(double balance) async {
+    final Response response = await post(
+        'http://192.168.1.18:5000/api/Payment',
+        headers: <String, String>{
+          'Content-Type': 'application/json;charset=UTF-8'
+        },
+        body: jsonEncode(<String, dynamic>{
+          "user_id": userInfo.id,
+          "balance": balance
+        }));
+    if (response.statusCode == 201) {
+      // return User.fromJson(json.decode(response.body));
+    } else {
+      ///print('Error');
+      throw Exception("Can't load author");
+    }
+  }
 } // API
