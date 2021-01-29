@@ -90,6 +90,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     var newAdd;
     // _updateNotification();
+    // _repository.getBalance();
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,

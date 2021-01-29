@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:Deli_App/pages/home.page.dart';
 import "package:Deli_App/network/repository.dart";
-import "package:Deli_App/widget/inputEmail.dart";
-import "package:Deli_App/widget/password.dart";
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class ButtonLogin extends StatefulWidget {
   @override
   _ButtonLoginState createState() => _ButtonLoginState();
 }
-
 
 class _ButtonLoginState extends State<ButtonLogin> {
   Repository _repository = Repository();
@@ -37,9 +35,12 @@ class _ButtonLoginState extends State<ButtonLogin> {
         ),
         child: FlatButton(
           onPressed: () {
-            // _repository.getBalance();
             _repository.signinUser("AbuDa7m", "123");
-            
+            // EasyLoading.showProgress(0.2, status: 'Loading...');
+            // EasyLoading.removeAllCallbacks();
+
+            _repository.getBalance();
+
             // _repository.signinUser(usernameText.text, passwordText.text);
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => HomePage()));
