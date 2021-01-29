@@ -36,7 +36,8 @@ class API {
   Future loginUser(String username, String password) async {
     final Response response = await post("http://192.168.1.18:5000/api/login",
         headers: <String, String>{
-          'Content-Type': 'application/json;charset=UTF-8'
+          'Content-Type': 'application/json;charset=UTF-8',
+          "Authorization": ""
         },
         body: jsonEncode(<String, dynamic>{
           "username": username,
@@ -52,18 +53,18 @@ class API {
   }
 
   Future userProfile() async {
-    final Response response = await post(
-        'http://192.168.1.18:5000/api/userProfile',
-        headers: <String, String>{
-          'Content-Type': 'application/json;charset=UTF-8'
-        },
-        body: jsonEncode(<String, dynamic>{
-          "user_id": userInfo.id,
-          "emailadress": userInfo.email,
-          "password": userInfo.pass,
-          "firstname": userInfo.fname,
-          "lastname": userInfo.lname,
-        }));
+    final Response response =
+        await post('http://192.168.1.18:5000/api/userProfile',
+            headers: <String, String>{
+              'Content-Type': 'application/json;charset=UTF-8',
+              "Authorization": userInfo.apiKey
+            },
+            body: jsonEncode(<String, dynamic>{
+              "emailadress": userInfo.email,
+              "password": userInfo.pass,
+              "firstname": userInfo.fname,
+              "lastname": userInfo.lname,
+            }));
     if (response.statusCode == 201) {
       // return User.fromJson(json.decode(response.body));
     } else {
@@ -72,18 +73,19 @@ class API {
     }
   }
 
-  Future changemode(bool driverMode) async {
-    final Response response = await post(
-        'http://192.168.1.18:5000/api/changeMode',
-        headers: <String, String>{
-          'Content-Type': 'application/json;charset=UTF-8'
-        },
-        body: jsonEncode(<String, dynamic>{
-          "user_id": userInfo.id,
-          "driver_mode": driverMode,
-        }));
+  Future changemode(bool _driverMode) async {
+    final Response response =
+        await post('http://192.168.1.18:5000/api/changeMode',
+            headers: <String, String>{
+              'Content-Type': 'application/json;charset=UTF-8',
+              "Authorization": userInfo.apiKey
+            },
+            body: jsonEncode(<String, dynamic>{
+              "driver_mode": _driverMode,
+            }));
     if (response.statusCode == 201) {
       //print(response.body);
+      userInfo.driverMode = _driverMode;
       // return User.fromJson(json.decode(response.body));
     } else {
       ///print('Error');
@@ -93,19 +95,20 @@ class API {
 
   Future postRequest(int reqPrice, String reqTitle, String reqDesc,
       String reqFrom, String reqTo) async {
-    final Response response = await post(
-        'http://192.168.1.18:5000/api/requset_order',
-        headers: <String, String>{
-          'Content-Type': 'application/json;charset=UTF-8'
-        },
-        body: jsonEncode(<String, dynamic>{
-          "user_id": userInfo.id,
-          "request_title": reqTitle,
-          "request_desc": reqDesc,
-          "request_from": reqFrom,
-          "request_to": reqTo,
-          "price": reqPrice,
-        }));
+    final Response response =
+        await post('http://192.168.1.18:5000/api/requset_order',
+            headers: <String, String>{
+              'Content-Type': 'application/json;charset=UTF-8',
+              "Authorization": userInfo.apiKey
+            },
+            body: jsonEncode(<String, dynamic>{
+              "user_id": userInfo.id,
+              "request_title": reqTitle,
+              "request_desc": reqDesc,
+              "request_from": reqFrom,
+              "request_to": reqTo,
+              "price": reqPrice,
+            }));
     if (response.statusCode == 201) {
       // return User.fromJson(json.decode(response.body));
     } else {
@@ -118,7 +121,8 @@ class API {
     final Response response = await post(
         'http://192.168.1.18:5000/api/accpet_order',
         headers: <String, String>{
-          'Content-Type': 'application/json;charset=UTF-8'
+          'Content-Type': 'application/json;charset=UTF-8',
+          "Authorization": userInfo.apiKey
         },
         body: jsonEncode(
             <String, dynamic>{"driver_id": userInfo.id, "order_id": orderID}));
@@ -157,10 +161,11 @@ class API {
 
   Future<List<Order>> getAcceptedOrder() async {
     final Response response = await get(
-      'http://192.168.1.18:5000/api/myOrderUser?user_id=${userInfo.id}',
+      'http://192.168.1.18:5000/api/myOrderUser',
       headers: <String, String>{
         'Content-Type': 'application/json;charset=UTF-8',
-        "Connection": "kepp-alive"
+        "Connection": "kepp-alive",
+        "Authorization": userInfo.apiKey
       },
     );
     final Map result = json.decode(response.body);
@@ -182,10 +187,11 @@ class API {
 
   Future<List<Order>> getAcceptedOrderDriver() async {
     final Response response = await get(
-        'http://192.168.1.18:5000/api/myOrderDriver?user_id=${userInfo.id}',
+        'http://192.168.1.18:5000/api/myOrderDriver',
         headers: <String, String>{
           'Content-Type': 'application/json;charset=UTF-8',
-          "Connection": "kepp-alive"
+          "Connection": "kepp-alive",
+          "Authorization": userInfo.apiKey
         });
     final Map result = json.decode(response.body);
     if (response.statusCode == 201) {
@@ -206,16 +212,17 @@ class API {
 
   Future postNotification(
       int userID, int orderID, String notificationContent) async {
-    final Response response = await post(
-        'http://192.168.1.18:5000/api/notification',
-        headers: <String, String>{
-          'Content-Type': 'application/json;charset=UTF-8'
-        },
-        body: jsonEncode(<String, dynamic>{
-          "user_id": userID,
-          "order_id": orderID,
-          "notification_content": notificationContent
-        }));
+    final Response response =
+        await post('http://192.168.1.18:5000/api/notification',
+            headers: <String, String>{
+              'Content-Type': 'application/json;charset=UTF-8',
+              "Authorization": userInfo.apiKey
+            },
+            body: jsonEncode(<String, dynamic>{
+              "user_id": userID,
+              "order_id": orderID,
+              "notification_content": notificationContent
+            }));
     if (response.statusCode == 201) {
       // return Notification.fromJson(result["data"]);
     } else {
@@ -226,10 +233,11 @@ class API {
 
   Future<List<Notification1>> getNotification() async {
     final Response response = await get(
-      'http://192.168.1.18:5000/api/notification?user_id=${userInfo.id}',
+      'http://192.168.1.18:5000/api/notification',
       headers: <String, String>{
         'Content-Type': 'application/json;charset=UTF-8',
-        "Connection": "kepp-alive"
+        "Connection": "kepp-alive",
+        "Authorization": userInfo.apiKey
       },
     );
     final Map result = json.decode(response.body);
@@ -285,9 +293,10 @@ class API {
 
   Future getBalance() async {
     final Response response = await get(
-      'http://192.168.1.18:5000/api/Balance?user_id=${userInfo.id}',
+      'http://192.168.1.18:5000/api/Balance',
       headers: <String, String>{
-        'Content-Type': 'application/json;charset=UTF-8'
+        'Content-Type': 'application/json;charset=UTF-8',
+        "Authorization": userInfo.apiKey
       },
     );
     final Map result = json.decode(response.body);
@@ -300,15 +309,12 @@ class API {
   }
 
   Future postPayment(double balance) async {
-    final Response response = await post(
-        'http://192.168.1.18:5000/api/Payment',
+    final Response response = await post('http://192.168.1.18:5000/api/Payment',
         headers: <String, String>{
-          'Content-Type': 'application/json;charset=UTF-8'
+          'Content-Type': 'application/json;charset=UTF-8',
+          "Authorization": userInfo.apiKey
         },
-        body: jsonEncode(<String, dynamic>{
-          "user_id": userInfo.id,
-          "balance": balance
-        }));
+        body: jsonEncode(<String, dynamic>{"balance": balance}));
     if (response.statusCode == 201) {
       // return User.fromJson(json.decode(response.body));
     } else {

@@ -8,16 +8,15 @@ import json
 
 class MyOrderUser(Resource):
     def get(self):
-        argus = request.args
-
-        if not argus:
-            return {'message': 'No input data provided'}, 400
-
-        user = User.query.filter_by(user_id=argus['user_id']).first()
+        header = request.headers["Authorization"]
+        if not header:
+            return {"Messege" : "No api key!"}, 400
+        else:
+            user = User.query.filter_by(api_key=header).first()
         if not user:
             return {'message': 'User ID not available'}, 400
 
-        orders = Accepted_Order.query.filter_by(user_id=argus['user_id']).all()
+        orders = Accepted_Order.query.filter_by(user_id=user.user_id).all()
         order_list = []
 
         for i in range(0, len(orders)):

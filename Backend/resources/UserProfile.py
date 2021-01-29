@@ -7,11 +7,14 @@ import string
 class UserProfile(Resource):
     def post(self):
         json_data = request.get_json(force=True)
-
+        header = request.headers["Authorization"]
+        
         if not json_data:
             return {'message': 'No input data provided'}, 400
-        
-        user = User.query.filter_by(user_id=json_data['user_id']).first()
+        if not header:
+            return {"Messege" : "No api key!"}, 400
+        else:
+            user = User.query.filter_by(api_key=header).first()
         if not user:
             return {'message': 'User ID not available'}, 400
         user.firstname = json_data["firstname"]

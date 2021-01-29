@@ -21,8 +21,10 @@ class User(db.Model):
     gender = db.Column(db.String())
     driver_mode = db.Column(db.Boolean, default=False)
     userBalance = db.Column(db.Float(), default=0.0)
+    api_key = db.Column(db.String())
 
-    def __init__(self, firstname, lastname, emailadress, password, username, gender):
+    def __init__(self, firstname, lastname, emailadress, password, username, gender, api_key):
+        self.api_key = api_key
         self.firstname = firstname
         self.lastname = lastname
         self.emailadress = emailadress
@@ -35,6 +37,7 @@ class User(db.Model):
 
     def serialize(self):
         return {
+            'api_key' : self.api_key,
             'user_id': self.user_id,
             'username': self.username,
             'firstname': self.firstname,

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:Deli_App/network/api.dart';
 import "package:Deli_App/network/repository.dart";
 import 'package:Deli_App/pages/paymentPage.dart';
+import 'package:Deli_App/pages/home.page.dart';
+import 'package:Deli_App/pages/home.page.driver.dart';
 
 String fname;
 
@@ -27,12 +29,17 @@ class _ProfilePageState extends State<ProfilePage> {
     _repository.getBalance();
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(
-          color: Colors.black, //change your color here
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: userInfo.driverMode == true
+              ? () => Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => HomePage()))
+              : () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => DriverHomePage())),
         ),
         title: Text("Profile"),
         centerTitle: true,
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: Colors.deepPurple[300],
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.only(top: 33.0),
