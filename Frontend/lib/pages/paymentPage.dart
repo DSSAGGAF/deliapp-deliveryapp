@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/credit_card_form.dart';
 import 'package:flutter_credit_card/credit_card_model.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
+import "package:Deli_App/network/repository.dart";
+
+// import 'package:commons/commons.dart';
 
 // void main() => runApp(MySample());
 
@@ -18,15 +21,18 @@ class MySampleState extends State<MySample> {
   String cardHolderName = '';
   String cvvCode = '';
   bool isCvvFocused = false;
+  TextEditingController balance = new TextEditingController();
+  Repository _repository = Repository();
+
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Credit Card View Demo',
+      title: 'Deli App Payment',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.deepPurple,
       ),
       home: Scaffold(
         resizeToAvoidBottomInset: true,
@@ -74,9 +80,10 @@ class MySampleState extends State<MySample> {
                       Padding(
                         padding: EdgeInsets.all(15),
                         child: TextField(
+                          controller: balance,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
-                            labelText: 'Amount',
+                            labelText: 'Amount',                  
                           ),
                         ),
                       ),
@@ -96,10 +103,10 @@ class MySampleState extends State<MySample> {
                             ),
                           ),
                         ),
-                        color: const Color(0xff1b447b),
+                        color: Colors.deepPurple,
                         onPressed: () {
                           if (formKey.currentState.validate()) {
-                            print('valid!');
+                            _repository.postPayment(double.parse(balance.text));
                           } else {
                             print('invalid!');
                           }

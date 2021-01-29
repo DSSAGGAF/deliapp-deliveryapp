@@ -14,7 +14,7 @@ class Payment(Resource):
         if not user:
             return {'message': 'Username does not exist'}, 400
 
-        user.userBalance = json_data['balance']
+        user.userBalance =user.userBalance + json_data['balance']
         db.session.commit()
 
         

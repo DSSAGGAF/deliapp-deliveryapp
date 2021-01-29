@@ -24,6 +24,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    _repository.getBalance();
     return Scaffold(
       body: SingleChildScrollView(
         padding: EdgeInsets.only(top: 33.0),
@@ -177,9 +178,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                 color: Colors.purple,
                               ),
                               Text(
-                                '\$\$\$\$',
+                                "  "+userInfo.balance.toString(),
                                 style: TextStyle(
-                                  color: Colors.purple,
+                                  color: Colors.red,
                                   fontSize: 14,
                                   fontWeight: FontWeight.w700,
                                 ),

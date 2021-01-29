@@ -42,6 +42,7 @@ class Repository {
   
   Future getNotification() => apiProvider.getNotification();
   Future getBalance() => apiProvider.getBalance();
+  Future postPayment(double balance) => apiProvider.postPayment(balance);
   // }
 
 }
