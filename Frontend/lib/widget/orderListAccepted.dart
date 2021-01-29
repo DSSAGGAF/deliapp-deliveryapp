@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:Deli_App/model/orders.dart';
-import 'package:Deli_App/widget/orderCard.dart';
+import 'package:Deli_App/widget/orderCard2.dart';
 import "package:Deli_App/network/repository.dart";
 import 'package:rxdart/rxdart.dart';
 import 'package:Deli_App/network/api.dart';
@@ -36,7 +36,7 @@ Widget _buildReorderableListSimple(
         child: new ListView.builder(
           itemExtent: 160.0,
           itemCount: orderList.length,
-          itemBuilder: (_, index) => OrderCard(orderList[index]),
+          itemBuilder: (_, index) => OrderCard2(orderList[index]),
         ),
       ),
     );
