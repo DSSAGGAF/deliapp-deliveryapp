@@ -21,7 +21,6 @@ import 'package:Deli_App/widget/postButton.dart';
 // import "package:Deli_App/network/api.dart";
 // import 'package:Deli_App/network/api.dart';
 import "package:Deli_App/network/repository.dart";
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:Deli_App/widget/orderListAccepted.dart';
 import 'package:Deli_App/widget/notificationList.dart';
 
@@ -39,10 +38,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   String userID = "";
   Repository _repository = Repository();
 
-  Future getUserID() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return await prefs.getString("user_id");
-  }
+  // Future getUserID() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   return await prefs.getString("user_id");
+  // }
 
   @override
   void initState() {

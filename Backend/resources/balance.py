@@ -16,6 +16,6 @@ class Balance(Resource):
         balance = 0
         for order in orders:
             balance = balance + order.price
-        balance = (balance * 0.1*-1)+user.userBalance
+        balance = round((balance * 0.1*-1)+user.userBalance)
         return {"balance":balance },201
         

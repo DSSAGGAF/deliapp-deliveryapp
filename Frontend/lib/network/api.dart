@@ -4,6 +4,7 @@ import 'package:http/http.dart';
 import "package:Deli_App/model/addUser.dart";
 import "package:Deli_App/model/orders.dart";
 import "package:Deli_App/model/notification.dart";
+import 'package:shared_preferences/shared_preferences.dart';
 
 User userInfo;
 
@@ -33,11 +34,11 @@ class API {
     }
   }
 
-  Future loginUser(String username, String password) async {
+  Future loginUser(String username, String password, String apiKey) async {
     final Response response = await post("http://192.168.1.18:5000/api/login",
         headers: <String, String>{
           'Content-Type': 'application/json;charset=UTF-8',
-          "Authorization": ""
+          "Authorization": apiKey
         },
         body: jsonEncode(<String, dynamic>{
           "username": username,
@@ -46,6 +47,7 @@ class API {
     final Map result = json.decode(response.body);
     if (response.statusCode == 201) {
       userInfo = User.fromJson(result["data"]);
+      await saveApiKey(result["data"]["api_key"]);
     } else {
       // If that call was not successful, throw an error.
       throw Exception('Failed to load post');
@@ -321,5 +323,10 @@ class API {
       ///print('Error');
       throw Exception("Can't load author");
     }
+  }
+
+  saveApiKey(String api_key) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('API_Token', api_key);
   }
 } // API
