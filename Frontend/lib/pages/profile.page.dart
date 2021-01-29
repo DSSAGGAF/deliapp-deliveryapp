@@ -175,7 +175,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => MyPaymentPage()));
+                                    builder: (context) => MySample()));
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
