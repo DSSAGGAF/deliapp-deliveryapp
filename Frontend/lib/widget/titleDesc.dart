@@ -7,21 +7,23 @@ import 'package:intl/intl.dart';
 
 var f = new NumberFormat("###");
 String textHolder = '0 RM';
+// void changepls() {
 // setState() {
 //   textHolder = _coordinateDistance().toString() + " RM";
 // }
+// }
 
 double _coordinateDistance() {
-  // var p = 0.017453292519943295;
-  // var c = cos;
-  // var a = 0.5 -
-  //     c((toLatLng.latitude - fromLatLng.latitude) * p) / 2 +
-  //     c(fromLatLng.latitude * p) *
-  //         c(toLatLng.latitude * p) *
-  //         (1 - c((toLatLng.longitude - fromLatLng.longitude) * p)) /
-  //         2;
-  // // return (12742 * asin(sqrt(a))) * 2.5;
-  return 5;
+  var p = 0.017453292519943295;
+  var c = cos;
+  var a = 0.5 -
+      c((toLatLng.latitude - fromLatLng.latitude) * p) / 2 +
+      c(fromLatLng.latitude * p) *
+          c(toLatLng.latitude * p) *
+          (1 - c((toLatLng.longitude - fromLatLng.longitude) * p)) /
+          2;
+  return (12742 * asin(sqrt(a))) * 12;
+  // return 5;
 }
 
 class TitleDesc extends StatefulWidget {
@@ -107,22 +109,36 @@ class _TitleDescState extends State<TitleDesc> {
             ),
             Padding(
               padding: const EdgeInsets.only(left: 40.0, right: 40.0),
-              child: TextFormField(
+              child: TextField(
+                // controller: priceController,
                 enableInteractiveSelection:
                     false, // will disable paste operation
                 focusNode: new AlwaysDisabledFocusNode(),
                 textAlignVertical: TextAlignVertical.center,
                 keyboardType: TextInputType.multiline,
-                initialValue:
-                    f.format(_coordinateDistance()).toString() + ' RM',
-                maxLines: 1,
+                controller: priceController,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: textHolder,
+                ),
+                onTap: () => changepls(),
               ),
             ),
+            // Center(
+            //   child: RaisedButton(
+            //     onPressed: changepls(),
+            //   ),
+            // )
           ],
         ),
       ),
     );
   }
-}
 
+  changepls() {
+    setState(() {
+      textHolder = f.format(_coordinateDistance()).toString() + 'RM';
+    });
+  }
+}
 double priceText = _coordinateDistance();
