@@ -4,10 +4,10 @@ import 'package:Deli_App/pages/driverAcceptedOrder.dart';
 import 'package:Deli_App/widget/dialog.dart';
 import "package:Deli_App/network/repository.dart";
 
-class OrderCard extends StatelessWidget {
+class OrderCard2 extends StatelessWidget {
   dynamic orderCard;
   final Order order;
-  OrderCard(this.order);
+  OrderCard2(this.order);
   Repository _repository = Repository();
 
   @override
@@ -69,12 +69,20 @@ class OrderCard extends StatelessWidget {
                       // alignment: Alignment.bottomRight,
                       // child: order.orderStatus ? Text("Pinnding") : Text("Done"),
                       child: order.orderStatus == true
-                          ? Text("Completed", style: TextStyle(color: Colors.green, fontWeight: FontWeight.w700))
-                          : Text("Pending", style: TextStyle(fontStyle: FontStyle.italic, color: Colors.grey, fontWeight: FontWeight.w700))),
+                          ? Text("Completed",
+                              style: TextStyle(
+                                  color: Colors.green,
+                                  fontWeight: FontWeight.w700))
+                          : Text("Pending",
+                              style: TextStyle(
+                                  fontStyle: FontStyle.italic,
+                                  color: Colors.grey,
+                                  fontWeight: FontWeight.w700))),
                   Align(
                     alignment: Alignment.bottomRight,
                     child: FlatButton(
-                      child: const Text('See more', style: TextStyle(color: Colors.deepPurple)),
+                      child: const Text('See more',
+                          style: TextStyle(color: Colors.deepPurple)),
                       onPressed: () {
                         showDialog(
                             context: context,
@@ -87,7 +95,7 @@ class OrderCard extends StatelessWidget {
                                 orderTo: "To - " + order.requsetTo,
                                 price:
                                     "Price - " + order.price.toString() + "RM",
-                                text:  "Accept",
+                                text: "",
                                 orderID: order.orderId,
                                 userID: order.userId,
                               );
