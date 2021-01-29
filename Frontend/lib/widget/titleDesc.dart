@@ -110,19 +110,21 @@ class _TitleDescState extends State<TitleDesc> {
             Padding(
               padding: const EdgeInsets.only(left: 40.0, right: 40.0),
               child: TextField(
-                // controller: priceController,
-                enableInteractiveSelection:
-                    false, // will disable paste operation
-                focusNode: new AlwaysDisabledFocusNode(),
-                textAlignVertical: TextAlignVertical.center,
-                keyboardType: TextInputType.multiline,
-                controller: priceController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: textHolder,
-                ),
-                onTap: () => changepls(),
-              ),
+                  // controller: priceController,
+                  enableInteractiveSelection:
+                      false, // will disable paste operation
+                  focusNode: new AlwaysDisabledFocusNode(),
+                  textAlignVertical: TextAlignVertical.center,
+                  keyboardType: TextInputType.multiline,
+                  controller: priceController,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: textHolder,
+                  ),
+                  onTap: () {
+                    changepls();
+                    priceText = _coordinateDistance();
+                  }),
             ),
             // Center(
             //   child: RaisedButton(
