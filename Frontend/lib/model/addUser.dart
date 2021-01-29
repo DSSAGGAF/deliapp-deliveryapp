@@ -8,6 +8,7 @@ class User {
   String gender;
   bool driverMode;
   double balance;
+  String apiKey;
   User(
       {this.id,
       this.name,
@@ -16,7 +17,8 @@ class User {
       this.gender,
       this.fname,
       this.lname,
-      this.driverMode});
+      this.driverMode,
+      this.apiKey});
   factory User.fromJson(Map<String, dynamic> user) => User(
       id: user['user_id'],
       name: user['username'],
@@ -25,7 +27,8 @@ class User {
       pass: user['password'],
       email: user['emailadress'],
       gender: user['gender'],
-      driverMode: user['driver_mode']);
+      driverMode: user['driver_mode'],
+      apiKey: user['api_key']);
   void setBalnce(double _balance) {
     balance = _balance;
   }

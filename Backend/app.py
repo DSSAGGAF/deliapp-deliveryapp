@@ -7,7 +7,6 @@ from resources.Requseted_Order import Requseted_Order
 from resources.Accpet_Order import Accpet_Order
 from resources.changeMode import ChangeMode
 from resources.UserProfile import UserProfile
-from resources.OtherUserName import OtherUserName
 from resources.MyOrderUser import MyOrderUser
 from resources.MyOrderDriver import MyOrderDriver
 from resources.Notification import NotificationAPI
@@ -38,8 +37,6 @@ api.add_resource(Accpet_Order, '/accpet_order')
 api.add_resource(ChangeMode, '/changeMode')
 
 api.add_resource(UserProfile, '/userProfile')
-
-api.add_resource(OtherUserName, '/OtherUserName')
 
 api.add_resource(MyOrderUser, '/myOrderUser')
 

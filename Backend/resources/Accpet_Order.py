@@ -1,22 +1,23 @@
 from flask_restful import Resource
 from flask import request
-from sqlalchemy import engine
 from model import db, Accepted_Order, User, Requset_Order
-import random
-import string
+
 
 
 class Accpet_Order(Resource):
     def post(self):
         json_data = request.get_json(force=True)
-
+        header = request.headers["Authorization"]
+        
         if not json_data:
             return {'message': 'No input data provided'}, 400
-
-
-        user = User.query.filter_by(user_id=json_data['driver_id']).first()
+        if not header:
+            return {"Messege" : "No api key!"}, 400
+        else:
+            user = User.query.filter_by(api_key=header).first()
         if not user:
-            return {'message': 'driver ID not available'}, 400
+            return {'message': 'User ID not available'}, 400
+
         requset_order = Requset_Order.query.filter_by(order_id=json_data['order_id']).first()
         if not requset_order:
             return {'message': 'order ID not available'}, 400

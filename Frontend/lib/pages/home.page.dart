@@ -24,8 +24,6 @@ import "package:Deli_App/network/repository.dart";
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:Deli_App/widget/orderListAccepted.dart';
 import 'package:Deli_App/widget/notificationList.dart';
-import 'package:Deli_App/model/notification.dart';
-import 'package:Deli_App/network/api.dart';
 
 class HomePage extends StatefulWidget {
   @override

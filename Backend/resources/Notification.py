@@ -9,13 +9,16 @@ import json
 class NotificationAPI(Resource):
     def post(self):
         json_data = request.get_json(force=True)
-
+        header = request.headers["Authorization"]
+        
         if not json_data:
             return {'message': 'No input data provided'}, 400
-
-        user = User.query.filter_by(user_id=json_data['user_id']).first()
+        if not header:
+            return {"Messege" : "No api key!"}, 400
+        else:
+            user = User.query.filter_by(api_key=header).first()
         if not user:
-            return {'message': 'Username does not exist'}, 400
+            return {'message': 'User ID not available'}, 400
 
         accepted_order = Accepted_Order.query.filter_by(
             order_id=json_data['order_id']).first()
@@ -37,14 +40,15 @@ class NotificationAPI(Resource):
         return {"status": 'success', 'data': result}, 201
 
     def get(self):
-        argus = request.args
-        if not argus:
-            return {'message': 'No input data provided'}, 400
-        user =  User.query.filter_by(user_id=argus['user_id']).first()
+        header = request.headers["Authorization"]
+        if not header:
+            return {"Messege" : "No api key!"}, 400
+        else:
+            user = User.query.filter_by(api_key=header).first()
         if not user:
-            return {'message': 'Username does not exist'}, 400   
+            return {'message': 'User ID not available'}, 400  
 
-        notification = Notification.query.filter_by(user_id=argus['user_id'],driver_mode = user.driver_mode).all()
+        notification = Notification.query.filter_by(user_id=user.user_id,driver_mode = user.driver_mode).all()
         notification_list = []
         for i in range(0, len(notification)):
             notification_list.append(notification[len(notification)-i-1].serialize())
