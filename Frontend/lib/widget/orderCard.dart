@@ -87,7 +87,7 @@ class OrderCard extends StatelessWidget {
                                 orderTo: "To - " + order.requsetTo,
                                 price:
                                     "Price - " + order.price.toString() + "RM",
-                                text:  "Accept",
+                                text: "Accept",
                                 orderID: order.orderId,
                                 userID: order.userId,
                               );
