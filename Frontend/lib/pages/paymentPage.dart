@@ -2,35 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/credit_card_form.dart';
 import 'package:flutter_credit_card/credit_card_model.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
-import "package:Deli_App/network/repository.dart";
-import "package:Deli_App/pages/profile.page.dart";
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 
-class MyPaymentPage extends StatefulWidget {
+// void main() => runApp(MySample());
+
+class MySample extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return MyPaymentPageState();
+    return MySampleState();
   }
 }
 
-class MyPaymentPageState extends State<MyPaymentPage> {
+class MySampleState extends State<MySample> {
   String cardNumber = '';
   String expiryDate = '';
   String cardHolderName = '';
   String cvvCode = '';
   bool isCvvFocused = false;
-  TextEditingController balance = new TextEditingController();
-  Repository _repository = Repository();
-
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Deli App Payment',
+      title: 'Flutter Credit Card View Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
+        primarySwatch: Colors.blue,
       ),
       home: Scaffold(
         resizeToAvoidBottomInset: true,
@@ -78,7 +74,6 @@ class MyPaymentPageState extends State<MyPaymentPage> {
                       Padding(
                         padding: EdgeInsets.all(15),
                         child: TextField(
-                          controller: balance,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
                             labelText: 'Amount',
@@ -101,15 +96,11 @@ class MyPaymentPageState extends State<MyPaymentPage> {
                             ),
                           ),
                         ),
-                        color: Colors.deepPurple,
+                        color: const Color(0xff1b447b),
                         onPressed: () {
                           if (formKey.currentState.validate()) {
-                            EasyLoading.showSuccess('Great Success!');
-                            _repository.postPayment(double.parse(balance.text));
-                            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => ProfilePage()));
+                            print('valid!');
                           } else {
-                            EasyLoading.showError('Credit is unvild');
                             print('invalid!');
                           }
                         },
