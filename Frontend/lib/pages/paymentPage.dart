@@ -3,6 +3,8 @@ import 'package:flutter_credit_card/credit_card_form.dart';
 import 'package:flutter_credit_card/credit_card_model.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 import "package:Deli_App/network/repository.dart";
+import "package:Deli_App/pages/profile.page.dart";
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 // import 'package:commons/commons.dart';
 
@@ -83,7 +85,7 @@ class MySampleState extends State<MySample> {
                           controller: balance,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
-                            labelText: 'Amount',                  
+                            labelText: 'Amount',
                           ),
                         ),
                       ),
@@ -106,8 +108,14 @@ class MySampleState extends State<MySample> {
                         color: Colors.deepPurple,
                         onPressed: () {
                           if (formKey.currentState.validate()) {
+                            EasyLoading.showSuccess('Great Success!');
                             _repository.postPayment(double.parse(balance.text));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ProfilePage()));
                           } else {
+                            EasyLoading.showError('Credit unvalid !');
                             print('invalid!');
                           }
                         },
