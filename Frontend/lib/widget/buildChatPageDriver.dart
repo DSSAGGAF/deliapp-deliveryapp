@@ -5,10 +5,7 @@ import 'package:socket_io_client/socket_io_client.dart';
 import "package:Deli_App/pages/chatPage.dart";
 import "package:Deli_App/model/addUser.dart";
 import "package:Deli_App/pages/driverAcceptedOrder.dart";
-import 'package:Deli_App/model/ChatModel.dart';
 import 'package:flutter/cupertino.dart';
-
-var chatPage = ChatModel();
 User otherUser;
 String cond = "false";
 IO.Socket socket = IO.io(
