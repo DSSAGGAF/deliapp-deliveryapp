@@ -7,3 +7,5 @@ flask_sqlalchemy
 flask_marshmallow==0.8.0
 marshmallow-sqlalchemy==0.13.2
 psycopg2-binary
+flask-socketio==4.3.2
+eventlet
