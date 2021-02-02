@@ -1,44 +1,43 @@
-// import 'package:flutter/cupertino.dart';
-// import './messageModel.dart';
-// import './userModel.dart';
-// import 'package:socket_io_client/socket_io_client.dart' as IO;
-// import 'package:socket_io_client/socket_io_client.dart';
-// import 'dart:convert';
-// import 'package:Deli_App/pages/messageDriver.dart';
+import 'package:flutter/cupertino.dart';
+import './messageModel.dart';
+import './addUser.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
+import 'package:socket_io_client/socket_io_client.dart';
+import 'dart:convert';
+import "package:Deli_App/pages/chatPage.dart";
+import "package:Deli_App/network/api.dart";
+import 'package:Deli_App/widget/buildChatPageDriver.dart';
 
-// class ChatModel {
-//   var user1 = User("Azoozistic", "2");
-//   var user2 = User("Assaggaf", "1");
-//   List<Message> messages = List<Message>();
-//   ChatModel() {
-//     print("Done:)");
-//   }
+// import './main.dart';
+class ChatModel {
+  User currUser;
+  User otherUser;
+  List<Message> messages = List<Message>();
+  ChatModel() {
+    currUser = userInfo;
+  }
+  void setOtherUser(User _user) {
+    otherUser = _user;
+  }
 
-//   List<Message> getMessagesForChatID(String chatID) {
-//     // messages.add(Message("text", "222", chatID));
-//     // notifyListeners();
-//     return messages
-//         .where((msg) => msg.senderID == chatID || msg.receiverID == chatID)
-//         .toList();
-//   }
+  List<Message> getMessagesForChatID() {
+    return messages
+        .where((msg) =>
+            msg.senderID == otherUser.id || msg.receiverID == otherUser.id)
+        .toList();
+  }
 
-//   void sendMessage(String text, String receiverChatID) {
-//     messages.add(Message(text, user1.chatID, user2.chatID));
-//     messages.add(Message(text, user2.chatID, user1.chatID));
-//     // messages.add(Message(text, "222", receiverChatID));
-//     socket.emit(
-//       'send_message',
-//       json.encode({
-//         'receiverChatID': receiverChatID,
-//         'senderChatID': user1.chatID,
-//         'content': text,
-//       }),
-//     );
-//   }
+  void sendMessage(String text) {
+    messages.add(Message(text, currUser.id, otherUser.id));
+    socket.emit(
+      'priv_msg',
+      json.encode({'username': otherUser.name, 'message': text}),
+    );
+    streamController.add("event");
+  }
 
-//   void reciveMessage(String text, String Id) {
-//     if (Id == user2.chatID)
-//       messages.add(Message(text, user2.chatID, user1.chatID));
-//     // notifyListeners();
-//   }
-// }
+  void reciveMessage(String text) {
+    messages.add(Message(text, otherUser.id, currUser.id));
+    streamController.add("event");
+  }
+}

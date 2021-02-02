@@ -37,7 +37,6 @@ dependencies:
   intl: ">=0.14.0"
 
   shared_preferences: ^0.5.3+4
-  flutter_local_notifications: ^4.0.0
 
 
     

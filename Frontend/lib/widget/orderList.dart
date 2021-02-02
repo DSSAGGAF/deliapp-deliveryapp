@@ -12,6 +12,7 @@ StreamController<List<Order>> contraller = StreamController();
 class OrderList extends StatelessWidget {
   Repository _repository = Repository();
   Future<Null> _updateOrders() async {
+    
     orders = await _repository.getRequstedOrder();
   }
 
@@ -26,6 +27,8 @@ class OrderList extends StatelessWidget {
       _orderSubject.add(orders);
     });
   }
+
+  // Stream<List<Order>> get getOrders => _orderSubject.stream;
 
   Widget _buildReorderableListSimple(
       BuildContext context, List<Order> orderList) {
@@ -42,6 +45,7 @@ class OrderList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //getOrders();
     return StreamBuilder<List<Order>>(
       // Wrap our widget with a StreamBuilder
 

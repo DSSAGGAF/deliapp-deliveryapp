@@ -1,28 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:Deli_App/pages/home.page.driver.dart';
+import 'package:Deli_App/widget/buildChatPageDriver.dart';
 import "package:Deli_App/network/repository.dart";
 import 'package:Deli_App/widget/dialog.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:geocoder/geocoder.dart';
 import "package:Deli_App/network/api.dart";
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-
-final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-    FlutterLocalNotificationsPlugin();
-
-Future<void> _showNotification() async {
-  const AndroidNotificationDetails androidPlatformChannelSpecifics =
-      AndroidNotificationDetails(
-          'your channel id', 'your channel name', 'your channel description',
-          importance: Importance.max,
-          priority: Priority.high,
-          ticker: 'ticker');
-  const NotificationDetails platformChannelSpecifics =
-      NotificationDetails(android: androidPlatformChannelSpecifics);
-  await flutterLocalNotificationsPlugin.show(
-      0, 'plain title', 'plain body', platformChannelSpecifics,
-      payload: 'item x');
-}
 
 String acceptedName;
 String acceptedDescription;
@@ -33,20 +16,20 @@ int acceptOrderId;
 int customerId;
 
 convert(String query) async {
+  // final query = "1600 Amphiteatre Parkway, Mountain View";
   var addresses = await Geocoder.local.findAddressesFromQuery(query);
   var first = addresses.first;
   coor = first.coordinates.toString();
   coor = coor.substring(1, coor.length - 1);
 }
 
-class DriverAcceptedOrder extends StatelessWidget{
+class DriverAcceptedOrder extends StatelessWidget {
   Repository _repository = Repository();
 
   @override
   Widget build(BuildContext context) {
     _repository.postNotification(userInfo.id, acceptOrderId,
         "You have accepted order number " + acceptOrderId.toString());
-    // sleep(Duration(seconds:3));
     _repository.postNotification(
         customerId,
         acceptOrderId,
@@ -137,15 +120,12 @@ class DriverAcceptedOrder extends StatelessWidget{
             Padding(
               padding: const EdgeInsets.only(left: 40, top: 20, right: 40),
               child: OutlinedButton.icon(
-                onPressed: () async {
-                  // Navigator.push(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //         builder: (context) => ChatPage()));
-                  await _showNotification();
+                onPressed: () {
+                  _repository.postNotification(customerId, acceptOrderId,
+                      "Your driver Arrived please go recive ur order");
                 },
-                icon: Icon(Icons.beenhere_outlined, size: 18),
-                label: Text("Send a message"),
+                icon: Icon(Icons.notifications_active_outlined, size: 18),
+                label: Text("Notify Customer"),
               ),
             ),
             Padding(
@@ -153,10 +133,14 @@ class DriverAcceptedOrder extends StatelessWidget{
               child: OutlinedButton.icon(
                 onPressed: () {
                   _repository.postNotification(customerId, acceptOrderId,
-                      "Your driver Arrived please go recive ur order");
+                      "Your driver Start a Chatting room");
+                      Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => BuildChatPage()));
                 },
-                icon: Icon(Icons.notifications_active_outlined, size: 18),
-                label: Text("Notify Customer"),
+                icon: Icon(Icons.chat_outlined, size: 18),
+                label: Text("Chat with Customer"),
               ),
             ),
             Padding(

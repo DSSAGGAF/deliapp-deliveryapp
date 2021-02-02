@@ -9,6 +9,7 @@ class ButtonLogin extends StatefulWidget {
   _ButtonLoginState createState() => _ButtonLoginState();
 }
 
+
 class _ButtonLoginState extends State<ButtonLogin> {
   Repository _repository = Repository();
   @override
@@ -36,7 +37,10 @@ class _ButtonLoginState extends State<ButtonLogin> {
         ),
         child: FlatButton(
           onPressed: () {
-            _repository.signinUser(usernameText.text, passwordText.text, "");
+            // _repository.signinUser("AbuDa7m", "123");
+            // _repository.signinUser("AbuDa7m", "123", "");            
+            _repository.signinUser(usernameText.text, passwordText.text,"");
+            // _repository.getBalance();
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => HomePage()));
           },

@@ -3,6 +3,7 @@ import 'package:Deli_App/pages/login.page.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import "package:Deli_App/network/repository.dart";
+import "package:Deli_App/network/api.dart";
 import "package:Deli_App/pages/home.page.dart";
 
 void main() => runApp(MyApp());

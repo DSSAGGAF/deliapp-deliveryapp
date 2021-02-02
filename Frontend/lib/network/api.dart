@@ -5,9 +5,12 @@ import "package:Deli_App/model/addUser.dart";
 import "package:Deli_App/model/orders.dart";
 import "package:Deli_App/model/notification.dart";
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:retry/retry.dart';
 
 User userInfo;
-int statusC;
+Order order;
+bool loadOrderSucceed;
 
 class API {
   Client client = Client();
@@ -31,7 +34,8 @@ class API {
       // return User.fromJson(json.decode(response.body));
     } else {
       ///print('Error');
-      throw Exception("Can't load author");
+      // throw Exception("Can't load author");
+      EasyLoading.showError('Smth went Wrong try sign in again !');
     }
   }
 
@@ -49,12 +53,9 @@ class API {
     if (response.statusCode == 201) {
       userInfo = User.fromJson(result["data"]);
       await saveApiKey(result["data"]["api_key"]);
-      statusC = response.statusCode;
-      return statusC;
     } else {
-      statusC = response.statusCode;
-      return statusC;
       // If that call was not successful, throw an error.
+      EasyLoading.showError('Smth went Wrong try sign in again !');
       throw Exception('Failed to load post');
     }
   }
@@ -116,7 +117,10 @@ class API {
               "request_to": reqTo,
               "price": reqPrice,
             }));
+    final Map result = json.decode(response.body);
     if (response.statusCode == 201) {
+      print(result["data"]);
+      order = Order.fromJson(result["data"]);
       // return User.fromJson(json.decode(response.body));
     } else {
       ///print('Error');
@@ -239,6 +243,7 @@ class API {
   } //postNotification
 
   Future<List<Notification1>> getNotification() async {
+    
     final Response response = await get(
       'http://192.168.1.18:5000/api/notification',
       headers: <String, String>{
@@ -327,6 +332,23 @@ class API {
     } else {
       ///print('Error');
       throw Exception("Can't load author");
+    }
+  }
+
+  Future getAcceptedOrderforUser() async {
+    loadOrderSucceed = false;
+    final Response response = await get(
+      'http://192.168.1.18:5000/api/accpet_order?order_id=${order.orderId}',
+      headers: <String, String>{
+        'Content-Type': 'application/json;charset=UTF-8',
+        "Authorization": userInfo.apiKey
+      },
+    );
+    final Map result = json.decode(response.body);
+    if (response.statusCode == 201) {
+      loadOrderSucceed = true;
+      order = Order.fromJson(result["data"]);
+      // return User.fromJson(json.decode(response.body));
     }
   }
 

@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import "package:Deli_App/network/repository.dart";
+import "package:Deli_App/network/api.dart";
 import 'package:Deli_App/widget/dialog.dart';
 import 'package:geocoder/geocoder.dart';
-
-String acceptedName;
-String acceptedDescription;
-String acceptedFrom;
-String acceptedTo;
-String acceptedPrice;
-int acceptOrderId;
-int customerId;
+import 'chatPage.dart';
+import 'home.page.dart';
+import 'package:Deli_App/widget/buildChatPageUser.dart';
 
 convert(String query) async {
   var addresses = await Geocoder.local.findAddressesFromQuery(query);
@@ -38,9 +34,9 @@ class CustAccOrder extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Text(
-                  "Your order number" +
-                      "acceptOrderId.toString()" +
-                      "have accepted",
+                  "Your order number " +
+                      order.orderId.toString() +
+                      " has been accepted",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
                   textAlign: TextAlign.end,
                 ),
@@ -50,7 +46,7 @@ class CustAccOrder extends StatelessWidget {
               padding: const EdgeInsets.only(left: 20, top: 20),
               child: Wrap(children: <Widget>[
                 Icon(Icons.title, size: 25, color: Colors.deepPurple),
-                Text(" Name")
+                Text(order.requsetTitle)
                 // Text(" " + acceptedName)
               ]),
             ),
@@ -67,7 +63,7 @@ class CustAccOrder extends StatelessWidget {
               child: Wrap(children: <Widget>[
                 Icon(Icons.my_location, size: 25, color: Colors.deepPurple),
                 GestureDetector(
-                  child: Text(" " + "acceptedFrom"),
+                  child: Text(order.requsetFrom.toString()),
                   onTap: () async {
                     // convert(acceptedFrom);
 
@@ -85,7 +81,7 @@ class CustAccOrder extends StatelessWidget {
               child: Wrap(children: <Widget>[
                 Icon(Icons.location_on, size: 25, color: Colors.deepPurple),
                 GestureDetector(
-                  child: Text(" " + "acceptedTo"),
+                  child: Text(order.requsetTo.toString()),
                   onTap: () async {
                     // convert(acceptedTo);
 
@@ -102,22 +98,34 @@ class CustAccOrder extends StatelessWidget {
               padding: const EdgeInsets.only(left: 20, top: 20),
               child: Wrap(children: <Widget>[
                 Icon(Icons.attach_money, size: 25, color: Colors.deepPurple),
-                Text(" Price")
-                // Text(" " + acceptedPrice)
+                Text(" Price"),
+                Text(order.price.toString()),
               ]),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 40, top: 20, right: 40),
               child: OutlinedButton.icon(
                 onPressed: () {
-                  // Navigator.push(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //         builder: (context) => DriverHomePage()));
-                  // _repository.completeOrder(acceptOrderId);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => BuildChatPage()));
                 },
                 icon: Icon(Icons.message, size: 18),
-                label: Text("Send a message"),
+                label: Text("Chat with driver"),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 40, top: 20, right: 40),
+              child: OutlinedButton.icon(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => HomePage()));
+                },
+                icon: Icon(Icons.arrow_back_ios, size: 18),
+                label: Text("Back to main page"),
               ),
             ),
           ],

@@ -1,15 +1,19 @@
+import 'package:Deli_App/model/orders.dart';
 import 'package:Deli_App/widget/orderList.dart';
+import 'package:Deli_App/widget/orderListAccepted.dart';
 import 'package:Deli_App/widget/orderListAcceptedDriver.dart';
 import 'package:flutter/material.dart';
 import 'package:Deli_App/pages/login.page.dart';
 import 'package:Deli_App/widget/constants.dart';
 import 'package:Deli_App/pages/profile.page.dart';
 import 'package:Deli_App/pages/home.page.dart';
+import 'package:Deli_App/widget/tabBar.dart';
 import 'package:Deli_App/widget/TEST/MotionTabBarView.dart';
 import 'package:Deli_App/widget/TEST/MotionTabController.dart';
 import 'package:Deli_App/widget/TEST/motiontabbar.dart';
 import "package:Deli_App/network/repository.dart";
 import 'package:Deli_App/model/notification.dart';
+import 'package:Deli_App/network/api.dart';
 import 'package:Deli_App/widget/notificationList.dart';
 
 class DriverHomePage extends StatefulWidget {
@@ -119,7 +123,59 @@ class _DriverHomePageState extends State<DriverHomePage>
               child: OrderListAcceptedDriver().build(context),
             ),
           ],
-        ));
+        )
+        //body:
+        //  new MenuTabBar(
+        //   background: Colors.blue,
+        //   iconButtons: [
+        //     new IconButton(
+        //         color: Colors.blue,
+        //         icon: new Icon(Icons.notifications, size: 30),
+        //         onPressed: () {}),
+        //     // new IconButton(color: Colors.blue, icon: new Icon(Icons.search, size: 30), onPressed: (){}),
+        //     // new IconButton(color: Colors.blue, icon: new Icon(Icons.map, size: 30), onPressed: (){}),
+        //     new IconButton(
+        //         color: Colors.blue,
+        //         icon: new Icon(Icons.add_shopping_cart, size: 30),
+        //         onPressed: () {}),
+        //   ],
+        //   child: new Column(
+        //       mainAxisAlignment: MainAxisAlignment.center,
+        //       children: <Widget>[
+        //         new Container(
+        //             child: new Text("Reminder",
+        //                 style: TextStyle(color: Colors.white, fontSize: 20)),
+        //             margin: EdgeInsets.all(10)),
+        //         new Container(
+        //             child: new Text("Camera",
+        //                 style: TextStyle(color: Colors.white, fontSize: 20)),
+        //             margin: EdgeInsets.all(10)),
+        //         new Container(
+        //             child: new Text("Attchment",
+        //                 style: TextStyle(color: Colors.white, fontSize: 20)),
+        //             margin: EdgeInsets.all(10)),
+        //         new Container(
+        //             child: new Text("Text Note",
+        //                 style: TextStyle(color: Colors.white, fontSize: 20)),
+        //             margin: EdgeInsets.all(10))
+        //       ]),
+        // )
+        // const Center(
+        //   child: Text(
+        //     'thanks for signing in',
+        //     style: TextStyle(fontSize: 24),
+
+        //   ),
+        // ),
+
+        // floatingActionButton: FloatingActionButton(
+        //   //onPressed: ,
+        //   child: Icon(Icons.add_location),
+
+        //),
+
+        //floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        );
   }
 
   void choiceAction(String choice) {
