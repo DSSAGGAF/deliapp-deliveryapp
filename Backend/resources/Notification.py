@@ -12,19 +12,20 @@ class NotificationAPI(Resource):
         header = request.headers["Authorization"]
         
         if not json_data:
+            
             return {'message': 'No input data provided'}, 400
         if not header:
-            return {"Messege" : "No api key!"}, 400
+            return {"Messege" : "No api key!"}, 401
         else:
             user = User.query.filter_by(api_key=header).first()
         if not user:
-            return {'message': 'User ID not available'}, 400
+            return {'message': 'User ID not available'}, 402
 
         accepted_order = Accepted_Order.query.filter_by(
             order_id=json_data['order_id']).first()
 
         if not accepted_order:
-            return {'message': 'order ID not available'}, 400
+            return {'message': 'order ID not available'}, 403
 
         notification = Notification(
             user_id=json_data['user_id'],
