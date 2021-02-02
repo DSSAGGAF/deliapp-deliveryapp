@@ -40,23 +40,3 @@ class Accpet_Order(Resource):
         result = Accepted_Order.serialize(accepted_order)
 
         return {"status": 'success', 'data': result}, 201
-    def get(self):
-        header = request.headers["Authorization"]
-
-        if not header:
-            return {"Messege" : "No api key!"}, 401
-        user = User.query.filter_by(api_key=header).first()
-        if not user:
-            return {'message': 'User ID not available'}, 401    
-        argus = request.args
-        if not argus:
-            return {'message': 'No input data provided'}, 401
-
-        accepted_Order = Accepted_Order.query.filter_by(order_id=argus['order_id']).first()
-        if not accepted_Order:
-            return {'message': 'order ID not available'}, 400
-
-        result = Accepted_Order.serialize(accepted_Order)
-
-        return {"status": 'success', 'data': result}, 201
-
