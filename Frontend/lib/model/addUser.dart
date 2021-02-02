@@ -29,6 +29,7 @@ class User {
       gender: user['gender'],
       driverMode: user['driver_mode'],
       apiKey: user['api_key']);
+      
   void setBalnce(int _balance) {
     balance = _balance;
   }

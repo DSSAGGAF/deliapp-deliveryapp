@@ -4,7 +4,7 @@ import 'package:Deli_App/widget/titleDesc.dart';
 import 'package:Deli_App/widget/map.dart';
 import 'package:Deli_App/widget/mapTo.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-
+import 'buildorderAcceptedPage.dart';
 class PostButton extends StatefulWidget {
   @override
   _PostButtonState createState() => _PostButtonState();
@@ -27,6 +27,8 @@ class _PostButtonState extends State<PostButton> {
                 addressData.addressLine,
                 addressData2.addressLine);
             EasyLoading.showSuccess('Great Success!');
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => BuildorderAcceptedPage()));
           },
           child: const Text('Post', style: TextStyle(fontSize: 20)),
           color: Colors.blue,

@@ -33,9 +33,9 @@ class _ProfilePageState extends State<ProfilePage> {
           icon: Icon(Icons.arrow_back, color: Colors.white),
           onPressed: userInfo.driverMode == true
               ? () => Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => HomePage()))
+                  context, MaterialPageRoute(builder: (context) => DriverHomePage()))
               : () => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => DriverHomePage())),
+                  MaterialPageRoute(builder: (context) => HomePage())),
         ),
         title: Text("Profile"),
         centerTitle: true,

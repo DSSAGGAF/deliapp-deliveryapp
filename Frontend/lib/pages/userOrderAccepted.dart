@@ -1,41 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:Deli_App/pages/home.page.driver.dart';
-import 'package:Deli_App/widget/buildChatPageDriver.dart';
 import "package:Deli_App/network/repository.dart";
-import 'package:Deli_App/widget/dialog.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:geocoder/geocoder.dart';
 import "package:Deli_App/network/api.dart";
-
-String acceptedName;
-String acceptedDescription;
-String acceptedFrom;
-String acceptedTo;
-String acceptedPrice;
-int acceptOrderId;
-int customerId;
+import 'package:Deli_App/widget/dialog.dart';
+import 'package:geocoder/geocoder.dart';
+import 'chatPage.dart';
+import 'home.page.dart';
+import 'package:Deli_App/widget/buildChatPageUser.dart';
 
 convert(String query) async {
-  // final query = "1600 Amphiteatre Parkway, Mountain View";
   var addresses = await Geocoder.local.findAddressesFromQuery(query);
   var first = addresses.first;
   coor = first.coordinates.toString();
   coor = coor.substring(1, coor.length - 1);
 }
 
-class DriverAcceptedOrder extends StatelessWidget {
+class CustAccOrder extends StatelessWidget {
   Repository _repository = Repository();
 
   @override
   Widget build(BuildContext context) {
-    _repository.postNotification(userInfo.id, acceptOrderId,
-        "You have accepted order number " + acceptOrderId.toString());
-    _repository.postNotification(
-        customerId,
-        acceptOrderId,
-        "Your order number " +
-            acceptOrderId.toString() +
-            " have been accepted ");
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -51,7 +34,9 @@ class DriverAcceptedOrder extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Text(
-                  'You have accepted an order',
+                  "Your order number " +
+                      order.orderId.toString() +
+                      " has been accepted",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
                   textAlign: TextAlign.end,
                 ),
@@ -61,16 +46,16 @@ class DriverAcceptedOrder extends StatelessWidget {
               padding: const EdgeInsets.only(left: 20, top: 20),
               child: Wrap(children: <Widget>[
                 Icon(Icons.title, size: 25, color: Colors.deepPurple),
-                // Text(" Name")
-                Text(" " + acceptedName)
+                Text(order.requsetTitle)
+                // Text(" " + acceptedName)
               ]),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 20, top: 20),
               child: Wrap(children: <Widget>[
                 Icon(Icons.description, size: 25, color: Colors.deepPurple),
-                // Text(" Description"),
-                Text(" " + acceptedDescription)
+                Text(" Description"),
+                // Text(" " + acceptedDescription)
               ]),
             ),
             Padding(
@@ -78,15 +63,15 @@ class DriverAcceptedOrder extends StatelessWidget {
               child: Wrap(children: <Widget>[
                 Icon(Icons.my_location, size: 25, color: Colors.deepPurple),
                 GestureDetector(
-                  child: Text(" " + acceptedFrom),
+                  child: Text(order.requsetFrom.toString()),
                   onTap: () async {
-                    convert(acceptedFrom);
+                    // convert(acceptedFrom);
 
-                    convert(acceptedFrom);
-                    if (await canLaunch(
-                        "https://www.google.com/maps/place/" + coor)) {
-                      await launch("https://www.google.com/maps/place/" + coor);
-                    }
+                    // convert(acceptedFrom);
+                    // if (await canLaunch(
+                    //     "https://www.google.com/maps/place/" + coor)) {
+                    //   await launch("https://www.google.com/maps/place/" + coor);
+                    // }
                   },
                 ),
               ]),
@@ -96,15 +81,15 @@ class DriverAcceptedOrder extends StatelessWidget {
               child: Wrap(children: <Widget>[
                 Icon(Icons.location_on, size: 25, color: Colors.deepPurple),
                 GestureDetector(
-                  child: Text(" " + acceptedTo),
+                  child: Text(order.requsetTo.toString()),
                   onTap: () async {
-                    convert(acceptedTo);
+                    // convert(acceptedTo);
 
-                    convert(acceptedTo);
-                    if (await canLaunch(
-                        "https://www.google.com/maps/place/" + coor)) {
-                      await launch("https://www.google.com/maps/place/" + coor);
-                    }
+                    // convert(acceptedTo);
+                    // if (await canLaunch(
+                    //     "https://www.google.com/maps/place/" + coor)) {
+                    //   await launch("https://www.google.com/maps/place/" + coor);
+                    // }
                   },
                 ),
               ]),
@@ -113,34 +98,21 @@ class DriverAcceptedOrder extends StatelessWidget {
               padding: const EdgeInsets.only(left: 20, top: 20),
               child: Wrap(children: <Widget>[
                 Icon(Icons.attach_money, size: 25, color: Colors.deepPurple),
-                // Text(" Price")
-                Text(" " + acceptedPrice)
+                Text(" Price"),
+                Text(order.price.toString()),
               ]),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 40, top: 20, right: 40),
               child: OutlinedButton.icon(
                 onPressed: () {
-                  _repository.postNotification(customerId, acceptOrderId,
-                      "Your driver Arrived please go recive ur order");
-                },
-                icon: Icon(Icons.notifications_active_outlined, size: 18),
-                label: Text("Notify Customer"),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 40, top: 20, right: 40),
-              child: OutlinedButton.icon(
-                onPressed: () {
-                  _repository.postNotification(customerId, acceptOrderId,
-                      "Your driver Start a Chatting room");
-                      Navigator.push(
+                  Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => BuildChatPage()));
                 },
-                icon: Icon(Icons.chat_outlined, size: 18),
-                label: Text("Chat with Customer"),
+                icon: Icon(Icons.message, size: 18),
+                label: Text("Chat with driver"),
               ),
             ),
             Padding(
@@ -150,11 +122,10 @@ class DriverAcceptedOrder extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => DriverHomePage()));
-                  _repository.completeOrder(acceptOrderId);
+                          builder: (context) => HomePage()));
                 },
-                icon: Icon(Icons.beenhere_outlined, size: 18),
-                label: Text("Complete Order"),
+                icon: Icon(Icons.arrow_back_ios, size: 18),
+                label: Text("Back to main page"),
               ),
             ),
           ],
