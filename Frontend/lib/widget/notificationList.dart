@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:Deli_App/model/orders.dart';
-import 'package:Deli_App/widget/orderCard.dart';
-import 'package:Deli_App/widget/OrderListAcceptedDriver.dart';
 import "package:Deli_App/network/repository.dart";
 import 'package:Deli_App/model/notification.dart';
 import 'package:rxdart/rxdart.dart';
@@ -10,7 +8,6 @@ import 'package:Deli_App/network/api.dart';
 var notifications = <Notification1>[];
 
 class NotificationList extends StatefulWidget {
-
   @override
   _NotificationListState createState() => _NotificationListState();
 }
@@ -67,7 +64,6 @@ class _NotificationListState extends State<NotificationList> {
     //getOrders();
     return StreamBuilder<List<Notification1>>(
       // Wrap our widget with a StreamBuilder
-
       stream: _notificationSubject, // pass our Stream getter here
       initialData: [], // provide an initial data
       builder: (context, snapshot) {
@@ -83,7 +79,6 @@ class _NotificationListState extends State<NotificationList> {
 
         return CircularProgressIndicator();
       },
-
       // access the data in our Stream here
     );
   }

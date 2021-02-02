@@ -1,14 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:Deli_App/model/orders.dart';
 import 'package:Deli_App/pages/home.page.driver.dart';
-import 'package:Deli_App/widget/orderList.dart';
 import "package:Deli_App/network/repository.dart";
 import 'package:Deli_App/widget/dialog.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:geocoder/geocoder.dart';
+import "package:Deli_App/network/api.dart";
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
 
-
+Future<void> _showNotification() async {
+  const AndroidNotificationDetails androidPlatformChannelSpecifics =
+      AndroidNotificationDetails(
+          'your channel id', 'your channel name', 'your channel description',
+          importance: Importance.max,
+          priority: Priority.high,
+          ticker: 'ticker');
+  const NotificationDetails platformChannelSpecifics =
+      NotificationDetails(android: androidPlatformChannelSpecifics);
+  await flutterLocalNotificationsPlugin.show(
+      0, 'plain title', 'plain body', platformChannelSpecifics,
+      payload: 'item x');
+}
 
 String acceptedName;
 String acceptedDescription;
@@ -19,18 +33,26 @@ int acceptOrderId;
 int customerId;
 
 convert(String query) async {
-  // final query = "1600 Amphiteatre Parkway, Mountain View";
   var addresses = await Geocoder.local.findAddressesFromQuery(query);
   var first = addresses.first;
   coor = first.coordinates.toString();
   coor = coor.substring(1, coor.length - 1);
 }
 
-class DriverAcceptedOrder extends StatelessWidget {
+class DriverAcceptedOrder extends StatelessWidget{
   Repository _repository = Repository();
 
   @override
   Widget build(BuildContext context) {
+    _repository.postNotification(userInfo.id, acceptOrderId,
+        "You have accepted order number " + acceptOrderId.toString());
+    // sleep(Duration(seconds:3));
+    _repository.postNotification(
+        customerId,
+        acceptOrderId,
+        "Your order number " +
+            acceptOrderId.toString() +
+            " have been accepted ");
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -73,18 +95,17 @@ class DriverAcceptedOrder extends StatelessWidget {
               child: Wrap(children: <Widget>[
                 Icon(Icons.my_location, size: 25, color: Colors.deepPurple),
                 GestureDetector(
-                
-                child: Text(" " + acceptedFrom),
-                onTap: () async {
-                  convert(acceptedFrom);
+                  child: Text(" " + acceptedFrom),
+                  onTap: () async {
+                    convert(acceptedFrom);
 
-                  convert(acceptedFrom);
-                  if (await canLaunch(
-                      "https://www.google.com/maps/place/" + coor)) {
-                    await launch("https://www.google.com/maps/place/" + coor);
-                  }
-                },
-              ),
+                    convert(acceptedFrom);
+                    if (await canLaunch(
+                        "https://www.google.com/maps/place/" + coor)) {
+                      await launch("https://www.google.com/maps/place/" + coor);
+                    }
+                  },
+                ),
               ]),
             ),
             Padding(
@@ -92,18 +113,17 @@ class DriverAcceptedOrder extends StatelessWidget {
               child: Wrap(children: <Widget>[
                 Icon(Icons.location_on, size: 25, color: Colors.deepPurple),
                 GestureDetector(
-                
-                child: Text(" " + acceptedTo),
-                onTap: () async {
-                  convert(acceptedTo);
+                  child: Text(" " + acceptedTo),
+                  onTap: () async {
+                    convert(acceptedTo);
 
-                  convert(acceptedTo);
-                  if (await canLaunch(
-                      "https://www.google.com/maps/place/" + coor)) {
-                    await launch("https://www.google.com/maps/place/" + coor);
-                  }
-                },
-              ),
+                    convert(acceptedTo);
+                    if (await canLaunch(
+                        "https://www.google.com/maps/place/" + coor)) {
+                      await launch("https://www.google.com/maps/place/" + coor);
+                    }
+                  },
+                ),
               ]),
             ),
             Padding(
@@ -113,6 +133,20 @@ class DriverAcceptedOrder extends StatelessWidget {
                 // Text(" Price")
                 Text(" " + acceptedPrice)
               ]),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 40, top: 20, right: 40),
+              child: OutlinedButton.icon(
+                onPressed: () async {
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) => ChatPage()));
+                  await _showNotification();
+                },
+                icon: Icon(Icons.beenhere_outlined, size: 18),
+                label: Text("Send a message"),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 40, top: 20, right: 40),

@@ -43,7 +43,6 @@ Widget _buildReorderableListSimple(
   }
    @override
   Widget build(BuildContext context) {
-    //getOrders();
     return StreamBuilder<List<Order>>(
       // Wrap our widget with a StreamBuilder
 

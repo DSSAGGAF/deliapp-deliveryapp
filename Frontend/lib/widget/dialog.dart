@@ -1,11 +1,7 @@
 import 'package:Deli_App/pages/driverAcceptedOrder.dart';
-import 'package:Deli_App/widget/orderList.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:geocoder/geocoder.dart';
-import 'package:geocoder/services/base.dart';
 import "package:Deli_App/network/repository.dart";
-import "package:Deli_App/network/api.dart";
 
 String coor;
 Repository _repository = Repository();
@@ -142,18 +138,6 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
                 child: TextButton(
                     onPressed: () {
                       _repository.postAccpted(widget.orderID);
-                      _repository.postNotification(
-                          userInfo.id,
-                          widget.orderID,
-                          "You have accepted order number " +
-                              widget.orderID.toString());
-                      _repository.postNotification(
-                          widget.userID,
-                          widget.orderID,
-                          "Your order number " +
-                              widget.orderID.toString() +
-                              " have been accepted ");
-                              
                       acceptedName = widget.title;
                       acceptedDescription = widget.descriptions;
                       acceptedFrom = widget.orderFrom;
@@ -165,6 +149,7 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => DriverAcceptedOrder()));
+                              
                     },
                     child: Text(
                       widget.text,

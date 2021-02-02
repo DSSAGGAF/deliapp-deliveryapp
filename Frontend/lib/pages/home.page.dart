@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-// import 'package:geocoder/geocoder.dart';
 import 'package:Deli_App/pages/login.page.dart';
 import 'package:Deli_App/widget/constants.dart';
 import 'package:Deli_App/pages/profile.page.dart';
-// import 'package:Deli_App/widget/tabBar.dart';
 import 'package:Deli_App/widget/TEST/MotionTabBarView.dart';
 import 'package:Deli_App/widget/TEST/MotionTabController.dart';
 import 'package:Deli_App/widget/TEST/motiontabbar.dart';
@@ -12,14 +10,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:Deli_App/widget/map.dart';
 import 'package:Deli_App/widget/mapTo.dart';
 import 'package:location/location.dart';
-// import 'package:Deli_App/widget/textLogin.dart';
-// import 'package:Deli_App/widget/textNew.dart';
-// import 'package:Deli_App/widget/textTo.dart';
 import 'package:Deli_App/widget/titleDesc.dart';
 import 'package:Deli_App/widget/postButton.dart';
-// import 'package:Deli_App/widget/orderPrice.dart';
-// import "package:Deli_App/network/api.dart";
-// import 'package:Deli_App/network/api.dart';
 import "package:Deli_App/network/repository.dart";
 import 'package:Deli_App/widget/orderListAccepted.dart';
 import 'package:Deli_App/widget/notificationList.dart';
@@ -37,11 +29,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   LocationData _locationData;
   String userID = "";
   Repository _repository = Repository();
-
-  // Future getUserID() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   return await prefs.getString("user_id");
-  // }
 
   @override
   void initState() {
@@ -77,15 +64,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   GoogleMapController mapController;
 
-  final LatLng _center = const LatLng(45.521563, -122.677433);
-
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
   }
 
   @override
   Widget build(BuildContext context) {
-    var newAdd;
     // _updateNotification();
     return Scaffold(
         appBar: AppBar(
@@ -97,6 +81,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             PopupMenuButton<String>(
               onSelected: choiceAction,
               itemBuilder: (BuildContext context) {
+                _repository.getBalance();
                 return Constants.choices.map((String choice) {
                   return PopupMenuItem<String>(
                     value: choice,
@@ -244,59 +229,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               children: <Widget>[new OrderListAccepted()],
             )),
           ],
-        )
-        //body:
-        //  new MenuTabBar(
-        //   background: Colors.blue,
-        //   iconButtons: [
-        //     new IconButton(
-        //         color: Colors.blue,
-        //         icon: new Icon(Icons.notifications, size: 30),
-        //         onPressed: () {}),
-        //     // new IconButton(color: Colors.blue, icon: new Icon(Icons.search, size: 30), onPressed: (){}),
-        //     // new IconButton(color: Colors.blue, icon: new Icon(Icons.map, size: 30), onPressed: (){}),
-        //     new IconButton(
-        //         color: Colors.blue,
-        //         icon: new Icon(Icons.add_shopping_cart, size: 30),
-        //         onPressed: () {}),
-        //   ],
-        //   child: new Column(
-        //       mainAxisAlignment: MainAxisAlignment.center,
-        //       children: <Widget>[
-        //         new Container(
-        //             child: new Text("Reminder",
-        //                 style: TextStyle(color: Colors.white, fontSize: 20)),
-        //             margin: EdgeInsets.all(10)),
-        //         new Container(
-        //             child: new Text("Camera",
-        //                 style: TextStyle(color: Colors.white, fontSize: 20)),
-        //             margin: EdgeInsets.all(10)),
-        //         new Container(
-        //             child: new Text("Attchment",
-        //                 style: TextStyle(color: Colors.white, fontSize: 20)),
-        //             margin: EdgeInsets.all(10)),
-        //         new Container(
-        //             child: new Text("Text Note",
-        //                 style: TextStyle(color: Colors.white, fontSize: 20)),
-        //             margin: EdgeInsets.all(10))
-        //       ]),
-        // )
-        // const Center(
-        //   child: Text(
-        //     'thanks for signing in',
-        //     style: TextStyle(fontSize: 24),
-
-        //   ),
-        // ),
-
-        // floatingActionButton: FloatingActionButton(
-        //   //onPressed: ,
-        //   child: Icon(Icons.add_location),
-
-        //),
-
-        //floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        );
+        ));
   }
 
   void choiceAction(String choice) {
@@ -304,6 +237,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       {
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => ProfilePage()));
+        _repository.getBalance();
       }
     } else if (choice == Constants.SignOut) {
       {

@@ -7,6 +7,7 @@ import "package:Deli_App/model/notification.dart";
 import 'package:shared_preferences/shared_preferences.dart';
 
 User userInfo;
+int statusC;
 
 class API {
   Client client = Client();
@@ -48,7 +49,11 @@ class API {
     if (response.statusCode == 201) {
       userInfo = User.fromJson(result["data"]);
       await saveApiKey(result["data"]["api_key"]);
+      statusC = response.statusCode;
+      return statusC;
     } else {
+      statusC = response.statusCode;
+      return statusC;
       // If that call was not successful, throw an error.
       throw Exception('Failed to load post');
     }
