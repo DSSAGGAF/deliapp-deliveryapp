@@ -25,7 +25,7 @@ class _ChatPageState extends State<ChatPage> {
             // height: height,
             // width: width,
             child: Material(
-              color: Colors.pinkAccent,
+              color: Colors.black87,
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(height / 2),
                 bottomRight: Radius.circular(height / 2),
@@ -55,7 +55,7 @@ class _ChatPageState extends State<ChatPage> {
             // height: height,
             // width: width,
             child: Material(
-              color: Colors.pinkAccent,
+              color: Colors.deepOrange,
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(height / 2),
                 bottomRight: Radius.circular(height / 2),
@@ -116,10 +116,15 @@ class _ChatPageState extends State<ChatPage> {
             width: MediaQuery.of(context).size.width * 0.8,
             child: TextField(
               controller: textEditingController,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Send message',
+              ),
             ),
           ),
           SizedBox(width: 10.0),
           FloatingActionButton(
+            backgroundColor: Colors.deepPurple,
             onPressed: () {
               chatPage.sendMessage(textEditingController.text);
               textEditingController.text = '';
@@ -137,6 +142,7 @@ class _ChatPageState extends State<ChatPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(chatPage.otherUser.name),
+        backgroundColor: Colors.deepPurple,
       ),
       body: ListView(
         children: <Widget>[
