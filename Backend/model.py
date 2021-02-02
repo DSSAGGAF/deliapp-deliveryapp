@@ -184,29 +184,3 @@ class Notification(db.Model):
             'status': self.status,
             'driver_mode': self.driver_mode,
         }
-class Chat(db.Model):
-    __tablename__ = 'chat'
-
-    chat_id = db.Column(db.Integer(), primary_key=True)
-    driver_id = db.Column(db.Integer(), db.ForeignKey('user.user_id'))
-    customer_id = db.Column(db.Integer(), db.ForeignKey('user.user_id'))
-    message_content = db.Column(db.String())
-
-
-
-    def __init__(self, driver_id, customer_id, message_content):
-        self.driver_id = driver_id
-        self.customer_id = customer_id
-        self.message_content = message_content
-        
-
-    def __repr__(self):
-        return '<notification_id {}>'.format(self.chat_id)
-
-    def serialize(self):
-        return {
-            'chat_id': self.chat_id,
-            'driver_id': self.driver_id,
-            'customer_id': self.customer_id,
-            'message_content': self.message_content 
-        }        
