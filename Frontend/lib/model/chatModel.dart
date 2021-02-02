@@ -1,8 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import './messageModel.dart';
 import './addUser.dart';
-import 'package:socket_io_client/socket_io_client.dart' as IO;
-import 'package:socket_io_client/socket_io_client.dart';
 import 'dart:convert';
 import "package:Deli_App/pages/chatPage.dart";
 import "package:Deli_App/network/api.dart";

@@ -198,13 +198,6 @@ class _NewUserState extends State<NewUser> {
                             nPassword.text,
                             nEmail.text,
                             dropdownValue);
-                        //   API.createUser(
-                        //       nameController.text,
-                        //       nPassword.text,
-                        //       nEmail.text,
-                        //       fnameController.text,
-                        //       lnameController.text,
-                        //       dropdownValue);
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,

@@ -97,6 +97,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             PopupMenuButton<String>(
               onSelected: choiceAction,
               itemBuilder: (BuildContext context) {
+                _repository.getBalance();
                 return Constants.choices.map((String choice) {
                   return PopupMenuItem<String>(
                     value: choice,
@@ -245,57 +246,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             )),
           ],
         )
-        //body:
-        //  new MenuTabBar(
-        //   background: Colors.blue,
-        //   iconButtons: [
-        //     new IconButton(
-        //         color: Colors.blue,
-        //         icon: new Icon(Icons.notifications, size: 30),
-        //         onPressed: () {}),
-        //     // new IconButton(color: Colors.blue, icon: new Icon(Icons.search, size: 30), onPressed: (){}),
-        //     // new IconButton(color: Colors.blue, icon: new Icon(Icons.map, size: 30), onPressed: (){}),
-        //     new IconButton(
-        //         color: Colors.blue,
-        //         icon: new Icon(Icons.add_shopping_cart, size: 30),
-        //         onPressed: () {}),
-        //   ],
-        //   child: new Column(
-        //       mainAxisAlignment: MainAxisAlignment.center,
-        //       children: <Widget>[
-        //         new Container(
-        //             child: new Text("Reminder",
-        //                 style: TextStyle(color: Colors.white, fontSize: 20)),
-        //             margin: EdgeInsets.all(10)),
-        //         new Container(
-        //             child: new Text("Camera",
-        //                 style: TextStyle(color: Colors.white, fontSize: 20)),
-        //             margin: EdgeInsets.all(10)),
-        //         new Container(
-        //             child: new Text("Attchment",
-        //                 style: TextStyle(color: Colors.white, fontSize: 20)),
-        //             margin: EdgeInsets.all(10)),
-        //         new Container(
-        //             child: new Text("Text Note",
-        //                 style: TextStyle(color: Colors.white, fontSize: 20)),
-        //             margin: EdgeInsets.all(10))
-        //       ]),
-        // )
-        // const Center(
-        //   child: Text(
-        //     'thanks for signing in',
-        //     style: TextStyle(fontSize: 24),
-
-        //   ),
-        // ),
-
-        // floatingActionButton: FloatingActionButton(
-        //   //onPressed: ,
-        //   child: Icon(Icons.add_location),
-
-        //),
-
-        //floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         );
   }
 

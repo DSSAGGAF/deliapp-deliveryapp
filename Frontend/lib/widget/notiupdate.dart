@@ -23,16 +23,6 @@ Future<Null> _updateNotification() async {
                         _repository
                             .changeStatus(notifications[i].notificationId);
                         notifications[i].status = true;
-                        // await notificationRepo.update(notification);
-
-                        // if (notification.type ==
-                        //     NotificationType.UserNotification) {
-                        //   Navigator.of(context).push(
-                        //       MaterialPageRoute(builder: (_) => OrdersPage()));
-                        // } else {
-                        //   Navigator.of(context).push(MaterialPageRoute(
-                        //       builder: (_) => PartnerOrdersPage()));
-                        // }
                       },
                       leading: Icon(Icons.notifications),
                       title: Text(
@@ -42,13 +32,7 @@ Future<Null> _updateNotification() async {
                                 ? Colors.black
                                 : Colors.grey),
                       ),
-                      // subtitle: Text("ff"),
                     );
-                    // Align(
-                    //           alignment: Alignment.centerRight,
-                    //           child: Text(
-                    //               "${Constants.dateformat1.format(notification.timeStamp)}",
-                    //               style: TextStyle(fontSize: 10))),
                   },
                   separatorBuilder: (c, i) => Divider(),
                   itemCount: notifications.length),

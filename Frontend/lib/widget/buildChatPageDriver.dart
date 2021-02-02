@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
@@ -6,7 +5,6 @@ import 'package:socket_io_client/socket_io_client.dart';
 import "package:Deli_App/pages/chatPage.dart";
 import "package:Deli_App/model/addUser.dart";
 import "package:Deli_App/pages/driverAcceptedOrder.dart";
-import 'dart:io';
 import 'package:Deli_App/model/ChatModel.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -48,19 +46,6 @@ StreamController _streamControllerBuild;
 Stream _streamBuild;
 
 class _BuildChatPage extends State<BuildChatPage> {
-  // Widget build(BuildContext context) {
-  //   connectAndListen();
-  //   if (cond == true) {
-  //     sleep(Duration(seconds: 5));
-  //     chatPage.setOtherUser(otherUser);
-  //   }
-  // return Container(
-  //   child: MaterialApp(
-  //     debugShowCheckedModeBanner: false,
-  //     home: ChatPage(),
-  //   ),
-  // );
-  // }
 
   @override
   void initState() {
@@ -98,9 +83,4 @@ class _BuildChatPage extends State<BuildChatPage> {
       },
     );
   }
-
-  // Future<bool> getUserName() async {
-  //   await connectAndListen();
-  //   return cond;
-  // }
 }

@@ -6,10 +6,6 @@ import "package:Deli_App/network/repository.dart";
 import "package:Deli_App/pages/profile.page.dart";
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
-// import 'package:commons/commons.dart';
-
-// void main() => runApp(MySample());
-
 class MySample extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {

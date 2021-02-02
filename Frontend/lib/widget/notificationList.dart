@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:Deli_App/model/orders.dart';
-import 'package:Deli_App/widget/orderCard.dart';
-import 'package:Deli_App/widget/OrderListAcceptedDriver.dart';
 import "package:Deli_App/network/repository.dart";
 import 'package:Deli_App/model/notification.dart';
 import 'package:rxdart/rxdart.dart';

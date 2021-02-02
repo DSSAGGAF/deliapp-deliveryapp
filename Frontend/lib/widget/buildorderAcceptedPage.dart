@@ -1,8 +1,6 @@
-import 'dart:convert';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import "package:Deli_App/network/api.dart";
-import 'dart:io';
 import 'package:Deli_App/pages/userOrderAccepted.dart';
 import 'package:flutter/cupertino.dart';
 import "package:Deli_App/network/repository.dart";
@@ -30,11 +28,6 @@ class _BuildorderAcceptedPage extends State<BuildorderAcceptedPage> {
 
   @override
   Widget build(BuildContext context) {
-    // _repository.getAcceptedOrderforUser();
-    // if (loadOrderSucceed == true) {
-    //   _streamControllerBuild.add("order");
-    // }
-
     return StreamBuilder(
       stream: _streamBuild,
       builder: (context, snapchot) {

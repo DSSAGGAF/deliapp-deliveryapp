@@ -1,23 +1,11 @@
 import 'package:Deli_App/pages/driverAcceptedOrder.dart';
-import 'package:Deli_App/widget/orderList.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:geocoder/geocoder.dart';
-import 'package:geocoder/services/base.dart';
 import "package:Deli_App/network/repository.dart";
-import "package:Deli_App/network/api.dart";
 import 'dart:io';
 
 String coor;
 Repository _repository = Repository();
-
-// convert(String query) async {
-//   // final query = "1600 Amphiteatre Parkway, Mountain View";
-//   var addresses = await Geocoder.local.findAddressesFromQuery(query);
-//   var first = addresses.first;
-//   coor = first.coordinates.toString();
-//   coor = coor.substring(1, coor.length - 1);
-// }
 
 class Constants {
   Constants._();

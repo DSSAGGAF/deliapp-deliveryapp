@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:Deli_App/model/messageModel.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
+
 StreamController streamController;
 Stream _stream;
 var chatPage = ChatModel();
@@ -12,18 +13,73 @@ class ChatPage extends StatefulWidget {
   _ChatPageState createState() => _ChatPageState();
 }
 
+double width = 0, height = 60;
+
 class _ChatPageState extends State<ChatPage> {
   final TextEditingController textEditingController = TextEditingController();
 
   Widget buildSingleMessage(Message message) {
-    return Container(
-      alignment: message.senderID == chatPage.otherUser.id
-          ? Alignment.centerLeft
-          : Alignment.centerRight,
-      padding: EdgeInsets.all(10.0),
-      margin: EdgeInsets.all(10.0),
-      child: Text(message.text),
-    );
+    return message.senderID == chatPage.otherUser.id
+        ? Padding(
+            padding: const EdgeInsets.only(left: 10.0, right: 10, top: 15),
+            // height: height,
+            // width: width,
+            child: Material(
+              color: Colors.pinkAccent,
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(height / 2),
+                bottomRight: Radius.circular(height / 2),
+                topLeft: Radius.circular(height / 2),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    left: 20.0, right: 20, top: 20, bottom: 20),
+                child: Container(
+                  alignment: message.senderID == chatPage.currUser.id
+                      ? Alignment.centerLeft
+                      : Alignment.centerRight,
+                  child: Text(
+                    message.text,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15.0,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          )
+        : Padding(
+            padding: const EdgeInsets.only(left: 10.0, right: 10, top: 15),
+            // height: height,
+            // width: width,
+            child: Material(
+              color: Colors.pinkAccent,
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(height / 2),
+                bottomRight: Radius.circular(height / 2),
+                topRight: Radius.circular(height / 2),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    left: 20.0, right: 20, top: 20, bottom: 20),
+                child: Container(
+                  alignment: message.senderID == chatPage.currUser.id
+                      ? Alignment.centerLeft
+                      : Alignment.centerRight,
+                  child: Text(
+                    message.text,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15.0,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          );
   }
 
   @override

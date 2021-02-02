@@ -4,7 +4,6 @@ import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:socket_io_client/socket_io_client.dart';
 import "package:Deli_App/pages/chatPage.dart";
 import "package:Deli_App/model/addUser.dart";
-import 'package:Deli_App/model/ChatModel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:Deli_App/network/api.dart';
 

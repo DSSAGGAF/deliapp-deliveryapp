@@ -32,10 +32,10 @@ class _ProfilePageState extends State<ProfilePage> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.white),
           onPressed: userInfo.driverMode == true
-              ? () => Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => DriverHomePage()))
-              : () => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => HomePage())),
+              ? () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => DriverHomePage()))
+              : () => Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => HomePage())),
         ),
         title: Text("Profile"),
         centerTitle: true,
@@ -56,12 +56,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 userInfo.name,
                 style: TextStyle(fontSize: 32.0),
               ),
-              // Text(
-              //   'Driver',
-              //   style: TextStyle(fontSize: 16.0),
-              // ),
               Container(
-                // height: 600.0,
                 width: double.infinity,
                 color: Colors.deepPurple[300],
                 child: Column(
@@ -73,8 +68,6 @@ class _ProfilePageState extends State<ProfilePage> {
                         height: 60,
                         width: MediaQuery.of(context).size.width,
                         child: TextFormField(
-                          // controller: myController,
-
                           initialValue: userInfo.fname,
                           onChanged: (value) {
                             userInfo.fname = value;
@@ -209,7 +202,6 @@ class _ProfilePageState extends State<ProfilePage> {
                       padding:
                           const EdgeInsets.only(top: 50, right: 50, left: 200),
                       child: Container(
-                        // alignment: Alignment.bottomLeft,
                         height: 50,
                         width: MediaQuery.of(context).size.width,
                         decoration: BoxDecoration(
@@ -219,9 +211,6 @@ class _ProfilePageState extends State<ProfilePage> {
                         child: FlatButton(
                           onPressed: () {
                             _repository.userProfile();
-
-                            // Navigator.push(context,
-                            // MaterialPageRoute(builder: (context) => HomePage()));
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,

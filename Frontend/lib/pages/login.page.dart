@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:Deli_App/widget/button.dart';
 import 'package:Deli_App/widget/first.dart';
-//import 'package:Deli_App/widget/forgot.dart';
 import 'package:Deli_App/widget/inputEmail.dart';
 import 'package:Deli_App/widget/password.dart';
 import 'package:Deli_App/widget/textLogin.dart';

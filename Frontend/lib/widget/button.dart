@@ -36,11 +36,8 @@ class _ButtonLoginState extends State<ButtonLogin> {
           borderRadius: BorderRadius.circular(30),
         ),
         child: FlatButton(
-          onPressed: () {
-            // _repository.signinUser("AbuDa7m", "123");
-            // _repository.signinUser("AbuDa7m", "123", "");            
+          onPressed: () {         
             _repository.signinUser(usernameText.text, passwordText.text,"");
-            // _repository.getBalance();
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => HomePage()));
           },

@@ -3,7 +3,6 @@ import "package:Deli_App/network/repository.dart";
 import "package:Deli_App/network/api.dart";
 import 'package:Deli_App/widget/dialog.dart';
 import 'package:geocoder/geocoder.dart';
-import 'chatPage.dart';
 import 'home.page.dart';
 import 'package:Deli_App/widget/buildChatPageUser.dart';
 
@@ -65,13 +64,6 @@ class CustAccOrder extends StatelessWidget {
                 GestureDetector(
                   child: Text(order.requsetFrom.toString()),
                   onTap: () async {
-                    // convert(acceptedFrom);
-
-                    // convert(acceptedFrom);
-                    // if (await canLaunch(
-                    //     "https://www.google.com/maps/place/" + coor)) {
-                    //   await launch("https://www.google.com/maps/place/" + coor);
-                    // }
                   },
                 ),
               ]),
@@ -83,13 +75,6 @@ class CustAccOrder extends StatelessWidget {
                 GestureDetector(
                   child: Text(order.requsetTo.toString()),
                   onTap: () async {
-                    // convert(acceptedTo);
-
-                    // convert(acceptedTo);
-                    // if (await canLaunch(
-                    //     "https://www.google.com/maps/place/" + coor)) {
-                    //   await launch("https://www.google.com/maps/place/" + coor);
-                    // }
                   },
                 ),
               ]),

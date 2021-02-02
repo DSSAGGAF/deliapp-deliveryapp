@@ -6,7 +6,6 @@ import "package:Deli_App/model/orders.dart";
 import "package:Deli_App/model/notification.dart";
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:retry/retry.dart';
 
 User userInfo;
 Order order;
@@ -74,9 +73,7 @@ class API {
               "lastname": userInfo.lname,
             }));
     if (response.statusCode == 201) {
-      // return User.fromJson(json.decode(response.body));
     } else {
-      ///print('Error');
       throw Exception("Can't load author");
     }
   }
@@ -92,11 +89,8 @@ class API {
               "driver_mode": _driverMode,
             }));
     if (response.statusCode == 201) {
-      //print(response.body);
       userInfo.driverMode = _driverMode;
-      // return User.fromJson(json.decode(response.body));
     } else {
-      ///print('Error');
       throw Exception("Can't load author");
     }
   }
@@ -121,7 +115,6 @@ class API {
     if (response.statusCode == 201) {
       print(result["data"]);
       order = Order.fromJson(result["data"]);
-      // return User.fromJson(json.decode(response.body));
     } else {
       ///print('Error');
       throw Exception("Can't load author");

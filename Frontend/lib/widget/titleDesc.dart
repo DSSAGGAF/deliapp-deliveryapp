@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'dart:math' show cos, sqrt, asin;
-import 'package:geocoder/geocoder.dart';
 import 'package:Deli_App/widget/map.dart';
 import 'package:Deli_App/widget/mapTo.dart';
 import 'package:intl/intl.dart';
@@ -126,11 +125,6 @@ class _TitleDescState extends State<TitleDesc> {
                     priceText = _coordinateDistance();
                   }),
             ),
-            // Center(
-            //   child: RaisedButton(
-            //     onPressed: changepls(),
-            //   ),
-            // )
           ],
         ),
       ),
