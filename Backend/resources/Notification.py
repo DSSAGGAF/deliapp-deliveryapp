@@ -26,7 +26,9 @@ class NotificationAPI(Resource):
 
         if not accepted_order:
             return {'message': 'order ID not available'}, 403
-
+            
+        user = User.query.filter_by(user_id=json_data['user_id']).first()
+        
         notification = Notification(
             user_id=json_data['user_id'],
             order_id=json_data['order_id'],

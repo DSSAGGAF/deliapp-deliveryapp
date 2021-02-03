@@ -14,10 +14,8 @@ class OrderListAccepted extends StatelessWidget {
   Future<Null> _updateOrders() async {
     if (userInfo !=null) {
       orders = await _repository.getAcceptedOrder();
-    }
-    
+    } 
   }
-
    final _orderSubject = BehaviorSubject<List<Order>>();
   OrderListAccepted() {
     _updateOrders().then((_) {

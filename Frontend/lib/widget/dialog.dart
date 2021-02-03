@@ -131,7 +131,6 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
                 child: TextButton(
                     onPressed: () {
                       _repository.postAccpted(widget.orderID);
-                          sleep(Duration(seconds: 1));
                       acceptedName = widget.title;
                       acceptedDescription = widget.descriptions;
                       acceptedFrom = widget.orderFrom;

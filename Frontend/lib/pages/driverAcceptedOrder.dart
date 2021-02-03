@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:Deli_App/pages/home.page.driver.dart';
 import 'package:Deli_App/widget/buildChatPageDriver.dart';
@@ -28,6 +30,7 @@ class DriverAcceptedOrder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    sleep(Duration(seconds: 3));
     _repository.postNotification(userInfo.id, acceptOrderId,
         "You have accepted order number " + acceptOrderId.toString());
     _repository.postNotification(
@@ -134,10 +137,8 @@ class DriverAcceptedOrder extends StatelessWidget {
                 onPressed: () {
                   _repository.postNotification(customerId, acceptOrderId,
                       "Your driver Start a Chatting room");
-                      Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => BuildChatPage()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => BuildChatPage()));
                 },
                 icon: Icon(Icons.chat_outlined, size: 18),
                 label: Text("Chat with Customer"),

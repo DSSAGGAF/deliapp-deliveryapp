@@ -103,21 +103,18 @@ class _DriverHomePageState extends State<DriverHomePage>
         body: MotionTabBarView(
           controller: _tabController,
           children: <Widget>[
+             Container(
+                child: Column(
+              children: <Widget>[new NotificationList()],
+            )),
+          Container(
+                child: Column(
+              children: <Widget>[new OrderList()],
+            )),
             Container(
-              child: NotificationList(),
-            ),
-            GestureDetector(
-              // onTap: () => setState(() {
-              //   OrderList().getOrders();
-              // }),
-              child: OrderList().build(context),
-            ),
-            GestureDetector(
-              onTap: () => setState(() {
-                OrderListAcceptedDriver().getOrders();
-              }),
-              child: OrderListAcceptedDriver().build(context),
-            ),
+                child: Column(
+              children: <Widget>[new OrderListAcceptedDriver()],
+            )),
           ],
         )
         );
