@@ -29,7 +29,7 @@ class _ChatPageState extends State<ChatPage> {
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(height / 2),
                 bottomRight: Radius.circular(height / 2),
-                topLeft: Radius.circular(height / 2),
+                topRight: Radius.circular(height / 2),
               ),
               child: Padding(
                 padding: const EdgeInsets.only(
@@ -59,7 +59,7 @@ class _ChatPageState extends State<ChatPage> {
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(height / 2),
                 bottomRight: Radius.circular(height / 2),
-                topRight: Radius.circular(height / 2),
+                topLeft: Radius.circular(height / 2),
               ),
               child: Padding(
                 padding: const EdgeInsets.only(
