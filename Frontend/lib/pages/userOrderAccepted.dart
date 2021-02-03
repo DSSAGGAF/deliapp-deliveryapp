@@ -53,7 +53,7 @@ class CustAccOrder extends StatelessWidget {
               padding: const EdgeInsets.only(left: 20, top: 20),
               child: Wrap(children: <Widget>[
                 Icon(Icons.description, size: 25, color: Colors.deepPurple),
-                Text(" Description"),
+                Text(order.requsetDesc.toString()),
                 // Text(" " + acceptedDescription)
               ]),
             ),
