@@ -103,10 +103,9 @@ class _DriverHomePageState extends State<DriverHomePage>
         body: MotionTabBarView(
           controller: _tabController,
           children: <Widget>[
-             Container(
-                child: Column(
-              children: <Widget>[new NotificationList()],
-            )),
+            Container(
+              child: NotificationList(),
+            ),
           Container(
                 child: Column(
               children: <Widget>[new OrderList()],
